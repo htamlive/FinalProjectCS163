@@ -16,3 +16,5 @@ public:
 
 	TrieNode();
 };
+
+void clearTrieNode(TrieNode*& node);
