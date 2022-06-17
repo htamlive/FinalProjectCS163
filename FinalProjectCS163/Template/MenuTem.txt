@@ -1,3 +1,23 @@
+Picture.SearchDecoration {
+    Position = (550, 215);
+    Size = (720, 80);
+
+    Renderer {
+        Texture = "images/whiteRec.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.BottomList {
+    Position = (551, 615);
+    Size = (720, 40);
+
+    Renderer {
+        Texture = "images/bottomList.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
 EditBox.SearchBar {
     Alignment = Left;
     Position = (550, 180);
@@ -9,7 +29,7 @@ EditBox.SearchBar {
         BorderColorFocused = None;
         CaretColor = rgb(110, 110, 255);
         DefaultTextColor = rgb(120, 120, 120);
-        Padding = (30, 7, 130, 4);
+        Padding = (150, 7, 130, 4);
         SelectedTextBackgroundColor = rgb( 10, 110, 255);
         SelectedTextColor = White;
         TextColor = black;
@@ -56,6 +76,23 @@ Button.btnCross {
         TextureDownHover = None;
         TextureFocused = None;
         TextureHover = "images/crossHover.png" Smooth;
+    }
+}
+
+Button.btnWordDef {
+    Position = (550, 180);
+    Size = (140, 80);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/WordDefIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/WordDefPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
     }
 }
 
@@ -184,6 +221,7 @@ Button.btnEmoji{
         TextureHover = "images/EmojiHover.png" Smooth;
     }
 }
+
 
 
 Picture.PicLogoRB {

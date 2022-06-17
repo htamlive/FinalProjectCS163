@@ -11,16 +11,20 @@ private:
 	sf::Texture backgroundTexture;
 	sf::Font font;
 	int curOption = 0;
+	
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
 	SearchList* searchList;
 public:
+	bool isWordMode = true;
 	MainMenuState(sf::RenderWindow* window, std::vector<State*>* states) : State(window, states) {
 		this->gui = new Gui(ref(* window));
 		this->gui->loadWidgetsFromFile("Template/MenuTem.txt");
 		initBackground();
 		initButtons();
 		this->searchList = new SearchList(this->gui, 550, 280, 720, 60);
-		this->searchList->update({ "Hello", "Nice", "To", "Meet", "You" });
+		this->searchList->update({ "Hello", "Nice"});
+		this->isWordMode = true;
+		
 	};
 
 	void initBackground() {
@@ -45,6 +49,7 @@ public:
 		this->gui->get<tgui::Button>("btnCross")->onClick([&]() {
 			this->resetSearchBar();
 			});
+
 
 	}
 
@@ -81,7 +86,10 @@ public:
 	}
 
 	void update(const float& dt) {
+		this->updateBtns();
+	}
 
+	void updateBtns() {
 		for (int i = 0; i < this->btnNames.size(); ++i) {
 			if (this->gui->get<tgui::Button>(btnNames[i])->isFocused() && i != this->curOption) {
 				this->gui->get<tgui::Button>(btnNames[this->curOption])->leftMouseButtonNoLongerDown();
@@ -89,7 +97,18 @@ public:
 			}
 		}
 		this->gui->get<tgui::Button>(btnNames[this->curOption])->leftMousePressed({});
-	
+
+
+		/*if (this->gui->get<tgui::Button>("btnWordDef")->isFocused()) {
+			this->isWordMode ^= 1;
+		}
+
+		if (!this->isWordMode) {
+			this->gui->get<tgui::Button>("btnWordDef")->leftMousePressed({});
+		}
+		else {
+			this->gui->get<tgui::Button>("btnWordDef")->leftMouseButtonNoLongerDown();
+		}*/
 	}
 
 	void render(sf::RenderTarget* target = nullptr) {

@@ -50,12 +50,24 @@ public:
 		for (int i = 0; i < data.size(); ++i) {
 			auto eb = tgui::Button::create();
 			eb->setWidgetName("op" + std::to_string(i));
-			eb->setPosition(x, y + i * this->h);
+			eb->setPosition(x, y + i * this->h - i);
 			eb->setSize(w, h);
 			eb->setText(data[i]);
+			eb->setTextSize(16);
 			eb->setTextPosition({ "2%", "40%" },{0, 0});
 			this->gui->add(eb);
 		}
+		
+		if (data.size() > 0) {
+			this->gui->get<tgui::Picture>("BottomList")->setVisible(true);
+			this->gui->get<tgui::Picture>("SearchDecoration")->setVisible(true);
+			this->gui->get<tgui::Picture>("BottomList")->setPosition(this->x, this->y + data.size() * this->h - 5);
+		}
+		else {
+			this->gui->get<tgui::Picture>("BottomList")->setVisible(false);
+			this->gui->get<tgui::Picture>("SearchDecoration")->setVisible(false);
+		}
+		
 	};
 };
 
