@@ -1,0 +1,10 @@
+Picture.PicLogoRB {
+    Position = (980, 700);
+    Size = (300, 129);
+
+    Renderer {
+        Texture = "images/logo4.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+

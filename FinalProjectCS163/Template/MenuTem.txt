@@ -1,0 +1,198 @@
+EditBox.SearchBar {
+    Alignment = Left;
+    Position = (550, 180);
+    Size = (720, 80);
+    TextSize = 28;
+
+    Renderer {
+        BackgroundColorFocused = None;
+        BorderColorFocused = None;
+        CaretColor = rgb(110, 110, 255);
+        DefaultTextColor = rgb(120, 120, 120);
+        Padding = (30, 7, 130, 4);
+        SelectedTextBackgroundColor = rgb( 10, 110, 255);
+        SelectedTextColor = White;
+        TextColor = black;
+        TextColorDisabled = transparent;
+        TextColorFocused = transparent;
+        Texture = "images/searchBarIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureFocused = "images/searchBarHover.png" Smooth;
+        TextureHover = "images/searchBarHover.png" Smooth;
+    }
+}
+
+
+Button.btnSearch {
+    Position = (1195, 185);
+    Size = (70, 70);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/searchIcon.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/searchIconPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/searchIconHover.png" Smooth;
+    }
+}
+
+Button.btnCross {
+    Position = (1150, 205);
+    Size = (30, 30);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/crossIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/crossPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/crossHover.png" Smooth;
+    }
+}
+
+Button.btnWordQuiz {
+    Position = (500, 0);
+    Size = (150, 51);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/WordQuizIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/WordQuizIdle.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/WordQuizHover.png" Smooth;
+    }
+}
+
+Button.btnDefQuiz {
+    Position = (650, 0);
+    Size = (180, 51);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/DefQuizIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/DefQuizIdle.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/DefQuizHover.png" Smooth;
+    }
+}
+
+Button.btnENtoEN {
+    Position = (0, 0);
+    Size = (100, 51);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/ENtoENIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/ENtoENPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/ENtoENHover.png" Smooth;
+    }
+}
+
+Button.btnENtoVIE{
+    Position = (100, 0);
+    Size = (100, 51);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/ENtoVIEIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/ENtoVIEPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/ENtoVIEHover.png" Smooth;
+    }
+}
+
+Button.btnVIEtoEN{
+    Position = (200, 0);
+    Size = (100, 51);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/VIEtoENIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/VIEtoENPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/VIEtoENHover.png" Smooth;
+    }
+}
+
+Button.btnSLANG{
+    Position = (300, 0);
+    Size = (100, 51);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/SLANGIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/SLANGPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/SLANGHover.png" Smooth;
+    }
+}
+
+Button.btnEmoji{
+    Position = (400, 0);
+    Size = (100, 51);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/EmojiIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/EmojiPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/EmojiHover.png" Smooth;
+    }
+}
+
+
+Picture.PicLogoRB {
+    Position = (980, 700);
+    Size = (300, 129);
+
+    Renderer {
+        Texture = "images/logo4.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
