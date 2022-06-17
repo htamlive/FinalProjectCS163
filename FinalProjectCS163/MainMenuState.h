@@ -50,7 +50,15 @@ public:
 			this->resetSearchBar();
 			});
 
+		this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefWord"));
 
+		this->gui->get<tgui::Button>("btnWordDef")->onClick([&]() {
+			this->isWordMode ^= 1;
+			if(this->isWordMode)
+				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{"Template/themes/MyThemes.txt"}.getRenderer("WordDefWord"));
+			else
+				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{"Template/themes/MyThemes.txt"}.getRenderer("WordDefDef"));
+			});
 	}
 
 
@@ -97,18 +105,6 @@ public:
 			}
 		}
 		this->gui->get<tgui::Button>(btnNames[this->curOption])->leftMousePressed({});
-
-
-		/*if (this->gui->get<tgui::Button>("btnWordDef")->isFocused()) {
-			this->isWordMode ^= 1;
-		}
-
-		if (!this->isWordMode) {
-			this->gui->get<tgui::Button>("btnWordDef")->leftMousePressed({});
-		}
-		else {
-			this->gui->get<tgui::Button>("btnWordDef")->leftMouseButtonNoLongerDown();
-		}*/
 	}
 
 	void render(sf::RenderTarget* target = nullptr) {

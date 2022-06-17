@@ -83,17 +83,6 @@ Button.btnWordDef {
     Position = (550, 180);
     Size = (140, 80);
     TextSize = 20;
-
-    Renderer {
-        BorderColor = transparent;
-        TextColor = white;
-        Texture = "images/WordDefIdle.png" Smooth;
-        TextureDisabled = None;
-        TextureDown = "images/WordDefPressed.png" Smooth;
-        TextureDownFocused = None;
-        TextureDownHover = None;
-        TextureFocused = None;
-    }
 }
 
 Button.btnWordQuiz {
