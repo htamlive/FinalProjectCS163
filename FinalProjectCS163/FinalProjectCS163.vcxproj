@@ -154,6 +154,8 @@
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="SearchList.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="Trie.cpp" />
+    <ClCompile Include="TrieNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -164,6 +166,8 @@
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="SearchList.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="Trie.h" />
+    <ClInclude Include="TrieNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

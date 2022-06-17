@@ -16,6 +16,9 @@
     <Filter Include="State">
       <UniqueIdentifier>{52738617-73a0-41f6-8309-2c20cdf6592a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Trie">
+      <UniqueIdentifier>{cbc2ae7f-1b60-44e9-83f9-bb798f0fed0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FinalProjectCS163.cpp">
@@ -45,6 +48,12 @@
     <ClCompile Include="SearchList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TrieNode.cpp">
+      <Filter>Trie</Filter>
+    </ClCompile>
+    <ClCompile Include="Trie.cpp">
+      <Filter>Trie</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dictionary.h">
@@ -70,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="SearchList.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrieNode.h">
+      <Filter>Trie</Filter>
+    </ClInclude>
+    <ClInclude Include="Trie.h">
+      <Filter>Trie</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
