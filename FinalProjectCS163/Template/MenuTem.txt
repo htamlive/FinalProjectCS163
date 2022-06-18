@@ -29,7 +29,7 @@ EditBox.SearchBar {
         BorderColorFocused = None;
         CaretColor = rgb(110, 110, 255);
         DefaultTextColor = rgb(120, 120, 120);
-        Padding = (150, 7, 130, 4);
+        Padding = (120, 7, 130, 4);
         SelectedTextBackgroundColor = rgb( 10, 110, 255);
         SelectedTextColor = White;
         TextColor = black;
@@ -80,8 +80,8 @@ Button.btnCross {
 }
 
 Button.btnWordDef {
-    Position = (550, 180);
-    Size = (140, 80);
+    Position = (560, 189);
+    Size = (105, 60);
     TextSize = 20;
 }
 

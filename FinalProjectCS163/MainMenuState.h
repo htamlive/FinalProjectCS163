@@ -14,6 +14,7 @@ private:
 	
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
 	SearchList* searchList;
+	vector<string> data;
 public:
 	bool isWordMode = true;
 	MainMenuState(sf::RenderWindow* window, std::vector<State*>* states) : State(window, states) {
@@ -22,7 +23,8 @@ public:
 		initBackground();
 		initButtons();
 		this->searchList = new SearchList(this->gui, 550, 280, 720, 60);
-		this->searchList->update({ "Hello", "Nice"});
+		data = { "Hello", "Nice" };
+		this->searchList->update(data);
 		this->isWordMode = true;
 		
 	};
@@ -58,6 +60,8 @@ public:
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{"Template/themes/MyThemes.txt"}.getRenderer("WordDefWord"));
 			else
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{"Template/themes/MyThemes.txt"}.getRenderer("WordDefDef"));
+
+			this->gui->get<tgui::EditBox>("SearchBar")->setFocused(true);
 			});
 	}
 
@@ -94,8 +98,21 @@ public:
 	}
 
 	void update(const float& dt) {
+		this->updateSearchBar();
 		this->updateBtns();
-	}
+	};
+
+	void updateSearchBar() {
+		tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+		vector<string> nwData;
+		for (auto x : this->data) {
+			if (x.substr(0, text.size()) == text) {
+				nwData.push_back(x);
+			}
+		}
+
+		this->searchList->update(nwData);
+	};
 
 	void updateBtns() {
 		for (int i = 0; i < this->btnNames.size(); ++i) {
