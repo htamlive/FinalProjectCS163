@@ -23,6 +23,13 @@ private:
 	void initCells();
 	void initStatusBar();
 	void initKeyBinds();
+
+	void initButtons() {
+		this->gui->get<tgui::Button>("btnBack")->onClick([&]() {
+			this->endState();
+			});
+	}
+
 	void initBackground() {
 		this->background.setSize(sf::Vector2f(
 			static_cast<float>(this->window->getSize().x),
@@ -42,6 +49,7 @@ public:
 		this->gui = new Gui(ref(*window));
 		this->gui->loadWidgetsFromFile("Template/GameTem.txt");
 		this->initBackground();
+		this->initButtons();
 
 	};
 	//GameState(RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);

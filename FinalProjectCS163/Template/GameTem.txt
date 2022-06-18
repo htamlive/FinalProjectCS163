@@ -8,5 +8,23 @@ Picture.PicLogoRB {
     }
 }
 
+Button.btnBack {
+    Position = (0, 0);
+    Size = (80, 51);
+    TextSize = 20;
+
+    Renderer {
+        BorderColor = transparent;
+        TextColor = white;
+        Texture = "images/Back.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/Back.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/BackHover.png" Smooth;
+    }
+}
+
 
 
