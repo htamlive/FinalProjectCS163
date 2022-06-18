@@ -26,7 +26,6 @@ public:
 	Trie();
 	~Trie();
 
-	void addWord(const string &word, const string &defition);
 	void addWord(const string& word, const pair<int, int>& occurence);
 	vector<string> getListOfWords(string prefix, int maximum);
 	int findIDofWord(const string& word);

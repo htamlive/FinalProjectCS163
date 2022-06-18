@@ -6,20 +6,6 @@ Trie::Trie() {
 	this->size = 0;
 }
 
-void Trie::addWord(const string& word, const string& defition) {
-	TrieNode* currentNode = this->root;
-	int d;
-	for (const char &c : word) {
-		d = Trie::getID(c);
-		if ((currentNode->children)[d] == nullptr) {
-			(currentNode->children)[d] = new TrieNode;
-			(currentNode->children)[d]->id = ++(this->size);
-		}
-		currentNode = (currentNode->children)[d];
-	}
-	(currentNode->defitions).push_back(defition);
-};
-
 void Trie::addWord(const string& word, const pair<int, int>& occurrence) {
 	TrieNode* currentNode = this->root;
 	int d;
@@ -49,7 +35,7 @@ Trie::~Trie() {
 void Trie::getListOfWords(TrieNode *node, string& current, int& remain, vector<string>& result) {
 	if (node == nullptr || remain <= 0)
 		return;
-	if (!(node->defitions).empty()) {
+	if (!(node->occurences).empty()) {
 		result.push_back(current);
 		--remain;
 	}

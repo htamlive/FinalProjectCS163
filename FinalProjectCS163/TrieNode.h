@@ -11,7 +11,6 @@ public:
 	TrieNode* children[SIZE];
 
 	int id;
-	vector<string> defitions;
 	vector<pair<int, int> > occurences;
 
 	TrieNode();
