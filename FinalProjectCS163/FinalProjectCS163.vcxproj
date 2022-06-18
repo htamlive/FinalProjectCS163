@@ -148,6 +148,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellController.cpp" />
+    <ClCompile Include="DATASET.cpp" />
     <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="FinalProjectCS163.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellController.h" />
+    <ClInclude Include="DATASET.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="MainMenuState.h" />

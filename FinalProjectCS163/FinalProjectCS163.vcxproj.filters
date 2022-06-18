@@ -54,6 +54,9 @@
     <ClCompile Include="Trie.cpp">
       <Filter>Trie</Filter>
     </ClCompile>
+    <ClCompile Include="DATASET.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dictionary.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Trie.h">
       <Filter>Trie</Filter>
+    </ClInclude>
+    <ClInclude Include="DATASET.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
