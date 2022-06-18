@@ -22,10 +22,7 @@ public:
 		this->gui->loadWidgetsFromFile("Template/MenuTem.txt");
 		initBackground();
 		initButtons();
-		this->searchList = new SearchList(this->gui, 550, 280, 720, 60);
-		data = { "Hello", "Nice" };
-		this->searchList->update(data);
-		this->isWordMode = true;
+		initSearchBar();
 		
 	};
 
@@ -65,6 +62,17 @@ public:
 			});
 	}
 
+	void initSearchBar() {
+		this->searchList = new SearchList(this->gui, 550, 280, 720, 60);
+		data = { "Hello", "Nice" };
+		this->searchList->update(data);
+		this->isWordMode = true;
+
+		this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&]() {
+			updateSearchBar();
+			});
+	};
+
 
 	void resetSearchBar() {
 		this->gui->get<tgui::EditBox>("SearchBar")->setText("");
@@ -98,7 +106,6 @@ public:
 	}
 
 	void update(const float& dt) {
-		this->updateSearchBar();
 		this->updateBtns();
 	};
 
@@ -106,12 +113,13 @@ public:
 		tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
 		vector<string> nwData;
 		for (auto x : this->data) {
-			if (x.substr(0, text.size()) == text) {
+			if (x.substr(0, text.size()) == text && text != "") {
 				nwData.push_back(x);
 			}
 		}
 
 		this->searchList->update(nwData);
+		
 	};
 
 	void updateBtns() {
