@@ -28,8 +28,12 @@ public:
 	~Trie();
 
 	void addWord(const string& word, const pair<int, int>& occurence);
+	vector<pair<int, int> > getDefinitions(const string& s) const;
 	vector<string> getListOfWords(string prefix, int maximum);
+	string getCurrentString() const;
 	int findIDofWord(const string& word);
+	void addCharacter(const char c);
+	void popCharacter();
 	void clearTrie();
 
 };

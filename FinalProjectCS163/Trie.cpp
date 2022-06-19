@@ -1,3 +1,7 @@
+#include <cassert>
+
+using namespace std;
+
 #include "Trie.h"
 
 Trie::Trie() {
@@ -82,4 +86,27 @@ int Trie::findIDofWord(const string& word) {
 			return -1;
 	}
 	return node->id;
+};
+
+void Trie::addCharacter(const char c) {
+	(this->currentSearchString) += c;
+};
+
+void Trie::popCharacter() {
+	assert(!(this->currentSearchString).empty());
+	(this->currentSearchString).pop_back();
+};
+
+string Trie::getCurrentString() const {
+	return this->currentSearchString;
+};
+
+vector<pair<int, int> > Trie::getDefinitions(const string& s) const {
+	TrieNode* node = this->root;
+	for (const char& c : s) {
+		node = node->children[Trie::getID(c)];
+		if (node == nullptr)
+			return vector<pair<int, int> >();
+	}
+	return node->occurences;
 };
