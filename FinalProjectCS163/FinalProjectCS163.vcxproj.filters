@@ -19,6 +19,9 @@
     <Filter Include="Trie">
       <UniqueIdentifier>{cbc2ae7f-1b60-44e9-83f9-bb798f0fed0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WordDetail">
+      <UniqueIdentifier>{11bd907e-e513-41ef-b48b-74da966a0a4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FinalProjectCS163.cpp">
@@ -57,6 +60,9 @@
     <ClCompile Include="DATASET.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WordDetail.cpp">
+      <Filter>WordDetail</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dictionary.h">
@@ -91,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="DATASET.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WordDetail.h">
+      <Filter>WordDetail</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

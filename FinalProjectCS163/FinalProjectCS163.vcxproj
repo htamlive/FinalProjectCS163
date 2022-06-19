@@ -157,6 +157,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Trie.cpp" />
     <ClCompile Include="TrieNode.cpp" />
+    <ClCompile Include="WordDetail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="Trie.h" />
     <ClInclude Include="TrieNode.h" />
+    <ClInclude Include="WordDetail.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

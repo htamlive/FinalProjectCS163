@@ -1,9 +1,12 @@
 #pragma once
-#include "State.h"
 #include <string>
+#include <iostream>
 #include <vector>
 #include "GameState.h"
 #include "SearchList.h"
+#include "Trie.h"
+#include "DATASET.h"
+#include "State.h"
 class MainMenuState : public State
 {
 private:
@@ -11,6 +14,11 @@ private:
 	sf::Texture backgroundTexture;
 	sf::Font font;
 	int curOption = 0;
+
+	int curSet = 0;
+	vector<Trie*> tries;
+
+	vector<DATASET*> dataSet;
 	
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
 	SearchList* searchList;
@@ -23,8 +31,29 @@ public:
 		initBackground();
 		initButtons();
 		initSearchBar();
-		
+		initSearchButton();
+		initTries({"FilterENtoVIEAgain.csv"});
 	};
+
+	void initTries(vector<string> dataName) {
+		for (int i = 0; i < (int)dataName.size(); i++) {
+			DATASET* data = new DATASET(dataName[i]);
+			data->loadData();
+			dataSet.push_back(data);
+			
+			Trie* trie = new Trie();
+
+			for (int j = 0; j < (int)data->Data.size(); j++) {
+				pair<string, vector<string>> cur = data->Data[j];
+				//cerr << cur.first << '\n';
+				for (int k = 0; k < (int)cur.second.size(); k++) {
+					trie->addWord(cur.first, make_pair(j, k));
+				}
+			}
+
+			tries.push_back(trie);
+		}
+	}
 
 	void initBackground() {
 		this->background.setSize(sf::Vector2f(
@@ -72,6 +101,25 @@ public:
 			updateSearchBar();
 			});
 	};
+
+	vector<string> getListOfWords(string prefix, int maximum) {
+		//cerr << this->tries.size() << '\n';
+		return this->tries[this->curSet]->getListOfWords(prefix, maximum);
+	}
+
+	void initSearchButton() {
+		this->gui->get<tgui::Button>("btnSearch")->onClick([&]() {
+			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+			if (text.length() < 3) {
+				cerr << "Type down more shit you idiot\n";
+			}
+			else {
+				this->data = this->getListOfWords(text.toStdString(), 5);
+				//cerr << this->data.size() << '\n';
+				this->searchList->update(data);
+			}
+			});
+	}
 
 
 	void resetSearchBar() {
