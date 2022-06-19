@@ -63,7 +63,7 @@ vector<string> Trie::getListOfWords(string prefix, int maximum) {
 	for (const char& c : prefix) {
 		node = (node->children)[Trie::getID(c)];
 		if (node == nullptr) {
-			std::cerr << "No fucking way ...\n";
+			//std::cerr << "No fucking way ...\n";
 			return result;
 		}
 	}

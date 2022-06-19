@@ -4,6 +4,7 @@
 #include <TGUI/TGUI.hpp>
 #include <TGUI/Backend/SFML-Graphics.hpp>
 #include <iostream>
+#include "WordDetail.h"
 
 class SearchList
 {
@@ -11,6 +12,8 @@ private:
 	int x, y, w, h;
 	std::vector<std::string> data;
 	tgui::Gui* gui;
+
+	WordDetail* wordDetail;
 
 	//sf::Texture backgroundTexture;
 	//RectangleShape background;
@@ -31,7 +34,7 @@ public:
 
 	SearchList(tgui::Gui* gui,int x, int y, int w, int h) : x(x), y(y), w(w), h(h) {
 		this->gui = gui;
-		
+		//this->wordDetail->setVisible(false);
 	};
 
 	void updateData(const std::vector<std::string>& data) {
@@ -60,6 +63,13 @@ public:
 			eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordButton"));
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
+				if (this->wordDetail && this->wordDetail->on) {
+					this->wordDetail->removeWindow();
+					delete this->wordDetail;
+					this->wordDetail = nullptr;
+				}
+
+				this->wordDetail == new WordDetail(this->gui, 25, 100, 450, 600, data[i]);
 				std::cout << data[i] << "\n";
 				});
 		}
