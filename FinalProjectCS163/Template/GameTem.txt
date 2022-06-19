@@ -9,8 +9,7 @@ Picture.PicLogoRB {
 }
 
 Button.btnBack {
-    Position = (0, 0);
-    Size = (80, 51);
+    Size = (80, 52);
     TextSize = 20;
 
     Renderer {
@@ -26,5 +25,152 @@ Button.btnBack {
     }
 }
 
+Picture.Picture1 {
+    Position = (240, 195.304);
+    Size = (873, 497.862);
 
+    Renderer {
+        Texture = "themes/BgQuest.png" Smooth;
+        TransparentTexture = false;
+    }
+}
 
+Button.btn1 {
+    Position = (420, 319.784);
+    Size = (560, 63.5676);
+    Text = Button;
+    TextSize = 24;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = transparent;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "themes/Questions.png" Part(0, 0, 1261, 146) Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+Button.btn2 {
+    Position = (420, 409.784);
+    Size = (560, 63.5676);
+    Text = Button;
+    TextSize = 24;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = transparent;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "themes/Questions.png" Part(0, 146, 1261, 146) Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "themes/Questions.png" Part(0, 880, 1261, 146) Middle(10, 0) Smooth;
+    }
+}
+
+Button.btn3 {
+    Position = (420, 499.784);
+    Size = (560, 63.5676);
+    Text = Button;
+    TextSize = 24;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = transparent;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "themes/Questions.png" Part(0, 292, 1261, 146) Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+Button.btn4 {
+    Position = (420, 588.649);
+    Size = (560, 63.5676);
+    Text = Button;
+    TextSize = 24;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = transparent;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "themes/Questions.png" Part(0, 445, 1261, 146) Smooth;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+EditBox.ebPrompt {
+    Enabled = false;
+    Position = (240, 150);
+    ReadOnly = true;
+    Size = (874, 119.477);
+    Text = "Hello hello hello";
+    TextSize = 30;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorHover = white;
+        BorderColor = transparent;
+        BorderColorDisabled = #7D7D7D00;
+        BorderColorHover = transparent;
+        Borders = (1, 1, 1, 1);
+        CaretColor = transparent;
+        CaretColorHover = transparent;
+        CaretWidth = 1;
+        DefaultTextColor = #A0A0A0;
+        Padding = (50, 0, 0, 0);
+        SelectedTextBackgroundColor = #006EFF;
+        SelectedTextColor = white;
+        TextColor = #3C3C3C;
+        TextColorDisabled = white;
+        Texture = "themes/bgPrompt.png" Smooth;
+        TextureDisabled = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}

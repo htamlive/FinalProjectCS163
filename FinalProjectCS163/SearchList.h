@@ -55,7 +55,8 @@ public:
 			eb->setText(data[i]);
 			eb->setTextSize(16);
 			eb->setTextPosition({ "2%", "40%" },{0, 0});
-			//eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("Button"));
+			//eb->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(50));
+			//eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("Quest1"));
 			this->gui->add(eb);
 		}
 		

@@ -27,9 +27,9 @@ void DATASET::removeWord() {
 
 }
 
-pair<string, string> DATASET::getData(int id) {
-
-}
+//pair<string, string> DATASET::getData(int id) {
+//
+//}
 
 void DATASET::loadFromCSV() {
 	ifstream fin(dataset_name, ios::in);

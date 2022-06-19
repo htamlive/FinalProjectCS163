@@ -57,14 +57,14 @@ public:
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{"Template/themes/MyThemes.txt"}.getRenderer("WordDefWord"));
 			else
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{"Template/themes/MyThemes.txt"}.getRenderer("WordDefDef"));
-
+			this->gui->get<tgui::Button>("btnWordDef")->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			this->gui->get<tgui::EditBox>("SearchBar")->setFocused(true);
 			});
 	}
 
 	void initSearchBar() {
 		this->searchList = new SearchList(this->gui, 550, 280, 720, 60);
-		data = { "Hello", "Nice" };
+		data = { "Hello", "Nice", "Helpful", "Helicopter"};
 		this->searchList->update(data);
 		this->isWordMode = true;
 
@@ -127,6 +127,7 @@ public:
 			if (this->gui->get<tgui::Button>(btnNames[i])->isFocused() && i != this->curOption) {
 				this->gui->get<tgui::Button>(btnNames[this->curOption])->leftMouseButtonNoLongerDown();
 				this->curOption = i;
+				this->gui->get<tgui::Button>(btnNames[this->curOption])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			}
 		}
 		this->gui->get<tgui::Button>(btnNames[this->curOption])->leftMousePressed({});

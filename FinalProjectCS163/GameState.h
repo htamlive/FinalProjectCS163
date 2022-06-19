@@ -50,6 +50,7 @@ public:
 		this->gui->loadWidgetsFromFile("Template/GameTem.txt");
 		this->initBackground();
 		this->initButtons();
+		cellController = new CellController(this->gui, this->window);
 
 	};
 	//GameState(RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
@@ -58,6 +59,7 @@ public:
 	//GameState(RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states, int rows, int cols, int mines, int curLv, GameOptions* gameOptions);
 	virtual ~GameState() {
 		delete this->gui;
+		delete this->cellController;
 	};
 
 	//void adjustCells(const int totalX, const int totalY);
@@ -87,7 +89,7 @@ public:
 	};
 
 	void update(const float& dt) override {
-
+		//this->cellController->update();
 	}
 	//void updateCells();
 	//void updateStatusBar();
