@@ -45,7 +45,7 @@ void DATASET::loadFromCSV() {
 		_markSET.push_back(true);
 	}
 	fin.close();
-	cout << "Success CSV loading" << endl;
+	cerr << "Success CSV loading" << endl;
 }
 
 void DATASET::loadFromEmotional() {
