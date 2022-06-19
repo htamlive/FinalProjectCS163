@@ -234,3 +234,95 @@ Label.lbDataset {
         TextureBackground = None;
     }
 }
+
+EditBox.ebCorrect {
+    Enabled = false;
+    Position = (980, 5);
+    Size = (140, 42);
+    Text = 0;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C00;
+        BorderColorDisabled = #7D7D7D00;
+        BorderColorHover = black;
+        Borders = (1, 1, 1, 1);
+        CaretColor = black;
+        CaretWidth = 1;
+        DefaultTextColor = #A0A0A0;
+        Padding = (62, 0, 0, 0);
+        SelectedTextBackgroundColor = #006EFF;
+        SelectedTextColor = white;
+        TextColor = white;
+        TextColorDisabled = white;
+        Texture = "themes/ScoreThemes.png" Part(0, 0, 361, 104) Smooth;
+        TextureDisabled = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+EditBox.ebIncorrect {
+    Enabled = false;
+    Position = (1140, 5);
+    Size = (140, 42);
+    Text = 0;
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C00;
+        BorderColorDisabled = #7D7D7D00;
+        BorderColorHover = black;
+        Borders = (1, 1, 1, 1);
+        CaretColor = black;
+        CaretWidth = 1;
+        DefaultTextColor = #A0A0A0;
+        Padding = (62, 0, 0, 0);
+        SelectedTextBackgroundColor = #006EFF;
+        SelectedTextColor = white;
+        TextColor = #3C3C3C;
+        TextColorDisabled = white;
+        Texture = "themes/ScoreThemes.png" Part(0, 104, 361, 104) Smooth;
+        TextureDisabled = "themes/ScoreThemes.png" Part(0, 104, 361, 104) Smooth;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+Button.btnTotal {
+    Enabled = false;
+    Position = (900, 0);
+    Size = (50, 50);
+    Text = 0;
+    TextSize = 15;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D00;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = None;
+        TextureDisabled = "themes/ScoreThemes.png" Part(0, 207, 148, 148) Smooth;
+        TextureDown = None;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}

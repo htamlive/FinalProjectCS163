@@ -9,14 +9,14 @@ class CellController
 {
 private:
 	float height, width, x, y, startTime, totalTime;
-	int lastPlayTime;
-	bool isOver, isWin, isFinish;
+	int lastPlayTime, tot, correct;
 	Clock clock;
 
 	std::vector<std::vector<Cell*>> cells;
 	std::vector<std::vector<int>> test;
 	std::vector<std::vector<float>> timeOpen;
 	std::vector<std::vector<float>> timeFlag;
+
 
 
 	tgui::Gui* gui;
@@ -27,13 +27,12 @@ private:
 
 	void initVariables() {
 		clock.restart();
-		this->isOver = false;
-		this->isWin = false;
-		this->isFinish = false;
 
 		this->totalTime = 0;
 		this->lastPlayTime = 0;
 		this->startTime = -1;
+
+		this->tot = this->correct = 0;
 	}
 
 	void initOptions() {
@@ -59,41 +58,47 @@ private:
 		}
 	}
 
+	void addCorrect() {
+		this->correct++;
+	}
+
+	void updateScore() {
+		this->tot += 1;
+		this->gui->get<tgui::Button>("btnTotal")->setText(std::to_string(this->tot));
+		this->gui->get<tgui::EditBox>("ebCorrect")->setText(std::to_string(this->correct));
+		this->gui->get<tgui::EditBox>("ebIncorrect")->setText(std::to_string(this->tot - this->correct));
+		
+	}
+
 	void setUpGamePlay(int correctOpt = 1) {
 		for (int i = 1; i <= 4; ++i) {
+			gui->get<tgui::Button>("btn" + std::to_string(i))->onPress.disconnectAll();
 			gui->get<tgui::Button>("btn" + std::to_string(i))->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("Quest" + std::to_string(i)));
 			gui->get<tgui::Button>("btn" + std::to_string(i))->showWithEffect(tgui::ShowEffectType::Scale, sf::milliseconds(500));
+			
 			if (i != correctOpt) {
-				gui->get<tgui::Button>("btn" + std::to_string(i))->onClick([&,i,correctOpt, this]() {
-					if (isFinish) return;
-					isWin = false;
-					isOver = true;
-					isFinish = true;
+				gui->get<tgui::Button>("btn" + std::to_string(i))->onPress([&,i,correctOpt, this]() {
 					showCorrect(correctOpt);
 					showIncorrect(i);
 					setEnabledOptions(false);
+					std::cout << 1 << "\n";
 					gui->get<tgui::Button>("btnNext")->setVisible(true);
+					updateScore();
 					});
 			}
 		}
-		gui->get<tgui::Button>("btn" + std::to_string(correctOpt))->onClick([&,correctOpt, this]() {
-			if (isFinish) return;
-			isWin = true;
-			isFinish = true;
+		gui->get<tgui::Button>("btn" + std::to_string(correctOpt))->onPress([&,correctOpt, this]() {
 			showCorrect(correctOpt);
 			setEnabledOptions(false);
 			gui->get<tgui::Button>("btnNext")->setVisible(true);
+			addCorrect();
+			updateScore();
 			});
 
 		
 	}
 
-	void getNextGame() {
-		this->setEnabledOptions(true);
-		setUpGamePlay(1);
-		this->isFinish = false;
-		this->gui->get<tgui::Button>("btnNext")->setVisible(false);
-	}
+
 
 public:
 	
@@ -117,51 +122,15 @@ public:
 		getNextGame();
 	};
 
-	CellController(tgui::Gui* gui, RenderWindow* window, int x, int y, float width, float height) {
-		
-		this->height = height;
-		this->width = width;
-		this->x = x;
-		this->y = y;
-		this->gui = gui;
-		
-		
-		this->initVariables();
-		this->initOptions();
-
-	};
-
+	void getNextGame() {
+		this->setEnabledOptions(true);
+		setUpGamePlay(1);
+		this->gui->get<tgui::Button>("btnNext")->setVisible(false);
+	}
 
 	bool checkStarted() {
 		return this->startTime > 0;
 	};
 
-	bool checkWin() {
-		return this->isOver && this->isWin;
-	};
-
-	bool checkLose() {
-		return this->isOver && !this->isWin;
-	};
-
-	bool openCell(short row, short col);
-	void setOpenCellStatus(int row, int col);
-	void updateOpenCells();
-	bool flagOrUnflagCell(short row, short col);
-
-	void udpateMouseClick();
-	void update() {
-
-	};
-	void render(RenderTarget* target);
-
-	float getStartTime();
-	float getPlayTime();
-
-	float get_height();
-	float get_width();
-
-	int getCurrentFlags();
-	int updateHighScore();
 };
 

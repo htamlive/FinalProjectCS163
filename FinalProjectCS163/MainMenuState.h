@@ -32,7 +32,7 @@ public:
 		initButtons();
 		initSearchBar();
 		initSearchButton();
-		initTries({"FilterENtoVIEAgain.csv"});
+		//initTries({"FilterENtoVIEAgain.csv"});
 	};
 
 	void initTries(vector<string> dataName) {
