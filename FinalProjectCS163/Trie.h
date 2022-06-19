@@ -20,7 +20,8 @@ private:
 		return c - offset;
 	}
 
-	void getListOfWords(TrieNode* node, string& current, int& remain, vector<string>& result);
+	static void getListOfWords(TrieNode* node, string& current, int& remain, vector<string>& result);
+	static void getIDofAllWords(TrieNode* node, vector<int> &id);
 
 public:
 	
@@ -30,6 +31,8 @@ public:
 	void addWord(const string& word, const pair<int, int>& occurence);
 	vector<pair<int, int> > getDefinitions(const string& s) const;
 	vector<string> getListOfWords(string prefix, int maximum);
+	vector<int> getIDofRandomWords(const int numberOfWords) const;
+	bool containsWord(const string& s) const;
 	string getCurrentString() const;
 	int findIDofWord(const string& word);
 	void addCharacter(const char c);

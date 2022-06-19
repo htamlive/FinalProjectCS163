@@ -1,4 +1,6 @@
 #include <cassert>
+#include <random>
+#include <ctime>
 
 using namespace std;
 
@@ -54,7 +56,7 @@ void Trie::getListOfWords(TrieNode *node, string& current, int& remain, vector<s
 		if ((node->children)[i] == nullptr)
 			continue;
 		current += (char)(i + Trie::offset);
-		this->getListOfWords((node -> children)[i], current, remain, result);
+		getListOfWords((node -> children)[i], current, remain, result);
 		current.pop_back();
 		if (remain <= 0)
 			return;
@@ -109,4 +111,32 @@ vector<pair<int, int> > Trie::getDefinitions(const string& s) const {
 			return vector<pair<int, int> >();
 	}
 	return node->occurences;
+};
+
+bool Trie::containsWord(const string& s) const {
+	TrieNode* node = this->root;
+	for (const char& c : s) {
+		node = node->children[Trie::getID(c)];
+		if (node == nullptr)
+			return false;
+	}
+	return !(node->occurences).empty();
+};
+
+void Trie::getIDofAllWords(TrieNode* node, vector<int>& id) {
+	if (node == nullptr)
+		return;
+	if (!(node->occurences).empty())
+		id.push_back(node -> id);
+	for (int i = 0; i < TrieNode::SIZE; ++i)
+		getIDofAllWords((node -> children)[i], id);
+};
+
+vector<int> Trie::getIDofRandomWords(const int numberOfWords) const {
+	vector<int> result;
+	getIDofAllWords(this->root, result);
+	srand(time(NULL));
+	random_shuffle(result.begin(), result.end());
+	result.resize(numberOfWords);
+	return result;
 };
