@@ -81,7 +81,7 @@ private:
 					showCorrect(correctOpt);
 					showIncorrect(i);
 					setEnabledOptions(false);
-					std::cout << 1 << "\n";
+					//std::cout << 1 << "\n";
 					gui->get<tgui::Button>("btnNext")->setVisible(true);
 					updateScore();
 					});

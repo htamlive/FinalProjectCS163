@@ -50,14 +50,14 @@ public:
 		for (int i = 0; i < data.size(); ++i) {
 			auto eb = tgui::Button::create();
 			eb->setWidgetName("op" + std::to_string(i));
-			eb->setPosition(x, y + i * this->h - i);
+			eb->setPosition(x, y + i * this->h);
 			eb->setSize(w, h);
 			eb->setText(data[i]);
 			eb->setTextSize(16);
 			eb->setTextPosition({ "2%", "40%" },{0, 0});
 			
 			//eb->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(50));
-			//eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("Quest1"));
+			eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordButton"));
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
 				std::cout << data[i] << "\n";
