@@ -3,11 +3,51 @@ Button {
 }
 
 WordDefWord{
-    	Texture         = "WordDefWord.png";
+	  BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = transparent;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = transparent;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = transparent;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "WordDefThemes.png" Part(0, 464, 306, 154) Smooth;
+        TextureDisabled = None;
+        TextureDown = "WordDefThemes.png" Part(0, 772, 306, 154) Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "WordDefThemes.png" Part(0, 618, 306, 154) Smooth;
 }
 
 WordDefDef{
-    	Texture         = "WordDefDef.png";
+    	  BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = transparent;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = transparent;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = transparent;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "WordDefThemes.png" Part(0, 0, 306, 154) Smooth;
+        TextureDisabled = None;
+        TextureDown = "WordDefThemes.png" Part(0, 308, 306, 154) Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "WordDefThemes.png" Part(0, 154, 306, 154) Smooth;
 }
 
 Quest1 {
