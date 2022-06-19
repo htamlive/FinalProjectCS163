@@ -8,15 +8,6 @@ enum GAMETYPE
 	GUESSDEF = 1,
 };
 
-enum DATASET
-{
-	ENTOEN = 0,
-	ENTOVIE = 1,
-	VIETOEN = 2,
-	SLANG = 3,
-	EMOJI = 4,
-
-};
 
 class GameState : public State
 {
@@ -71,7 +62,7 @@ private:
 	std::string getMode();
 
 public:
-	GameState(RenderWindow* window, std::vector<State*>* states, int gameType = GAMETYPE::GUESSWORD, int dataset = DATASET::ENTOEN) : State(this->window, this->states) {
+	GameState(RenderWindow* window, std::vector<State*>* states, int gameType = GAMETYPE::GUESSWORD, int dataset = 0) : State(this->window, this->states) {
 		this->window = window;
 		this->curGameType = gameType;
 		this->curDataset = dataset;
