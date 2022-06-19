@@ -1,10 +1,12 @@
 #include <cassert>
 #include <random>
 #include <ctime>
+#include <algorithm>
 
 using namespace std;
 
 #include "Trie.h"
+#include "helper.h"
 
 Trie::Trie() {
 	this->root = new TrieNode();
@@ -138,5 +140,22 @@ vector<int> Trie::getIDofRandomWords(const int numberOfWords) const {
 	srand(time(NULL));
 	random_shuffle(result.begin(), result.end());
 	result.resize(numberOfWords);
+	return result;
+};
+
+vector<pair<int, int> > Trie::getKey(const DATASET &dataset, const string& definition) const {
+	//Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
+	const vector<string> words = splitString(definition);
+	vector<pair<int, int> > result;
+	for (const string& word : words) {
+		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+			const pair<string, vector<string> > data = dataset.getDataByIDofLine(occurence.first);
+			const string& key = data.first;
+			const vector<string>& definitionOfKey = data.second;
+			if (checkContainStrings(definitionOfKey, words))
+				result.push_back(occurence);
+		}
+	}
+	sort(result.begin(), result.end());
 	return result;
 };

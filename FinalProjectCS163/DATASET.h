@@ -45,6 +45,8 @@ public:
 	void addWord();
 	void removeWord();
 	
-	pair<string, string> getData(int id);
+	//pair<string, vector<string> > getData(int id);
+	//pair<string, string> getData(int id);
+	pair<string, vector<string> > getDataByIDofLine(int id) const;
 };
 

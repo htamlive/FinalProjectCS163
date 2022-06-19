@@ -6,6 +6,7 @@
 using namespace std;
 
 #include "TrieNode.h"
+#include "DATASET.h"
 
 class Trie {
 private:
@@ -32,6 +33,7 @@ public:
 	vector<pair<int, int> > getDefinitions(const string& s) const;
 	vector<string> getListOfWords(string prefix, int maximum);
 	vector<int> getIDofRandomWords(const int numberOfWords) const;
+	vector<pair<int, int> > getKey(const DATASET& dataset, const string &definition) const;
 	bool containsWord(const string& s) const;
 	string getCurrentString() const;
 	int findIDofWord(const string& word);

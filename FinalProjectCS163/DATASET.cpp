@@ -27,9 +27,16 @@ void DATASET::removeWord() {
 
 }
 
-//pair<string, string> DATASET::getData(int id) {
-//
-//}
+/*
+pair<string, vector<string> > DATASET::getData(int id) {
+	return Data[id];
+}
+*/
+
+pair<string, vector<string> > DATASET::getDataByIDofLine(int id) const {
+	return Data[id];
+};
+
 
 void DATASET::loadFromCSV() {
 	ifstream fin(dataset_name, ios::in);
