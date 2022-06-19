@@ -37,12 +37,12 @@ public:
 	}
 
 	void initButtons() {
-		this->gui->get<tgui::Button>("btnWordQuiz")->onClick([&]() {
-			this->states->push_back(new GameState(this->window, this->states, 0));
+		this->gui->get<tgui::Button>("btnWordQuiz")->onClick([&, this]() {
+			this->states->push_back(new GameState(this->window, this->states, 0, curOption));
 			});		
 		
-		this->gui->get<tgui::Button>("btnDefQuiz")->onClick([&]() {
-			this->states->push_back(new GameState(this->window, this->states, 1));
+		this->gui->get<tgui::Button>("btnDefQuiz")->onClick([&, this]() {
+			this->states->push_back(new GameState(this->window, this->states, 1, curOption));
 			});
 
 		this->gui->get<tgui::Button>("btnCross")->onClick([&]() {
@@ -76,8 +76,7 @@ public:
 
 	void resetSearchBar() {
 		this->gui->get<tgui::EditBox>("SearchBar")->setText("");
-		
-		
+
 		this->gui->get<tgui::EditBox>("SearchBar")->setFocused(true);
 	}
 

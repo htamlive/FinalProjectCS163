@@ -55,9 +55,13 @@ public:
 			eb->setText(data[i]);
 			eb->setTextSize(16);
 			eb->setTextPosition({ "2%", "40%" },{0, 0});
+			
 			//eb->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(50));
 			//eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("Quest1"));
 			this->gui->add(eb);
+			eb->onClick([i, this]() {
+				std::cout << data[i] << "\n";
+				});
 		}
 		
 		if (data.size() > 0) {

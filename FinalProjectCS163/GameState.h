@@ -1,28 +1,46 @@
 #pragma once
 #include "CellController.h"
 #include "State.h"
+
+enum GAMETYPE
+{
+	GUESSWORD = 0,
+	GUESSDEF = 1,
+};
+
+enum DATASET
+{
+	ENTOEN = 0,
+	ENTOVIE = 1,
+	VIETOEN = 2,
+	SLANG = 3,
+	EMOJI = 4,
+
+};
+
 class GameState : public State
 {
 private:
+	vector<string> gametypes = { "Guess Words Quiz:", "Guess Definitions Quiz:" };
+	vector<string> datasets = { "EN TO EN", "EN TO VIE", "VIE TO EN", "SLANG", "EMOJI" };
+
 	sf::Texture backgroundTexture;
 	RectangleShape background;
 
-	sf::Font font;
+	tgui::Font utmAndro;
 
 	//StatusBar* statusBar;
 
 	int curLv, rows, columns, mines, currentFlags;
-	int curGameType;
+	int curGameType, curDataset;
 	float height, width;
 	bool lastPlay;
 
 	CellController* cellController;
 
-	void initVariables(int rows = 8, int cols = 10, int mines = 10);
-	void initFonts();
-	void initCells();
-	void initStatusBar();
-	void initKeyBinds();
+	//void initCells();
+	//void initStatusBar();
+	//void initKeyBinds();
 
 	void initButtons() {
 		this->gui->get<tgui::Button>("btnBack")->onClick([&]() {
@@ -40,18 +58,31 @@ private:
 		this->background.setTexture(&this->backgroundTexture);
 	};
 
+	void initTitle() {
+		utmAndro = tgui::Font("Template/fonts/UTM Androgyne.ttf");
+
+		this->gui->get<tgui::Label>("lbGameType")->setInheritedFont(utmAndro);
+		this->gui->get<tgui::Label>("lbGameType")->setText(this->gametypes[this->curGameType]);
+
+		this->gui->get<tgui::Label>("lbDataset")->setInheritedFont(utmAndro);
+		this->gui->get<tgui::Label>("lbDataset")->setText(this->datasets[this->curDataset]);
+	}
+
 	std::string getMode();
 
 public:
-	GameState(RenderWindow* window, std::vector<State*>* states, int gameType = 0) : State(this->window, this->states) {
+	GameState(RenderWindow* window, std::vector<State*>* states, int gameType = GAMETYPE::GUESSWORD, int dataset = DATASET::ENTOEN) : State(this->window, this->states) {
 		this->window = window;
 		this->curGameType = gameType;
+		this->curDataset = dataset;
 		this->gui = new Gui(ref(*window));
 		this->gui->loadWidgetsFromFile("Template/GameTem.txt");
 		this->initBackground();
 		this->initButtons();
 		cellController = new CellController(this->gui, this->window);
 
+		this->initTitle();
+		
 	};
 	//GameState(RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	//GameState(RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states, GameOptions* gameOptions);

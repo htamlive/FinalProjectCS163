@@ -200,3 +200,37 @@ Button.btnNext {
         TextureHover = "themes/NextButton.png" Part(0, 105, 523, 105) Smooth;
     }
 }
+
+Label.lbGameType {
+    HorizontalAlignment = Center;
+    Position = (400, 0);
+    Size = (249, 50.5052);
+    Text = "Guess Definitions Quiz";
+    TextSize = 20;
+    VerticalAlignment = Center;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C00;
+        Borders = (0, 0, 0, 0);
+        TextColor = white;
+        TextureBackground = None;
+    }
+}
+
+Label.lbDataset {
+    HorizontalAlignment = Center;
+    Position = (650, 0);
+    Size = (107.2, 52.1936);
+    Text = "EN to EN";
+    TextSize = 20;
+    VerticalAlignment = Center;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C00;
+        Borders = (0, 0, 0, 0);
+        TextColor = white;
+        TextureBackground = None;
+    }
+}
