@@ -89,7 +89,7 @@ public:
 	};
 
 	void update(const float& dt) override {
-		//this->cellController->update();
+		this->cellController->update();
 	}
 	//void updateCells();
 	//void updateStatusBar();

@@ -72,6 +72,7 @@ private:
 					showCorrect(correctOpt);
 					showIncorrect(i);
 					setEnabledOptions(false);
+					gui->get<tgui::Button>("btnNext")->setVisible(true);
 					});
 			}
 		}
@@ -81,8 +82,17 @@ private:
 			isFinish = true;
 			showCorrect(correctOpt);
 			setEnabledOptions(false);
+			gui->get<tgui::Button>("btnNext")->setVisible(true);
 			});
 
+		
+	}
+
+	void getNextGame() {
+		this->setEnabledOptions(true);
+		setUpGamePlay(1);
+		this->isFinish = false;
+		this->gui->get<tgui::Button>("btnNext")->setVisible(false);
 	}
 
 public:
@@ -99,9 +109,12 @@ public:
 		this->initOptions();
 
 		this->gui->get<tgui::EditBox>("ebPrompt")->setText("Hello hello hello");
+		
+		this->gui->get<tgui::Button>("btnNext")->onClick([&, this]() {
+			getNextGame();
+			});
 
-		setUpGamePlay(1);
-
+		getNextGame();
 	};
 
 	CellController(tgui::Gui* gui, RenderWindow* window, int x, int y, float width, float height) {
@@ -138,10 +151,7 @@ public:
 
 	void udpateMouseClick();
 	void update() {
-		if (this->isFinish) {
-			setUpGamePlay(1);
-			this->isFinish = false;
-		}
+
 	};
 	void render(RenderTarget* target);
 
