@@ -12,7 +12,7 @@ ChildWindow.DetailWindow {
         DistanceToSide = 5;
         PaddingBetweenButtons = 2;
         ShowTextOnTitleButtons = false;
-        TextureBackground = None;
+        TextureBackground = "../images/teacher.jpg" Smooth;
         TextureTitleBar = "themes/Black.png" Part(0, 580, 75, 25) Middle(25, 0) Smooth;
         TitleColor = rgb(190, 190, 190);
 
