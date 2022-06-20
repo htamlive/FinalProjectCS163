@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include "GameState.h"
 #include "SearchList.h"
@@ -8,6 +9,7 @@
 #include "DATASET.h"
 #include "State.h"
 #include "BackgroundAnimations.h"
+
 class MainMenuState : public State
 {
 private:
@@ -18,9 +20,10 @@ private:
 	int curOption = 0;
 
 	int curSet = 0;
-	vector<Trie*> tries;
 
 	vector<DATASET*> dataSet;
+	vector<Trie*> tries;
+	vector<vector<string>> tmpDataSet;
 	
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
 	SearchList* searchList;
@@ -32,12 +35,11 @@ public:
 		this->gui = new Gui(ref(* window));
 		this->gui->loadWidgetsFromFile("Template/MenuTem.txt");
 		initBackground();
+		initTries({ "Dataset/FilterENtoVIEAgain.csv" });
 		initButtons();
 		initSearchBar();
 		initSearchButton();
-		//initTries({"FilterENtoVIEAgain.csv"});
 		//cout << this->gui->get<tgui::Picture>("triag1")->getPosition().x << "\n";
-
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
 	};
 
@@ -50,9 +52,19 @@ public:
 			Trie* trie = new Trie();
 
 			for (int j = 0; j < (int)data->Data.size(); j++) {
-				pair<string, vector<string>> cur = data->Data[j];
-				//cerr << cur.first << '\n';
-				for (int k = 0; k < (int)cur.second.size(); k++) {
+				pair<string, string> cur = data->Data[j];
+				
+				stringstream s(cur.second);
+				vector<string> tmpArr;
+				string tmpStr;
+
+				while (s >> tmpStr) {
+					tmpArr.push_back(tmpStr);
+				}
+
+				tmpDataSet.push_back(tmpArr);
+				transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
+				for (int k = 0; k < (int)tmpArr.size(); k++) {
 					trie->addWord(cur.first, make_pair(j, k));
 				}
 			}
@@ -98,7 +110,7 @@ public:
 	}
 
 	void initSearchBar() {
-		this->searchList = new SearchList(this->gui, 550, 280, 720, 60);
+		this->searchList = new SearchList(this->gui, this->curSet, this->tries, this->tmpDataSet, 550, 280, 720, 60);
 		data = { "Hello", "Nice", "Helpful", "Helicopter"};
 		this->searchList->update(data);
 		this->isWordMode = true;
@@ -121,7 +133,6 @@ public:
 			}
 			else {
 				this->data = this->getListOfWords(text.toStdString(), 5);
-				//cerr << this->data.size() << '\n';
 				this->searchList->update(data);
 			}
 			});
@@ -138,6 +149,7 @@ public:
 		delete this->gui;
 		delete this->entity;
 		delete this->backgroundAnimations;
+		//delete this->tmpDataSet;
 	};
 
 	void updateInput(const float& dt) {

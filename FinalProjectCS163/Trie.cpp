@@ -20,6 +20,7 @@ void Trie::addWord(const string& word, const pair<int, int>& occurrence) {
 	for (const char& c : word) {
 		if (c < 'a' || c > 'z') {
 			if (c != '.' && c != 39 && c != '-') {
+				//cerr << word << '\n';
 				break;
 			}
 		}

@@ -1,6 +1,7 @@
 #pragma once
 #include <TGUI/TGUI.hpp>
 #include <TGUI/Backend/SFML-Graphics.hpp>
+#include "Trie.h"
 
 using namespace tgui;
 using namespace std;
@@ -10,12 +11,16 @@ class WordDetail
 private:
 	int x, y, w, h;
 	tgui::Gui* gui;
+	int curSet;
+	vector<Trie*> tries;
+	vector<vector<string>> tmpDataSet;
 
 public:
 	bool on = false;
-	WordDetail(tgui::Gui* GUI, int x, int y, int w, int h, string& str) : x(x), y(y), w(w), h(h) {
+	WordDetail(tgui::Gui* GUI, int& curSet, vector<Trie*> tries, vector<vector<string>>& tmpData, int x, int y, int w, int h, string& str) : x(x), y(y), w(w), h(h), curSet(curSet) {
 		this->gui = GUI;
-
+		this->tries = tries;
+		this->tmpDataSet = tmpData;
 		auto chWindow = tgui::ChildWindow::create();
 		chWindow->setWidgetName("chWindow");
 		chWindow->setPosition(x, y);
@@ -38,9 +43,18 @@ public:
 		editBoxD->setTextSize(14);
 		//editBoxD->limitTextWidth();
 		//editBoxD->setReadOnly();
-		editBoxD->setDefaultText("Definition goes here");
-		chWindow->add(editBoxD);
 
+		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+		vector<pair<int, int>> def = this->tries[this->curSet]->getDefinitions(str);
+		string defText = "";
+		for (int i = 0; i < (int)def.size(); i++) {
+			defText += tmpDataSet[def[i].first][def[i].second];
+			defText += ' ';
+		}
+
+		editBoxD->setDefaultText("Definition goes here");
+		editBoxD->setText(tgui::String(defText));
+		chWindow->add(editBoxD);
 		this->gui->add(chWindow);
 
 		on = true;
