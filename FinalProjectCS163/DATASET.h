@@ -54,6 +54,6 @@ public:
 
 	void restoreDictionary();
 
-	pair<string, string> getData(int id);
+	pair<string, string> getData(int id) const;
 };
 

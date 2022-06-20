@@ -17,10 +17,7 @@ private:
 	TrieNode* root;
 	int size;
 
-	static int getID(const char c) {
-		return c - offset;
-	}
-
+	static int getID(const char c);
 	static void getListOfWords(TrieNode* node, string& current, int& remain, vector<string>& result);
 	static void getIDofAllWords(TrieNode* node, vector<int> &id);
 

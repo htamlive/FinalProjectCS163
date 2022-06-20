@@ -68,7 +68,7 @@ void DATASET::removeWord(int id) {
 	}
 }
 
-pair<string, string> DATASET::getData(int id) {
+pair<string, string> DATASET::getData(int id) const {
 	if (id > Data.size() || Data[id].first == "") {
 		cerr << "Error index" << endl;
 

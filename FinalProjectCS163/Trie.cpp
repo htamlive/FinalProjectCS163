@@ -149,13 +149,16 @@ vector<pair<int, int> > Trie::getKey(const DATASET &dataset, const string& defin
 	vector<pair<int, int> > result;
 	for (const string& word : words) {
 		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
-			const pair<string, vector<string> > data = dataset.getDataByIDofLine(occurence.first);
-			const string& key = data.first;
-			const vector<string>& definitionOfKey = data.second;
-			if (checkContainStrings(definitionOfKey, words))
+			const pair<string, string> data = dataset.getData(occurence.first);
+			const string& key = data.first, & definitionOfKey = data.second;
+			if (checkContainStrings(splitString(definitionOfKey), words))
 				result.push_back(occurence);
 		}
 	}
 	sort(result.begin(), result.end());
 	return result;
 };
+
+int Trie::getID(const char c) {
+	return c - Trie::offset;
+}
