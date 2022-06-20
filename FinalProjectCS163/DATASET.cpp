@@ -1,89 +1,93 @@
 #include "DATASET.h"
 
-void DATASET::saveData() {
-
-}
-
 void DATASET::loadData() {
 	if (_typeOfdata == 0) {
 		loadFromEmotional();
+		return;
 	}
-	else if (_typeOfdata == 1) {
+	if (_typeOfdata == 1) {
 		loadFromSlang();
+		return;
 	}
-	else if (_typeOfdata == 2) {
+	if (_typeOfdata == 2) {
 		loadFromCSV();
+		return;
 	}
-	else {
-		cout << "ERROR FILE TYPE" << endl;
+	if (_typeOfdata == 3) {
+		loadFromOxford();
+		return;
 	}
 }
 
-void DATASET::addWord() {
+// void DATASET::addWord();
 
+// void DATASET::removeWord();
+
+pair<string, string> DATASET::getData(int id) {
+	if (id > Data.size() || Data[id].first == "") {
+		cout << "Error index" << endl;
+
+		return make_pair("", "");
+	}
+	if (_typeOfdata == 0 || _typeOfdata == 1) {
+		return Data[id];
+	}
+	else if (_typeOfdata == 2 || _typeOfdata == 3) {
+		return make_pair(Data[id].first, Core_Data[id]);
+	}
+	return make_pair("", "");
 }
-
-void DATASET::removeWord() {
-
-}
-
-/*
-pair<string, vector<string> > DATASET::getData(int id) {
-	return Data[id];
-}
-*/
-
-pair<string, vector<string> > DATASET::getDataByIDofLine(int id) const {
-	return Data[id];
-};
-
 
 void DATASET::loadFromCSV() {
-	ifstream fin(dataset_name, ios::in);
-	string temp1;
-	string temp2;
-	getline(fin, temp1, ',');
-	getline(fin, temp2, ',');
-	//push data to vector, init mark_set to check availability
+	ifstream fin(dataset_name);
+	string temp1, temp2;
 	while (!fin.eof()) {
 		getline(fin, temp1, ',');
-		getline(fin, temp2, ',');
-		Data.push_back(make_pair(temp1, Split_string(temp2, " ")));
-		_markSET.push_back(true);
+		getline(fin, temp2, '\n');
+		Data.push_back(make_pair(temp1, temp2));
 	}
 	fin.close();
-	cerr << "Success CSV loading" << endl;
 }
 
 void DATASET::loadFromEmotional() {
-	ifstream fin(dataset_name, ios::in);
-	string temp1;
-	string temp2;
-	fin >> temp1 >> temp2;
+	ifstream fin(dataset_name);
+	string temp1, temp2;
 	while (!fin.eof()) {
-		fin >> temp1 >> temp2;
-		Data.push_back(make_pair(temp1, Split_string(temp2, " ")));
-		_markSET.push_back(true);
+		fin >> temp1;
+		getline(fin, temp2, '\n');
+		replace(temp2.begin(), temp2.end(), '.', ' ');
+		Data.push_back(make_pair(temp1, temp2));
 	}
 	fin.close();
 }
 
 void DATASET::loadFromSlang() {
-	ifstream fin(dataset_name, ios::in);
-	string temp;
+	ifstream fin(dataset_name);
+	string temp1, temp2;
 	while (!fin.eof()) {
-		getline(fin, temp, '\n');
-		vector<string> v_temp = Split_string(temp, "`");
-		Data.push_back(make_pair(v_temp[0], Split_string(v_temp[1], "| ")));
-		_markSET.push_back(true);
+		getline(fin, temp1, '`');
+		getline(fin, temp2, '\n');
+		Core_Data.push_back(temp2);
+		remove(temp2.begin(), temp2.end(), '|');
+		Data.push_back(make_pair(temp1, temp2));
 	}
-	fin.close();
 }
 
-vector<string> DATASET::Split_string(string s, string split_type) {
-	stringstream SS(s);
-	regex split(split_type);
-	sregex_token_iterator begin(s.begin(), s.end(), split), end;
-	vector<string> tokens(begin, end);
-	return tokens;
+void DATASET::loadFromOxford() {
+	ifstream fin(dataset_name);
+	string temp1, temp2;
+	string targ;
+	while (!fin.eof()) {
+		getline(fin, temp1, ',');
+		getline(fin, temp2, '\n');
+		targ = "";
+		for (auto i : temp2) {
+			if (isalnum(i) || isspace(i)) {
+				targ += i;
+			}
+		}
+		Data.push_back(make_pair(temp1, targ));
+		Core_Data.push_back(temp2);
+	}
+	fin.close();
 }
