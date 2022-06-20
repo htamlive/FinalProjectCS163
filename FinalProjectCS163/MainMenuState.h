@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include "GameState.h"
 #include "SearchList.h"
@@ -18,9 +19,10 @@ private:
 	int curOption = 0;
 
 	int curSet = 0;
-	vector<Trie*> tries;
 
 	vector<DATASET*> dataSet;
+	vector<Trie*> tries;
+	vector<vector<string>> tmpDataSet;
 	
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
 	SearchList* searchList;
@@ -33,12 +35,11 @@ public:
 		this->gui = new Gui(ref(*window));
 		this->gui->loadWidgetsFromFile("Template/MenuTem.txt");
 		initBackground();
+		initTries({ "Dataset/FilterENtoVIEAgain.csv" });
 		initButtons();
 		initSearchBar();
 		initSearchButton();
-		//initTries({"FilterENtoVIEAgain.csv"});
 		//cout << this->gui->get<tgui::Picture>("triag1")->getPosition().x << "\n";
-
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
 		this->favoriteList = new FavoriteList(this->gui);
 		/*std::cout << this->gui->get<tgui::ListView>("ListView1")->addColumn("Hello");*/
@@ -106,7 +107,7 @@ public:
 	}
 
 	void initSearchBar() {
-		this->searchList = new SearchList(this->gui, 550, 280, 720, 60);
+		this->searchList = new SearchList(this->gui, this->curSet, this->tries, this->tmpDataSet, 550, 280, 720, 60);
 		data = { "Hello", "Nice", "Helpful", "Helicopter"};
 		this->searchList->update(data);
 		this->isWordMode = true;
@@ -129,7 +130,6 @@ public:
 			}
 			else {
 				this->data = this->getListOfWords(text.toStdString(), 5);
-				//cerr << this->data.size() << '\n';
 				this->searchList->update(data);
 			}
 			});
@@ -145,6 +145,7 @@ public:
 	~MainMenuState() {
 		delete this->gui;
 		delete this->backgroundAnimations;
+		//delete this->tmpDataSet;
 	};
 
 	void updateInput(const float& dt) {

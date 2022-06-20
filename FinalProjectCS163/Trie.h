@@ -18,8 +18,8 @@ private:
 	int size;
 
 	static int getID(const char c);
-	static void getListOfWords(TrieNode* node, string& current, int& remain, vector<string>& result);
-	static void getIDofAllWords(TrieNode* node, vector<int> &id);
+	static void getListOfWords(TrieNode* const node, string& current, int& remain, vector<string>& result);
+	static void getIDofAllWords(TrieNode* const node, vector<int> &id);
 
 public:
 	
