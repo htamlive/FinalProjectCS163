@@ -22,6 +22,12 @@
     <Filter Include="WordDetail">
       <UniqueIdentifier>{11bd907e-e513-41ef-b48b-74da966a0a4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{9c2f6722-1130-439a-9b73-20302da41dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animations">
+      <UniqueIdentifier>{231942f3-dd97-4b0a-ba09-09225f76a021}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FinalProjectCS163.cpp">
@@ -63,6 +69,12 @@
     <ClCompile Include="WordDetail.cpp">
       <Filter>WordDetail</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundAnimations.cpp">
+      <Filter>Animations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dictionary.h">
@@ -100,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="WordDetail.h">
       <Filter>WordDetail</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundAnimations.h">
+      <Filter>Animations</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

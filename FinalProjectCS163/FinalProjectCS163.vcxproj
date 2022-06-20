@@ -145,11 +145,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundAnimations.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellController.cpp" />
     <ClCompile Include="DATASET.cpp" />
     <ClCompile Include="Dictionary.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FinalProjectCS163.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
@@ -160,11 +162,13 @@
     <ClCompile Include="WordDetail.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundAnimations.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellController.h" />
     <ClInclude Include="DATASET.h" />
     <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="SearchList.h" />

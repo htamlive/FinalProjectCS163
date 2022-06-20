@@ -1,3 +1,74 @@
+Picture.myBg {
+    Position = (0, 2.47156);
+    Size = (1310, 798.083);
+    Visible = false;
+
+    Renderer {
+        Texture = "../images/bg1.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.triag1 {
+    Position = (420, 690);
+    Size = (160, 115);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(0, 107, 420, 350) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.triag2 {
+    Position = (130, 362);
+    Size = (90, 66.4286);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(0, 107, 420, 350) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross1 {
+    Position = (74, 296.875);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross2 {
+    Position = (74, 380);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross3 {
+    Position = (1073, 380);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross4 {
+    Position = (1171, 382);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
 Picture.SearchDecoration {
     Position = (550, 215);
     Size = (720, 80);
@@ -19,7 +90,6 @@ Picture.BottomList {
 }
 
 EditBox.SearchBar {
-    Alignment = Left;
     Position = (550, 180);
     Size = (720, 80);
     TextSize = 28;
@@ -41,7 +111,6 @@ EditBox.SearchBar {
         TextureHover = "images/searchBarHover.png" Smooth;
     }
 }
-
 
 Button.btnSearch {
     Position = (1195, 185);
@@ -83,6 +152,30 @@ Button.btnWordDef {
     Position = (560, 189);
     Size = (105, 60);
     TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = None;
+        TextureDisabled = None;
+        TextureDown = None;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
 }
 
 Button.btnWordQuiz {
@@ -122,7 +215,6 @@ Button.btnDefQuiz {
 }
 
 Button.btnENtoEN {
-    Position = (0, 0);
     Size = (100, 51);
     TextSize = 20;
 
@@ -139,7 +231,7 @@ Button.btnENtoEN {
     }
 }
 
-Button.btnENtoVIE{
+Button.btnENtoVIE {
     Position = (100, 0);
     Size = (100, 51);
     TextSize = 20;
@@ -157,7 +249,7 @@ Button.btnENtoVIE{
     }
 }
 
-Button.btnVIEtoEN{
+Button.btnVIEtoEN {
     Position = (200, 0);
     Size = (100, 51);
     TextSize = 20;
@@ -175,7 +267,7 @@ Button.btnVIEtoEN{
     }
 }
 
-Button.btnSLANG{
+Button.btnSLANG {
     Position = (300, 0);
     Size = (100, 51);
     TextSize = 20;
@@ -193,7 +285,7 @@ Button.btnSLANG{
     }
 }
 
-Button.btnEmoji{
+Button.btnEmoji {
     Position = (400, 0);
     Size = (100, 51);
     TextSize = 20;
@@ -211,8 +303,6 @@ Button.btnEmoji{
     }
 }
 
-
-
 Picture.PicLogoRB {
     Position = (980, 700);
     Size = (300, 129);
@@ -222,4 +312,3 @@ Picture.PicLogoRB {
         TransparentTexture = false;
     }
 }
-

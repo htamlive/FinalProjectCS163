@@ -8,6 +8,66 @@ Picture.PicLogoRB {
     }
 }
 
+Picture.triag1 {
+    Position = (420, 690);
+    Size = (160, 115);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(0, 107, 420, 350) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.triag2 {
+    Position = (130, 362);
+    Size = (90, 66.4286);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(0, 107, 420, 350) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross1 {
+    Position = (74, 296.875);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross2 {
+    Position = (74, 380);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross3 {
+    Position = (1073, 380);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross4 {
+    Position = (1171, 382);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
 Button.btnBack {
     Size = (80, 52);
     TextSize = 20;
@@ -26,8 +86,8 @@ Button.btnBack {
 }
 
 Picture.Picture1 {
-    Position = (270, 205.304);
-    Size = (843, 517.862);
+    Position = (270, 195.304);
+    Size = (843, 487.862);
 
     Renderer {
         Texture = "themes/BgQuest.png" Smooth;
@@ -36,7 +96,7 @@ Picture.Picture1 {
 }
 
 Button.btn1 {
-    Position = (420, 289.784);
+    Position = (420, 269.784);
     Size = (560, 63.5676);
     Text = Button;
     TextSize = 24;
@@ -63,7 +123,7 @@ Button.btn1 {
 }
 
 Button.btn2 {
-    Position = (420, 369.784);
+    Position = (420, 349.784);
     Size = (560, 63.5676);
     Text = Button;
     TextSize = 24;
@@ -90,7 +150,7 @@ Button.btn2 {
 }
 
 Button.btn3 {
-    Position = (420, 449.784);
+    Position = (420, 429.784);
     Size = (560, 63.5676);
     Text = Button;
     TextSize = 24;
@@ -117,7 +177,7 @@ Button.btn3 {
 }
 
 Button.btn4 {
-    Position = (420, 538.649);
+    Position = (420, 518.649);
     Size = (560, 63.5676);
     Text = Button;
     TextSize = 24;
@@ -145,7 +205,7 @@ Button.btn4 {
 
 EditBox.ebPrompt {
     Enabled = false;
-    Position = (270, 130);
+    Position = (270, 120);
     ReadOnly = true;
     Size = (844, 119.477);
     Text = "Hello hello hello";
@@ -176,7 +236,7 @@ EditBox.ebPrompt {
 }
 
 Button.btnNext {
-    Position = (590, 650.373);
+    Position = (590, 610.373);
     Size = (220, 51.6267);
     Text = Next;
     TextSize = 20;

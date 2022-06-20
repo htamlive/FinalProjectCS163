@@ -7,12 +7,14 @@
 #include "Trie.h"
 #include "DATASET.h"
 #include "State.h"
+#include "BackgroundAnimations.h"
 class MainMenuState : public State
 {
 private:
 	sf::RectangleShape background;
 	sf::Texture backgroundTexture;
 	sf::Font font;
+	Entity* entity;
 	int curOption = 0;
 
 	int curSet = 0;
@@ -22,6 +24,7 @@ private:
 	
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
 	SearchList* searchList;
+	BackgroundAnimations* backgroundAnimations;
 	vector<string> data;
 public:
 	bool isWordMode = true;
@@ -33,6 +36,9 @@ public:
 		initSearchBar();
 		initSearchButton();
 		//initTries({"FilterENtoVIEAgain.csv"});
+		//cout << this->gui->get<tgui::Picture>("triag1")->getPosition().x << "\n";
+
+		this->backgroundAnimations = new BackgroundAnimations(this->gui);
 	};
 
 	void initTries(vector<string> dataName) {
@@ -61,7 +67,7 @@ public:
 			static_cast<float>(this->window->getSize().y)
 		) 
 		);
-		this->backgroundTexture.loadFromFile("images/bg1.png");
+		this->backgroundTexture.loadFromFile("images/bg.png");
 		this->background.setTexture(&this->backgroundTexture);
 	}
 
@@ -130,6 +136,8 @@ public:
 
 	~MainMenuState() {
 		delete this->gui;
+		delete this->entity;
+		delete this->backgroundAnimations;
 	};
 
 	void updateInput(const float& dt) {
@@ -154,6 +162,7 @@ public:
 
 	void update(const float& dt) {
 		this->updateBtns();
+		this->backgroundAnimations->update(dt);
 	};
 
 	void updateSearchBar() {

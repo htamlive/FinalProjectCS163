@@ -1,6 +1,7 @@
 #pragma once
 #include "CellController.h"
 #include "State.h"
+#include "BackgroundAnimations.h"
 
 enum GAMETYPE
 {
@@ -29,6 +30,8 @@ private:
 
 	CellController* cellController;
 
+	BackgroundAnimations* backgroundAnimations;
+
 	//void initCells();
 	//void initStatusBar();
 	//void initKeyBinds();
@@ -45,7 +48,7 @@ private:
 			static_cast<float>(this->window->getSize().y)
 		)
 		);
-		this->backgroundTexture.loadFromFile("images/bg1.png");
+		this->backgroundTexture.loadFromFile("images/bg.png");
 		this->background.setTexture(&this->backgroundTexture);
 	};
 
@@ -72,6 +75,7 @@ public:
 		this->initButtons();
 		cellController = new CellController(this->gui, this->window);
 
+		this->backgroundAnimations = new BackgroundAnimations(this->gui);
 		this->initTitle();
 		
 	};
@@ -111,7 +115,7 @@ public:
 	};
 
 	void update(const float& dt) override {
-		//this->cellController->update();
+		this->backgroundAnimations->update(dt);
 	}
 	//void updateCells();
 	//void updateStatusBar();
