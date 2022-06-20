@@ -12,6 +12,7 @@ public:
 
 	int id;
 	vector<pair<int, int> > occurences;
+	//occurenece : {id of line, id of word (in the line)}
 
 	TrieNode();
 };

@@ -154,6 +154,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FinalProjectCS163.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="helper.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="SearchList.cpp" />
     <ClCompile Include="State.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="helper.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="SearchList.h" />
     <ClInclude Include="State.h" />
