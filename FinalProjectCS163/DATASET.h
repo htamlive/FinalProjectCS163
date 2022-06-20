@@ -14,16 +14,16 @@ private:
 	int _typeOfdata = -1;
 	//type 0
 	void loadFromCSV();
-
+	void saveToCSV();
 	//type 1
 	void loadFromEmotional();
-
+	void saveToEmotional();
 	//type 2
 	void loadFromSlang();
-
+	void saveToSlang();
 	//type 3
 	void loadFromOxford();
-
+	void saveToOxford();
 
 public:
 	vector<pair<string, string>> Data;
@@ -32,24 +32,27 @@ public:
 
 	DATASET(string dataname) {
 		dataset_name = dataname;
-		if (dataset_name == "dataset/emotional.txt") {
+		if (dataset_name == "Dataset/emotional.txt") {
 			_typeOfdata = 0;
 		}
-		if (dataset_name == "dataset/slang.txt") {
+		if (dataset_name == "Dataset/slang.txt") {
 			_typeOfdata = 1;
 		}
-		if (dataset_name == "dataset/FilterENtoVIEAgain.csv") {
+		if (dataset_name == "Dataset/FilterENtoVIEAgain.csv") {
 			_typeOfdata = 2;
 		}
-		if (dataset_name == "dataset/FilterOxford.csv") {
+		if (dataset_name == "Dataset/FilterOxford.csv") {
 			_typeOfdata = 3;
 		}
 	}
 
 	void loadData();
+	void saveData();
 
-	void addWord();
-	void removeWord();
+	void addWord(pair<string, string> newWord);
+	void removeWord(int id);
+
+	void restoreDictionary();
 
 	pair<string, string> getData(int id);
 };
