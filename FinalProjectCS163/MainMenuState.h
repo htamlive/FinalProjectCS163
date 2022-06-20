@@ -8,13 +8,13 @@
 #include "DATASET.h"
 #include "State.h"
 #include "BackgroundAnimations.h"
+#include "FavoriteList.h"
 class MainMenuState : public State
 {
 private:
 	sf::RectangleShape background;
 	sf::Texture backgroundTexture;
 	sf::Font font;
-	Entity* entity;
 	int curOption = 0;
 
 	int curSet = 0;
@@ -25,11 +25,12 @@ private:
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
 	SearchList* searchList;
 	BackgroundAnimations* backgroundAnimations;
+	FavoriteList* favoriteList;
 	vector<string> data;
 public:
 	bool isWordMode = true;
 	MainMenuState(sf::RenderWindow* window, std::vector<State*>* states) : State(window, states) {
-		this->gui = new Gui(ref(* window));
+		this->gui = new Gui(ref(*window));
 		this->gui->loadWidgetsFromFile("Template/MenuTem.txt");
 		initBackground();
 		initButtons();
@@ -39,26 +40,33 @@ public:
 		//cout << this->gui->get<tgui::Picture>("triag1")->getPosition().x << "\n";
 
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
-	};
+		this->favoriteList = new FavoriteList(this->gui);
+		/*std::cout << this->gui->get<tgui::ListView>("ListView1")->addColumn("Hello");*/
+		//this->gui->get<tgui::ListView>("ListView1")->setColumnText(0, "Hello");
 
+	
+
+		//this->gui->get<tgui::ListView>("ListView1")->setInheritedFont(tgui::Font("Template/fonts/UTM Androgyne.ttf"));
+		//this->gui->get<tgui::ListView>("ListView1")->clic;
+	}
 	void initTries(vector<string> dataName) {
-		for (int i = 0; i < (int)dataName.size(); i++) {
-			DATASET* data = new DATASET(dataName[i]);
-			data->loadData();
-			dataSet.push_back(data);
-			
-			Trie* trie = new Trie();
+		//for (int i = 0; i < (int)dataName.size(); i++) {
+		//	DATASET* data = new DATASET(dataName[i]);
+		//	data->loadData();
+		//	dataSet.push_back(data);
+		//	
+		//	Trie* trie = new Trie();
 
-			for (int j = 0; j < (int)data->Data.size(); j++) {
-				pair<string, vector<string>> cur = data->Data[j];
-				//cerr << cur.first << '\n';
-				for (int k = 0; k < (int)cur.second.size(); k++) {
-					trie->addWord(cur.first, make_pair(j, k));
-				}
-			}
+		//	for (int j = 0; j < (int)data->Data.size(); j++) {
+		//		pair<string, vector<string>> cur = data->Data[j];
+		//		//cerr << cur.first << '\n';
+		//		for (int k = 0; k < (int)cur.second.size(); k++) {
+		//			trie->addWord(cur.first, make_pair(j, k));
+		//		}
+		//	}
 
-			tries.push_back(trie);
-		}
+		//	tries.push_back(trie);
+		//}
 	}
 
 	void initBackground() {
@@ -136,7 +144,6 @@ public:
 
 	~MainMenuState() {
 		delete this->gui;
-		delete this->entity;
 		delete this->backgroundAnimations;
 	};
 
@@ -162,6 +169,7 @@ public:
 
 	void update(const float& dt) {
 		this->updateBtns();
+		this->favoriteList->update();
 		this->backgroundAnimations->update(dt);
 	};
 

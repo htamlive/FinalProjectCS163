@@ -152,6 +152,7 @@
     <ClCompile Include="DATASET.cpp" />
     <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="FavoriteList.cpp" />
     <ClCompile Include="FinalProjectCS163.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="helper.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="DATASET.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="FavoriteList.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="helper.h" />
     <ClInclude Include="MainMenuState.h" />

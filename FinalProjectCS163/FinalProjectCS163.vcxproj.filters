@@ -28,6 +28,12 @@
     <Filter Include="Animations">
       <UniqueIdentifier>{231942f3-dd97-4b0a-ba09-09225f76a021}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dataset">
+      <UniqueIdentifier>{b8feaba6-85b5-4507-85dd-2d539bfde13d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Favorite List">
+      <UniqueIdentifier>{453c1cc9-3c7b-4ed1-a875-7e6d64ae5556}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FinalProjectCS163.cpp">
@@ -63,9 +69,6 @@
     <ClCompile Include="Trie.cpp">
       <Filter>Trie</Filter>
     </ClCompile>
-    <ClCompile Include="DATASET.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WordDetail.cpp">
       <Filter>WordDetail</Filter>
     </ClCompile>
@@ -77,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="BackgroundAnimations.cpp">
       <Filter>Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="DATASET.cpp">
+      <Filter>Dataset</Filter>
+    </ClCompile>
+    <ClCompile Include="FavoriteList.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,9 +119,6 @@
     <ClInclude Include="Trie.h">
       <Filter>Trie</Filter>
     </ClInclude>
-    <ClInclude Include="DATASET.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WordDetail.h">
       <Filter>WordDetail</Filter>
     </ClInclude>
@@ -124,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="BackgroundAnimations.h">
       <Filter>Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="DATASET.h">
+      <Filter>Dataset</Filter>
+    </ClInclude>
+    <ClInclude Include="FavoriteList.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

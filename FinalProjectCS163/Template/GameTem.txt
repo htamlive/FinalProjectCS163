@@ -69,7 +69,7 @@ Picture.cross4 {
 }
 
 Button.btnBack {
-    Size = (80, 52);
+    Size = (80, 56);
     TextSize = 20;
 
     Renderer {
@@ -297,7 +297,7 @@ Label.lbDataset {
 
 EditBox.ebCorrect {
     Enabled = false;
-    Position = (980, 5);
+    Position = (980, 7);
     Size = (140, 42);
     Text = 0;
     TextSize = 20;
@@ -327,7 +327,7 @@ EditBox.ebCorrect {
 
 EditBox.ebIncorrect {
     Enabled = false;
-    Position = (1140, 5);
+    Position = (1140, 7);
     Size = (140, 42);
     Text = 0;
     TextSize = 20;
@@ -357,7 +357,7 @@ EditBox.ebIncorrect {
 
 Button.btnTotal {
     Enabled = false;
-    Position = (900, 0);
+    Position = (900, 1);
     Size = (50, 50);
     Text = 0;
     TextSize = 15;

@@ -180,7 +180,7 @@ Button.btnWordDef {
 
 Button.btnWordQuiz {
     Position = (500, 0);
-    Size = (150, 51);
+    Size = (150, 56);
     TextSize = 20;
 
     Renderer {
@@ -198,7 +198,7 @@ Button.btnWordQuiz {
 
 Button.btnDefQuiz {
     Position = (650, 0);
-    Size = (180, 51);
+    Size = (180, 56);
     TextSize = 20;
 
     Renderer {
@@ -215,7 +215,7 @@ Button.btnDefQuiz {
 }
 
 Button.btnENtoEN {
-    Size = (100, 51);
+    Size = (100, 55);
     TextSize = 20;
 
     Renderer {
@@ -233,7 +233,7 @@ Button.btnENtoEN {
 
 Button.btnENtoVIE {
     Position = (100, 0);
-    Size = (100, 51);
+    Size = (100, 56);
     TextSize = 20;
 
     Renderer {
@@ -251,7 +251,7 @@ Button.btnENtoVIE {
 
 Button.btnVIEtoEN {
     Position = (200, 0);
-    Size = (100, 51);
+    Size = (100, 56);
     TextSize = 20;
 
     Renderer {
@@ -269,7 +269,7 @@ Button.btnVIEtoEN {
 
 Button.btnSLANG {
     Position = (300, 0);
-    Size = (100, 51);
+    Size = (100, 56);
     TextSize = 20;
 
     Renderer {
@@ -287,7 +287,7 @@ Button.btnSLANG {
 
 Button.btnEmoji {
     Position = (400, 0);
-    Size = (100, 51);
+    Size = (100, 56);
     TextSize = 20;
 
     Renderer {
@@ -310,5 +310,78 @@ Picture.PicLogoRB {
     Renderer {
         Texture = "images/logo4.png" Smooth;
         TransparentTexture = false;
+    }
+}
+
+Button.btnHistory {
+    Position = (1074, 0);
+    Size = (118, 56);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = #FFFFFF00;
+        BorderColor = #3C3C3C00;
+        BorderColorDisabled = #7D7D7D00;
+        BorderColorDown = transparent;
+        BorderColorFocused = #1E1EB400;
+        BorderColorHover = transparent;
+        Borders = (1, 1, 1, 1);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "images/HistoryIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/HistoryIdle.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/HistoryHover.png" Smooth;
+    }
+}
+
+ListView.FavoriteList {
+    ExpandLastColumn = 1;
+    HeaderHeight = 80;
+    HeaderSeparatorHeight = 0;
+    HeaderTextSize = 40;
+    HeaderVisible = true;
+    ItemHeight = 60;
+    Position = (70, 190);
+    ResizableColumns = false;
+    SeparatorWidth = 1;
+    ShowVerticalGridLines = 1;
+    Size = (435.172, 487);
+    TextSize = 20;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorHover = white;
+        BorderColor = #F0F0F000;
+        Borders = (1, 1, 1, 1);
+        HeaderBackgroundColor = rgb(160, 160, 160, 215);
+        HeaderTextColor = white;
+        Padding = (0, -80, 0, 40);
+        ScrollbarWidth = 0;
+        SelectedBackgroundColor = white;
+        SelectedTextColor = #39F7FF;
+        TextColor = #3C3C3C;
+        TextColorHover = #4D91FF;
+        TextureBackground = "images/FavoriteBg.png" Smooth;
+        TextureHeaderBackground = "themes/bgPrompt.png" Smooth;
+
+        Scrollbar {
+            ArrowBackgroundColor = rgba(160, 160, 160, 215);
+            ArrowBackgroundColorHover = rgba(170, 170, 170, 215);
+            ArrowColor = rgba(200, 200, 200, 215);
+            ArrowColorHover = rgba(225, 225, 225, 215);
+            ThumbColor = rgba(185, 185, 185, 215);
+            ThumbColorHover = rgba(195, 195, 195, 215);
+            TrackColor = rgba(160, 160, 160, 215);
+            TrackColorHover = rgba(170, 170, 170, 215);
+        }
     }
 }
