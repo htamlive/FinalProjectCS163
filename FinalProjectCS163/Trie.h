@@ -18,16 +18,16 @@ private:
 	int size;
 
 	static int getID(const char c);
-	static void getListOfWords(TrieNode* node, string& current, int& remain, vector<string>& result);
-	static void getIDofAllWords(TrieNode* node, vector<int> &id);
+	static void getListOfWords(TrieNode* const node, string& current, int& remain, vector<string>& result);
+	static void getIDofAllWords(TrieNode* const node, vector<int> &id);
 
 public:
 	
 	Trie();
 	~Trie();
 
-	void addWord(const string& word, const pair<int, int>& occurence);
-	vector<pair<int, int> > getDefinitions(const string& s) const;
+	void addWord(const string &word, const pair<int, int>& occurence);
+	vector<pair<int, int> > getDefinitions(const string &s) const;
 	vector<string> getListOfWords(string prefix, int maximum);
 	vector<int> getIDofRandomWords(const int numberOfWords) const;
 	vector<pair<int, int> > getKey(const DATASET& dataset, const string &definition) const;

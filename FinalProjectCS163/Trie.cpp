@@ -14,17 +14,19 @@ Trie::Trie() {
 	this->size = 0;
 }
 
-void Trie::addWord(const string& word, const pair<int, int>& occurrence) {
+void Trie::addWord(const string &word, const pair<int, int>& occurrence) {
 	TrieNode* currentNode = this->root;
 	int d;
 	for (const char& c : word) {
+		if (!checkPrintable(c))
+			return;
 		if (c < 'a' || c > 'z') {
 			if (c != '.' && c != 39 && c != '-') {
 				//cerr << word << '\n';
 				break;
 			}
 		}
-		d = Trie::getID(c);
+		d = Trie::getID(tolower(c));
 		if ((currentNode->children)[d] == nullptr) {
 			(currentNode->children)[d] = new TrieNode;
 			(currentNode->children)[d]->id = ++(this->size);
@@ -46,7 +48,7 @@ Trie::~Trie() {
 	clearTrieNode(this->root);
 };
 
-void Trie::getListOfWords(TrieNode *node, string& current, int& remain, vector<string>& result) {
+void Trie::getListOfWords(TrieNode* const node, string& current, int& remain, vector<string>& result) {
 	if (node == nullptr || remain <= 0)
 		return;
 	if (!(node->occurences).empty()) {
@@ -106,10 +108,12 @@ string Trie::getCurrentString() const {
 	return this->currentSearchString;
 };
 
-vector<pair<int, int> > Trie::getDefinitions(const string& s) const {
+vector<pair<int, int> > Trie::getDefinitions(const string &s) const {
 	TrieNode* node = this->root;
-	for (const char& c : s) {
-		node = node->children[Trie::getID(c)];
+	for (const char &c : s) {
+		if (!checkPrintable(c)) 
+			return vector<pair<int, int> >();
+		node = node->children[Trie::getID(tolower(c))];
 		if (node == nullptr)
 			return vector<pair<int, int> >();
 	}
@@ -126,7 +130,7 @@ bool Trie::containsWord(const string& s) const {
 	return !(node->occurences).empty();
 };
 
-void Trie::getIDofAllWords(TrieNode* node, vector<int>& id) {
+void Trie::getIDofAllWords(TrieNode* const node, vector<int>& id) {
 	if (node == nullptr)
 		return;
 	if (!(node->occurences).empty())

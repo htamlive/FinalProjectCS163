@@ -30,3 +30,7 @@ bool checkContainStrings(const vector<string> &s, const vector<string> &t) {
 			return false;
 	return true;
 };
+
+bool checkPrintable(const char c) {
+	return 32 <= c && c <= 127;
+};
