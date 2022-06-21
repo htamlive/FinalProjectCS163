@@ -8,7 +8,7 @@ private:
 	DATASET* datasets[5];
 	Trie* trieKeys[5], *trieDefs[5];
 	int curDataset;
-	void addToTrie(int id) {
+	void addToTrieDefs(int id) {
 		for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
 			pair<string, string> cur = this->datasets[id]->Data[j];
 			transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
@@ -16,6 +16,12 @@ private:
 			for (int i = 0; i < words.size(); ++i) {
 				this->trieDefs[id]->addWord(words[i], { j, i });
 			}
+		}
+	}
+
+	void addToTrieKeys(int id) {
+		for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
+			pair<string, string> cur = this->datasets[id]->Data[j];
 			this->trieKeys[id]->addWord(cur.first, { j, 0 });
 		}
 	}
@@ -53,6 +59,38 @@ public:
 
 	}
 
+	bool loadKeys(int id) {
+		if (id > 4 || id < 0) return false;
+		this->curDataset = id;
+		if (this->trieKeys[id]) return false;
+
+		this->trieKeys[id] = new Trie();
+		loadDataset(id);
+		addToTrieKeys(id);
+	}
+
+	bool loadDefs(int id) {
+		if (id > 4 || id < 0) return false;
+		this->curDataset = id;
+		if (this->trieKeys[id]) return false;
+
+		this->trieDefs[id] = new Trie();
+		loadDataset(id);
+		addToTrieDefs(id);
+	}
+
+	bool loadDataset(int id) {
+		if (id > 4 || id < 0) return false;
+		this->curDataset = id;
+		if (this->datasets[id]) return false;
+		this->datasets[id] = new DATASET(id);
+		this->datasets[id]->loadData();
+		if (id == 4) {
+			this->datasets[id]->swap();
+		}
+		return true;
+	}
+
 	bool load(int id) {
 		if (id > 4 || id < 0) return false;
 		this->curDataset = id;
@@ -62,9 +100,11 @@ public:
 		if (id == 4) {
 			this->datasets[id]->swap();
 		}
-		this->trieKeys[id] = new Trie();
+
 		this->trieDefs[id] = new Trie();
-		this->addToTrie(id);
+		this->trieKeys[id] = new Trie();
+		this->addToTrieDefs(id);
+		this->addToTrieKeys(id);
 		return true;
 	}
 
@@ -79,7 +119,7 @@ public:
 		string defText = "";
 		for (int i = 0; i < (int)def.size(); i++) {
 			auto ans = this->datasets[this->curDataset]->getData(def[i].first);
-			defText += "+" +  ans.second + "\n";
+			defText += "+ " +  ans.second + "\n";
 		}
 
 		return defText;

@@ -38,11 +38,11 @@ public:
 		this->gui = new Gui(ref(*window));
 		this->gui->loadWidgetsFromFile("Template/MenuTem.txt");
 		initBackground();
-		//initTries({  "Dataset/slang.txt", "Dataset/emotional.txt", "Dataset/FilterENtoVIEAgain.csv" });
+
 		initSearchBar();
 		initButtons();
 		initSearchButton();
-		//cout << this->gui->get<tgui::Picture>("triag1")->getPosition().x << "\n";
+
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
 		this->favoriteList = new FavoriteList(this->gui);
 
@@ -54,7 +54,7 @@ public:
 
 		this->dataExec = &DataExecution::getInstance();
 
-		this->dataExec->load(DATASETID::ENtoVIE);
+		this->dataExec->loadKeys(DATASETID::ENtoVIE);
 
 		//this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 		/*std::cout << this->gui->get<tgui::ListView>("ListView1")->addColumn("Hello");*/
@@ -62,27 +62,6 @@ public:
 
 		//this->gui->get<tgui::ListView>("ListView1")->setInheritedFont(tgui::Font("Template/fonts/UTM Androgyne.ttf"));
 		//this->gui->get<tgui::ListView>("ListView1")->clic;
-	}
-
-	void initTries(vector<string> dataName) {
-		for (int i = 0; i < (int)dataName.size(); i++) {
-			DATASET* data = new DATASET(dataName[i]);
-			data->loadData();
-			dataSet.push_back(data);
-			long long tmpDataIdx = this->tmpDataSet.size();
-			loadTmpData();
-			Trie* trie = new Trie();
-
-			for (int j = 0; j < (int)data->Data.size(); j++) {
-				pair<string, string> cur = data->Data[j];
-				transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
-				for (int k = 0; k < (int)tmpDataSet[tmpDataIdx + j].size(); k++) {
-					trie->addWord(cur.first, make_pair(tmpDataIdx + j, k));
-				}
-			}
-
-			tries.push_back(trie);
-		}
 	}
 
 	void initBackground() {
@@ -111,15 +90,23 @@ public:
 
 		this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefWord"));
 
-		this->gui->get<tgui::Button>("btnWordDef")->onClick([&]() {
+		this->gui->get<tgui::Button>("btnWordDef")->onClick([&, this]() {
 			this->isWordMode ^= 1;
-			if(this->isWordMode)
-				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{"Template/themes/MyThemes.txt"}.getRenderer("WordDefWord"));
-			else
-				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{"Template/themes/MyThemes.txt"}.getRenderer("WordDefDef"));
+			if (this->isWordMode) {
+				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefWord"));
+				dataExec->loadKeys(datasetId[curOpt]);
+			}	
+			else {
+				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefDef"));
+				dataExec->loadDefs(datasetId[curOpt]);
+			}
+				
+
+
 			this->gui->get<tgui::Button>("btnWordDef")->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			this->gui->get<tgui::EditBox>("SearchBar")->setFocused(true);
-			});
+		
+			});	
 	}
 
 	void initSearchBar() {
@@ -161,7 +148,6 @@ public:
 	~MainMenuState() {
 		delete this->gui;
 		delete this->backgroundAnimations;
-		//delete this->tmpDataSet;
 	};
 
 	void updateInput(const float& dt) {
@@ -222,6 +208,8 @@ public:
 				this->gui->get<tgui::Button>(btnNames[this->curOpt])->leftMouseButtonNoLongerDown();
 				this->curOpt = i;
 				this->searchList->changeSearchSet(this->datasetId[this->curOpt]);
+
+				
 				this->dataExec->load(this->datasetId[this->curOpt]);
 				this->gui->get<tgui::Button>(btnNames[this->curOpt])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			}
