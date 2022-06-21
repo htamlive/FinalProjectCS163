@@ -350,7 +350,7 @@ ListView.FavoriteList {
     HeaderTextSize = 40;
     HeaderVisible = true;
     ItemHeight = 60;
-    Position = (70, 190);
+    Position = (70, 170);
     ResizableColumns = false;
     SeparatorWidth = 1;
     ShowVerticalGridLines = 1;
@@ -370,7 +370,7 @@ ListView.FavoriteList {
         SelectedTextColor = #39F7FF;
         TextColor = #3C3C3C;
         TextColorHover = #4D91FF;
-        TextureBackground = "images/FavoriteBg.png" Smooth;
+        TextureBackground = None;
         TextureHeaderBackground = "themes/bgPrompt.png" Smooth;
 
         Scrollbar {
@@ -382,6 +382,167 @@ ListView.FavoriteList {
             ThumbColorHover = rgba(195, 195, 195, 215);
             TrackColor = rgba(160, 160, 160, 215);
             TrackColorHover = rgba(170, 170, 170, 215);
+        }
+    }
+}
+
+ChildWindow.ChildWindow {
+    Position = (60, 170);
+    Size = (460, 550);
+    TitleAlignment = Center;
+    TitleButtons = Close;
+    TitleTextSize = 13;
+    Visible = false;
+
+    Renderer {
+        BackgroundColor = #E6E6E6;
+        BorderBelowTitleBar = 1;
+        BorderColor = black;
+        Borders = (1, 1, 1, 1);
+        DistanceToSide = 3;
+        PaddingBetweenButtons = 1;
+        ShowTextOnTitleButtons = true;
+        TextureBackground = "../images/dickbutt_2022.jpg" NoSmooth;
+        TextureTitleBar = "themes/bgPrompt.png" Part(0, 100, 2004, 30) Smooth;
+        TitleBarColor = white;
+        TitleColor = #3C3C3C;
+        TransparentTexture = true;
+
+        CloseButton {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDown = black;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = None;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    TextArea.TextArea1 {
+        DefaultText = "Definition goes here";
+        HorizontalScrollbarPolicy = Never;
+        MaximumCharacters = 0;
+        Position = (90, 340);
+        ReadOnly = true;
+        Size = (288, 155);
+        Text = "";
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = white;
+            BorderColor = black;
+            Borders = (1, 1, 1, 1);
+            CaretColor = black;
+            CaretWidth = 1;
+            DefaultTextColor = #A0A0A0;
+            Padding = (0, 0, 0, 0);
+            SelectedTextBackgroundColor = #006EFF;
+            SelectedTextColor = white;
+            TextColor = #3C3C3C;
+            TextureBackground = None;
+        }
+    }
+
+    EditBox.EditBox1 {
+        Position = (150, 290);
+        ReadOnly = true;
+        Size = (170, 32);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            CaretColor = black;
+            CaretWidth = 1;
+            DefaultTextColor = #A0A0A0;
+            Padding = (0, 0, 0, 0);
+            SelectedTextBackgroundColor = #006EFF;
+            SelectedTextColor = white;
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            Texture = None;
+            TextureDisabled = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    Button.Button2 {
+        Position = (340, 295);
+        Size = (25, 25);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../images/pencil.png" Smooth;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = "../images/pencilHover.png" Smooth;
+        }
+    }
+
+    BitmapButton.Button1 {
+        Image = None;
+        ImageScaling = 0;
+        Position = (10, 20);
+        Size = (40, 40);
+        TextSize = 13;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../images/dark_star.png" Smooth;
+            TextureDisabled = "../images/dark_star.png" Smooth;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = "../images/bright_star.png" Smooth;
+            TextureFocused = None;
+            TextureHover = "../images/bright_star.png" Smooth;
+            TransparentTexture = true;
         }
     }
 }

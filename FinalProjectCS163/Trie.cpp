@@ -20,12 +20,6 @@ void Trie::addWord(const string &word, const pair<int, int>& occurrence) {
 	for (const char& c : word) {
 		if (!checkPrintable(c))
 			return;
-		if (c < 'a' || c > 'z') {
-			if (c != '.' && c != 39 && c != '-') {
-				//cerr << word << '\n';
-				break;
-			}
-		}
 		d = Trie::getID(tolower(c));
 		if ((currentNode->children)[d] == nullptr) {
 			(currentNode->children)[d] = new TrieNode;
@@ -73,10 +67,8 @@ vector<string> Trie::getListOfWords(string prefix, int maximum) {
 	TrieNode* node = this->root;
 	for (const char& c : prefix) {
 		node = (node->children)[Trie::getID(c)];
-		if (node == nullptr) {
-			//std::cerr << "No fucking way ...\n";
+		if (node == nullptr) 
 			return result;
-		}
 	}
 	this->getListOfWords(node, prefix, maximum, result);
 	return result;
@@ -157,6 +149,23 @@ vector<pair<int, int> > Trie::getKey(const DATASET &dataset, const string& defin
 			const pair<string, string> data = dataset.getData(occurence.first);
 			const string& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStrings(splitString(definitionOfKey), words))
+				result.push_back(occurence);
+		}
+	}
+	sort(result.begin(), result.end());
+	return result;
+};
+
+vector<pair<int, int> > Trie::getKeySubseqeunce(const DATASET& dataset, const string& definition) const {
+	// Second type searching
+	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
+	const vector<string> words = splitString(definition);
+	vector<pair<int, int> > result;
+	for (const string& word : words) {
+		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+			const pair<string, string> data = dataset.getData(occurence.first);
+			const string& key = data.first, & definitionOfKey = data.second;
+			if (checkContainStringsAsSubsequence(splitString(definitionOfKey), words))
 				result.push_back(occurence);
 		}
 	}
