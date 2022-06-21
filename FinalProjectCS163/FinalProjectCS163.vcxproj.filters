@@ -16,9 +16,6 @@
     <Filter Include="State">
       <UniqueIdentifier>{52738617-73a0-41f6-8309-2c20cdf6592a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Trie">
-      <UniqueIdentifier>{cbc2ae7f-1b60-44e9-83f9-bb798f0fed0b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="WordDetail">
       <UniqueIdentifier>{11bd907e-e513-41ef-b48b-74da966a0a4e}</UniqueIdentifier>
     </Filter>
@@ -28,11 +25,11 @@
     <Filter Include="Animations">
       <UniqueIdentifier>{231942f3-dd97-4b0a-ba09-09225f76a021}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Dataset">
-      <UniqueIdentifier>{b8feaba6-85b5-4507-85dd-2d539bfde13d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Favorite List">
       <UniqueIdentifier>{453c1cc9-3c7b-4ed1-a875-7e6d64ae5556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Controller">
+      <UniqueIdentifier>{b8feaba6-85b5-4507-85dd-2d539bfde13d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,12 +60,6 @@
     <ClCompile Include="SearchList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TrieNode.cpp">
-      <Filter>Trie</Filter>
-    </ClCompile>
-    <ClCompile Include="Trie.cpp">
-      <Filter>Trie</Filter>
-    </ClCompile>
     <ClCompile Include="WordDetail.cpp">
       <Filter>WordDetail</Filter>
     </ClCompile>
@@ -82,10 +73,19 @@
       <Filter>Animations</Filter>
     </ClCompile>
     <ClCompile Include="DATASET.cpp">
-      <Filter>Dataset</Filter>
+      <Filter>Data Controller</Filter>
     </ClCompile>
     <ClCompile Include="FavoriteList.cpp">
       <Filter>Favorite List</Filter>
+    </ClCompile>
+    <ClCompile Include="Trie.cpp">
+      <Filter>Data Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="TrieNode.cpp">
+      <Filter>Data Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="DataExecution.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,12 +113,6 @@
     <ClInclude Include="SearchList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TrieNode.h">
-      <Filter>Trie</Filter>
-    </ClInclude>
-    <ClInclude Include="Trie.h">
-      <Filter>Trie</Filter>
-    </ClInclude>
     <ClInclude Include="WordDetail.h">
       <Filter>WordDetail</Filter>
     </ClInclude>
@@ -132,10 +126,19 @@
       <Filter>Animations</Filter>
     </ClInclude>
     <ClInclude Include="DATASET.h">
-      <Filter>Dataset</Filter>
+      <Filter>Data Controller</Filter>
     </ClInclude>
     <ClInclude Include="FavoriteList.h">
       <Filter>Favorite List</Filter>
+    </ClInclude>
+    <ClInclude Include="Trie.h">
+      <Filter>Data Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="TrieNode.h">
+      <Filter>Data Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="DataExecution.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,6 +7,15 @@
 #include <iterator>
 using namespace std;
 
+enum DATASETID
+{
+	EMOJI = 0,
+	SLANG = 1,
+	ENtoVIE = 2,
+	ENtoEN = 3,
+	VIEtoEN = 4
+};
+
 class DATASET
 {
 private:
@@ -30,19 +39,56 @@ public:
 	vector<string> Core_Data;
 	string dataset_name;
 
+
+
 	DATASET(string dataname) {
 		dataset_name = dataname;
 		if (dataset_name == "Dataset/emotional.txt") {
-			_typeOfdata = 0;
+			_typeOfdata = DATASETID::EMOJI;
 		}
 		if (dataset_name == "Dataset/slang.txt") {
-			_typeOfdata = 1;
+			_typeOfdata = DATASETID::SLANG;
 		}
 		if (dataset_name == "Dataset/FilterENtoVIEAgain.csv") {
-			_typeOfdata = 2;
+			_typeOfdata = DATASETID::ENtoVIE;
 		}
 		if (dataset_name == "Dataset/FilterOxford.csv") {
-			_typeOfdata = 3;
+			_typeOfdata = DATASETID::ENtoEN;
+		}
+	}
+
+	DATASET(int id) {
+		_typeOfdata = id;
+
+		switch (this->_typeOfdata)
+		{
+		case DATASETID::EMOJI:
+			dataset_name = "Dataset/emotional.txt";
+			break;
+		case DATASETID::SLANG:
+			dataset_name = "Dataset/slang.txt";
+			break;
+		case DATASETID::ENtoVIE:
+			dataset_name = "Dataset/FilterENtoVIEAgain.csv";
+			break;
+		case DATASETID::ENtoEN:
+			dataset_name = "Dataset/FilterOxford.csv";
+			break;
+		case DATASETID::VIEtoEN:
+			dataset_name = "Dataset/FilterENtoVIEAgain.csv";
+			break;
+		default:
+			break;
+		}
+
+
+	}
+
+	void swap() {
+		for (auto& x : this->Data) {
+			string se = x.first;
+			x.first = x.second;
+			x.second = se;
 		}
 	}
 

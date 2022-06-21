@@ -55,11 +55,11 @@ BtnFavorite {
         BackgroundColorDisabled = #E6E6E6;
         BackgroundColorDown = #EBEBEB;
         BackgroundColorHover = white;
-        BorderColor = #2B4F84;
+        BorderColor = #3C3C3C00;
         BorderColorDisabled = #7D7D7D00;
-        BorderColorDown = #F4A947;
-        BorderColorFocused = none;
-        BorderColorHover = #25466E;
+        BorderColorDown = transparent;
+        BorderColorFocused = #1E1EB400;
+        BorderColorHover = transparent;
         Borders = (1, 1, 1, 1);
         TextColor = #3C3C3C;
         TextColorDisabled = #7D7D7D;
@@ -140,7 +140,7 @@ WordButton {
         BorderColorDownHover = white;
         BorderColorFocused = #1E1EB400;
         BorderColorHover = white;
-        Borders = (1, 1, 1, 1);
+        Borders = (0, 0, 0, 0);
         TextColor = #3C3C3C;
         TextColorDisabled = #7D7D7D;
         TextColorDown = #39F7FF;

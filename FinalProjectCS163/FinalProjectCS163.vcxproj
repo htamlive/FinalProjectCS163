@@ -149,6 +149,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellController.cpp" />
+    <ClCompile Include="DataExecution.cpp" />
     <ClCompile Include="DATASET.cpp" />
     <ClCompile Include="Dictionary.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellController.h" />
+    <ClInclude Include="DataExecution.h" />
     <ClInclude Include="DATASET.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Entity.h" />

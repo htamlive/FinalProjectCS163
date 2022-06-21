@@ -10,6 +10,7 @@
 #include "State.h"
 #include "BackgroundAnimations.h"
 #include "FavoriteList.h"
+#include "DataExecution.h"
 class MainMenuState : public State
 {
 private:
@@ -19,11 +20,13 @@ private:
 
 	int curSet = 0;
 
+	DataExecution* dataExec;
 	vector<DATASET*> dataSet;
 	vector<Trie*> tries;
 	vector<vector<string>> tmpDataSet;
 	
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
+	
 	SearchList* searchList;
 	BackgroundAnimations* backgroundAnimations;
 	FavoriteList* favoriteList;
@@ -47,6 +50,9 @@ public:
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(false);
 			});
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImageScaling(0.8f);
+
+		this->dataExec = &DataExecution::getInstance();
+
 		//this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 		/*std::cout << this->gui->get<tgui::ListView>("ListView1")->addColumn("Hello");*/
 		//this->gui->get<tgui::ListView>("ListView1")->setColumnText(0, "Hello");
@@ -95,19 +101,20 @@ public:
 			});
 
 		this->gui->get<tgui::Button>("btnENtoVIE")->onClick([&]() {
-			this->curSet = 0;
+			//this->curSet = 0;
 			//cerr << this->curSet << '\n';
+		
 			this->searchList->changeSearchSet(this->curSet);
 			});
 
 		this->gui->get<tgui::Button>("btnEmoji")->onClick([&]() {
-			this->curSet = 2;
+			//this->curSet = 2;
 			//cerr << this->curSet << '\n';
 			this->searchList->changeSearchSet(this->curSet);
 			});
 
 		this->gui->get<tgui::Button>("btnSLANG")->onClick([&]() {
-			this->curSet = 1;
+			//this->curSet = 1;
 			//cerr << this->curSet << '\n';
 			this->searchList->changeSearchSet(this->curSet);
 			});
@@ -229,7 +236,7 @@ public:
 		for (int i = 0; i < this->btnNames.size(); ++i) {
 			if (this->gui->get<tgui::Button>(btnNames[i])->isFocused() && i != this->curSet) {
 				this->gui->get<tgui::Button>(btnNames[this->curSet])->leftMouseButtonNoLongerDown();
-				//this->curSet = i;
+				this->curSet = i;
 				this->gui->get<tgui::Button>(btnNames[this->curSet])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			}
 		}

@@ -156,7 +156,7 @@ vector<pair<int, int> > Trie::getKey(const DATASET &dataset, const string& defin
 	return result;
 };
 
-vector<pair<int, int> > Trie::getKeySubseqeunce(const DATASET& dataset, const string& definition) const {
+vector<pair<int, int> > Trie::getKeySubsequence(const DATASET& dataset, const string& definition) const {
 	// Second type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
 	const vector<string> words = splitString(definition);

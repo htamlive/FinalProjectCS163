@@ -185,28 +185,28 @@ void DATASET::saveToOxford() {
 }
 
 void DATASET::restoreDictionary() {
-	if (_typeOfdata == 0) {
+	if (_typeOfdata == DATASETID::EMOJI) {
 		ifstream src("OrgData/emotional.txt", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
 		dst << src.rdbuf();
 		loadFromEmotional();
 		return;
 	}
-	if (_typeOfdata == 1) {
+	if (_typeOfdata == DATASETID::SLANG) {
 		ifstream src("OrgData/slang.txt", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
 		dst << src.rdbuf();
 		loadFromSlang();
 		return;
 	}
-	if (_typeOfdata == 2) {
+	if (_typeOfdata == DATASETID::ENtoVIE) {
 		ifstream src("OrgData/FilterENtoVIEAgain.csv", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
 		dst << src.rdbuf();
 		loadFromCSV();
 		return;
 	}
-	if (_typeOfdata == 3) {
+	if (_typeOfdata == DATASETID::ENtoEN) {
 		ifstream src("OrgData/FilterOxford.csv", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
 		dst << src.rdbuf();
