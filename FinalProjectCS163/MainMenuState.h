@@ -16,7 +16,6 @@ private:
 	sf::RectangleShape background;
 	sf::Texture backgroundTexture;
 	sf::Font font;
-	int curOption = 0;
 
 	int curSet = 0;
 
@@ -35,9 +34,9 @@ public:
 		this->gui = new Gui(ref(*window));
 		this->gui->loadWidgetsFromFile("Template/MenuTem.txt");
 		initBackground();
-		initTries({ "Dataset/FilterENtoVIEAgain.csv" });
-		initButtons();
+		initTries({ "Dataset/FilterENtoVIEAgain.csv", "Dataset/slang.txt", "Dataset/emotional.txt" });
 		initSearchBar();
+		initButtons();
 		initSearchButton();
 		//cout << this->gui->get<tgui::Picture>("triag1")->getPosition().x << "\n";
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
@@ -60,15 +59,15 @@ public:
 			DATASET* data = new DATASET(dataName[i]);
 			data->loadData();
 			dataSet.push_back(data);
+			long long tmpDataIdx = this->tmpDataSet.size();
 			loadTmpData();
-			cerr << tmpDataSet.size() << '\n';
 			Trie* trie = new Trie();
 
 			for (int j = 0; j < (int)data->Data.size(); j++) {
 				pair<string, string> cur = data->Data[j];
 				transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
-				for (int k = 0; k < (int)tmpDataSet[j].size(); k++) {
-					trie->addWord(cur.first, make_pair(j, k));
+				for (int k = 0; k < (int)tmpDataSet[tmpDataIdx + j].size(); k++) {
+					trie->addWord(cur.first, make_pair(tmpDataIdx + j, k));
 				}
 			}
 
@@ -88,11 +87,29 @@ public:
 
 	void initButtons() {
 		this->gui->get<tgui::Button>("btnWordQuiz")->onClick([&, this]() {
-			this->states->push_back(new GameState(this->window, this->states, 0, curOption));
+			this->states->push_back(new GameState(this->window, this->states, 0, curSet));
 			});		
 		
 		this->gui->get<tgui::Button>("btnDefQuiz")->onClick([&, this]() {
-			this->states->push_back(new GameState(this->window, this->states, 1, curOption));
+			this->states->push_back(new GameState(this->window, this->states, 1, curSet));
+			});
+
+		this->gui->get<tgui::Button>("btnENtoVIE")->onClick([&]() {
+			this->curSet = 0;
+			//cerr << this->curSet << '\n';
+			this->searchList->changeSearchSet(this->curSet);
+			});
+
+		this->gui->get<tgui::Button>("btnEmoji")->onClick([&]() {
+			this->curSet = 2;
+			//cerr << this->curSet << '\n';
+			this->searchList->changeSearchSet(this->curSet);
+			});
+
+		this->gui->get<tgui::Button>("btnSLANG")->onClick([&]() {
+			this->curSet = 1;
+			//cerr << this->curSet << '\n';
+			this->searchList->changeSearchSet(this->curSet);
 			});
 
 		this->gui->get<tgui::Button>("btnCross")->onClick([&]() {
@@ -130,8 +147,9 @@ public:
 
 	void initSearchButton() {
 		this->gui->get<tgui::Button>("btnSearch")->onClick([&]() {
+			cerr << "In here : " << this->curSet << '\n';
 			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
-			if (text.length() < 3) {
+			if (text.length() < 2) {
 				cerr << "Type down more shit you idiot\n";
 			}
 			else {
@@ -209,13 +227,13 @@ public:
 
 	void updateBtns() {
 		for (int i = 0; i < this->btnNames.size(); ++i) {
-			if (this->gui->get<tgui::Button>(btnNames[i])->isFocused() && i != this->curOption) {
-				this->gui->get<tgui::Button>(btnNames[this->curOption])->leftMouseButtonNoLongerDown();
-				this->curOption = i;
-				this->gui->get<tgui::Button>(btnNames[this->curOption])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
+			if (this->gui->get<tgui::Button>(btnNames[i])->isFocused() && i != this->curSet) {
+				this->gui->get<tgui::Button>(btnNames[this->curSet])->leftMouseButtonNoLongerDown();
+				//this->curSet = i;
+				this->gui->get<tgui::Button>(btnNames[this->curSet])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			}
 		}
-		this->gui->get<tgui::Button>(btnNames[this->curOption])->leftMousePressed({});
+		this->gui->get<tgui::Button>(this->btnNames[this->curSet])->leftMousePressed({});
 	}
 
 	void render(sf::RenderTarget* target = nullptr) {

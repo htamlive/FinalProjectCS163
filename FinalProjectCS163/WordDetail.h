@@ -51,5 +51,10 @@ public:
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(str));
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setText(tgui::String(this->getDefinition(str)));
+		
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("Button2")->onClick([&]() {
+			bool check = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->isReadOnly();
+			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(!check);
+			});
 	}
 };

@@ -53,6 +53,10 @@ public:
 		}
 	}
 
+	void changeSearchSet(int& curSet) {
+		this->curSet = curSet;
+	}
+
 	void update(std::vector<std::string> nwData) {
 		clear();
 		this->data = nwData;
@@ -70,9 +74,7 @@ public:
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
 				if (this->wordDetail) {
-					//this->wordDetail->removeWindow();
-					//delete this->wordDetail;
-					//this->wordDetail = nullptr;
+					delete this->wordDetail;
 				}
 
 				this->wordDetail = new WordDetail(this->gui, this->curSet, this->tries, this->tmpDataSet, 25, 100, 450, 600, data[i]);

@@ -392,6 +392,7 @@ ChildWindow.ChildWindow {
     TitleAlignment = Center;
     TitleButtons = Close;
     TitleTextSize = 13;
+    Visible = false;
 
     Renderer {
         BackgroundColor = #E6E6E6;
@@ -429,9 +430,11 @@ ChildWindow.ChildWindow {
     }
 
     TextArea.TextArea1 {
+        DefaultText = "Definition goes here";
         HorizontalScrollbarPolicy = Never;
         MaximumCharacters = 0;
         Position = (90, 340);
+        ReadOnly = true;
         Size = (288, 155);
         Text = "";
         TextSize = 13;
