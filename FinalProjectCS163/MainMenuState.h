@@ -51,23 +51,23 @@ public:
 		//this->gui->get<tgui::ListView>("ListView1")->clic;
 	}
 	void initTries(vector<string> dataName) {
-		//for (int i = 0; i < (int)dataName.size(); i++) {
-		//	DATASET* data = new DATASET(dataName[i]);
-		//	data->loadData();
-		//	dataSet.push_back(data);
-		//	
-		//	Trie* trie = new Trie();
+		for (int i = 0; i < (int)dataName.size(); i++) {
+			DATASET* data = new DATASET(dataName[i]);
+			data->loadData();
+			dataSet.push_back(data);
+			
+			Trie* trie = new Trie();
 
-		//	for (int j = 0; j < (int)data->Data.size(); j++) {
-		//		pair<string, vector<string>> cur = data->Data[j];
-		//		//cerr << cur.first << '\n';
-		//		for (int k = 0; k < (int)cur.second.size(); k++) {
-		//			trie->addWord(cur.first, make_pair(j, k));
-		//		}
-		//	}
+			for (int j = 0; j < (int)data->Data.size(); j++) {
+				pair<string, string> cur = data->Data[j];
+				//cerr << cur.first << '\n';
+				for (int k = 0; k < (int)cur.second.size(); k++) {
+					trie->addWord(cur.first, make_pair(j, k));
+				}
+			}
 
-		//	tries.push_back(trie);
-		//}
+			tries.push_back(trie);
+		}
 	}
 
 	void initBackground() {
@@ -153,7 +153,7 @@ public:
 	}
 
 	void updateEvents() {
-		this->gui->handleEvent(this->ev);	
+		this->gui->handleEvent(this->ev);
 		switch (this->ev.type)
 		{
 		case sf::Event::Closed:
@@ -166,7 +166,7 @@ public:
 		default:
 			break;
 		}
-	}
+	};
 
 	void update(const float& dt) {
 		this->updateBtns();
@@ -196,7 +196,7 @@ public:
 			}
 		}
 		this->gui->get<tgui::Button>(btnNames[this->curOption])->leftMousePressed({});
-	}
+	};
 
 	void render(sf::RenderTarget* target = nullptr) {
 		if (!target) {
@@ -204,6 +204,6 @@ public:
 		}
 		target->draw(this->background);
 		this->gui->draw();
-	}
+	};
 };
 

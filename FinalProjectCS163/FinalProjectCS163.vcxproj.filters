@@ -85,7 +85,7 @@
       <Filter>Dataset</Filter>
     </ClCompile>
     <ClCompile Include="FavoriteList.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Favorite List</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +135,7 @@
       <Filter>Dataset</Filter>
     </ClInclude>
     <ClInclude Include="FavoriteList.h">
-      <Filter>Header Files</Filter>
+      <Filter>Favorite List</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
