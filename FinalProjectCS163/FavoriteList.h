@@ -34,7 +34,7 @@ private:
 	void initButtons() {
 		auto btnFavor = tgui::ToggleButton::create();
 		this->gui->add(btnFavor, "togBtnList");
-		this->gui->get<tgui::ToggleButton>("togBtnList")->setPosition({1190, 0});
+		this->gui->get<tgui::ToggleButton>("togBtnList")->setPosition({930, 0});
 		this->gui->get<tgui::ToggleButton>("togBtnList")->setSize({120, 56});
 		this->gui->get<tgui::ToggleButton>("togBtnList")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("BtnFavorite"));
 		this->gui->get<tgui::ToggleButton>("togBtnList")->onClick([&, this] {

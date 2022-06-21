@@ -160,7 +160,7 @@ public:
 	}
 
 	void updateEvents() {
-		this->gui->handleEvent(this->ev);	
+		this->gui->handleEvent(this->ev);
 		switch (this->ev.type)
 		{
 		case sf::Event::Closed:
@@ -173,7 +173,7 @@ public:
 		default:
 			break;
 		}
-	}
+	};
 
 	void loadTmpData() {
 		DATASET* data = this->dataSet.back();
@@ -225,6 +225,6 @@ public:
 		}
 		target->draw(this->background);
 		this->gui->draw();
-	}
+	};
 };
 

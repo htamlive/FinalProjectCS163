@@ -179,8 +179,8 @@ Button.btnWordDef {
 }
 
 Button.btnWordQuiz {
-    Position = (500, 0);
-    Size = (150, 56);
+    Position = (510, 0);
+    Size = (210, 56);
     TextSize = 20;
 
     Renderer {
@@ -197,8 +197,8 @@ Button.btnWordQuiz {
 }
 
 Button.btnDefQuiz {
-    Position = (650, 0);
-    Size = (180, 56);
+    Position = (720, 0);
+    Size = (210, 56);
     TextSize = 20;
 
     Renderer {
@@ -215,7 +215,7 @@ Button.btnDefQuiz {
 }
 
 Button.btnENtoEN {
-    Size = (100, 55);
+    Size = (100, 56);
     TextSize = 20;
 
     Renderer {
@@ -287,7 +287,7 @@ Button.btnSLANG {
 
 Button.btnEmoji {
     Position = (400, 0);
-    Size = (100, 56);
+    Size = (110, 56);
     TextSize = 20;
 
     Renderer {
@@ -314,7 +314,7 @@ Picture.PicLogoRB {
 }
 
 Button.btnHistory {
-    Position = (1074, 0);
+    Position = (1050, 0);
     Size = (118, 56);
     TextSize = 13;
 
@@ -323,12 +323,12 @@ Button.btnHistory {
         BackgroundColorDisabled = #E6E6E6;
         BackgroundColorDown = #EBEBEB;
         BackgroundColorHover = #FFFFFF00;
-        BorderColor = #3C3C3C00;
+        BorderColor = #2B4F84;
         BorderColorDisabled = #7D7D7D00;
-        BorderColorDown = transparent;
+        BorderColorDown = #2B4F84;
         BorderColorFocused = #1E1EB400;
-        BorderColorHover = transparent;
-        Borders = (1, 1, 1, 1);
+        BorderColorHover = #25466E;
+        Borders = (0, 0, 0, 0);
         TextColor = #3C3C3C;
         TextColorDisabled = #7D7D7D;
         TextColorDown = black;
@@ -544,5 +544,35 @@ ChildWindow.ChildWindow {
             TextureHover = "../images/bright_star.png" Smooth;
             TransparentTexture = true;
         }
+    }
+}
+
+Button.btnRestore {
+    Position = (1168, 0);
+    Size = (140, 56);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = None;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = None;
+        BorderColorFocused = None;
+        BorderColorHover = None;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = None;
+        TextColorHover = None;
+        Texture = "images/RestoreIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/RestoreIdle.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/RestoreHover.png" Smooth;
     }
 }

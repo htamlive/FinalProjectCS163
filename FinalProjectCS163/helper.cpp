@@ -34,3 +34,15 @@ bool checkContainStrings(const vector<string> &s, const vector<string> &t) {
 bool checkPrintable(const char c) {
 	return 32 <= c && c <= 127;
 };
+
+bool checkContainStringsAsSubsequence(const vector<string>& s, const vector<string>& t) {
+	const int n = s.size(), m = t.size();
+	for (int i = 0, j = 0; i < n && j < m; ++i) {
+		if (s[i] == t[j]) {
+			++j;
+			if (j >= m)
+				return true;
+		}
+	}
+	return false;
+};
