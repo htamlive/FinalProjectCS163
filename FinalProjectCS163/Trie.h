@@ -35,6 +35,7 @@ public:
 	vector<int> getIDofRandomWords(const int numberOfWords) const;
 
 	vector<pair<int, int> > getKey(const DATASET& dataset, const string &definition) const;
+	vector<pair<int, int> > getKeySubseqeunce(const DATASET& dataset, const string& definition) const;
 
 	bool containsWord(const string& s) const;
 
