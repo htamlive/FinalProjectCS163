@@ -45,9 +45,9 @@ public:
 	}
 
 	virtual ~DataExecution() {
-		for (int i = 0; i < 5; ++i) {
+		for (auto i : {0, 1, 2, 3, 4}) {
 			if (this->datasets[i]) {
-				this->datasets[i]->saveData();
+				if(i < 4) this->datasets[i]->saveData();
 				delete this->datasets[i];
 			}
 
