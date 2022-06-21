@@ -1,10 +1,9 @@
-Picture.myBg {
-    Position = (0, 2.47156);
-    Size = (1310, 798.083);
-    Visible = false;
+Picture.PicLogoRB {
+    Position = (980, 700);
+    Size = (300, 129);
 
     Renderer {
-        Texture = "../images/bg1.png" Smooth;
+        Texture = "images/logo4.png" Smooth;
         TransparentTexture = false;
     }
 }
@@ -303,15 +302,7 @@ Button.btnEmoji {
     }
 }
 
-Picture.PicLogoRB {
-    Position = (980, 700);
-    Size = (300, 129);
 
-    Renderer {
-        Texture = "images/logo4.png" Smooth;
-        TransparentTexture = false;
-    }
-}
 
 Button.btnHistory {
     Position = (1050, 0);

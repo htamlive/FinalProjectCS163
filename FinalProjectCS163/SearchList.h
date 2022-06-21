@@ -5,8 +5,6 @@
 #include <TGUI/Backend/SFML-Graphics.hpp>
 #include <iostream>
 #include "WordDetail.h"
-#include "Trie.h"
-
 class SearchList
 {
 private:
@@ -36,7 +34,7 @@ public:
 		
 	};
 
-	SearchList(tgui::Gui* gui, int& curSet, vector<Trie*> tries, vector<vector<string>>* tmpData, int x, int y, int w, int h) : x(x), y(y), w(w), h(h), curSet(curSet) {
+	SearchList(tgui::Gui* gui, const int& curSet, vector<Trie*> tries, vector<vector<string>>* tmpData, int x, int y, int w, int h) : x(x), y(y), w(w), h(h), curSet(curSet) {
 		this->gui = gui;
 		this->tries = tries;
 		this->tmpDataSet = tmpData;
@@ -53,7 +51,7 @@ public:
 		}
 	}
 
-	void changeSearchSet(int& curSet) {
+	void changeSearchSet(const int& curSet) {
 		this->curSet = curSet;
 	}
 
@@ -78,7 +76,7 @@ public:
 					this->wordDetail = nullptr;
 				}
 
-				this->wordDetail = new WordDetail(this->gui, this->curSet, this->tries, this->tmpDataSet, 25, 100, 450, 600, data[i]);
+				this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, data[i]);
 				//std::cout << data[i] << "\n";
 				});
 		}

@@ -38,15 +38,15 @@ public:
 
 	virtual ~DataExecution() {
 		for (int i = 0; i < 5; ++i) {
-			if (!this->datasets[i]) {
+			if (this->datasets[i]) {
 				this->datasets[i]->saveData();
 				delete this->datasets[i];
 			}
 
-			if (!this->trieKeys[i]) {
+			if (this->trieKeys[i]) {
 				delete this->trieKeys[i];
 			}
-			if (!this->trieDefs[i]) {
+			if (this->trieDefs[i]) {
 				delete this->trieDefs[i];
 			}
 		}
@@ -86,5 +86,9 @@ public:
 
 	}
 
+	vector<string> getListOfWords(string prefix, int maximum) {
+		//cerr << this->tries.size() << '\n';
+		return this->trieKeys[this->curDataset]->getListOfWords(prefix, maximum);
+	}
 };
 
