@@ -17,7 +17,7 @@ private:
 	int curSet = 0;
 	vector<Trie*> tries;
 	WordDetail* wordDetail;
-	vector<vector<string>> tmpDataSet;
+	vector<vector<string>>* tmpDataSet;
 
 	//sf::Texture backgroundTexture;
 	//RectangleShape background;
@@ -36,7 +36,7 @@ public:
 		
 	};
 
-	SearchList(tgui::Gui* gui, int& curSet, vector<Trie*> tries, vector<vector<string>>& tmpData, int x, int y, int w, int h) : x(x), y(y), w(w), h(h), curSet(curSet) {
+	SearchList(tgui::Gui* gui, int& curSet, vector<Trie*> tries, vector<vector<string>>* tmpData, int x, int y, int w, int h) : x(x), y(y), w(w), h(h), curSet(curSet) {
 		this->gui = gui;
 		this->tries = tries;
 		this->tmpDataSet = tmpData;
@@ -69,13 +69,13 @@ public:
 			eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordButton"));
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
-				if (this->wordDetail && this->wordDetail->on) {
-					this->wordDetail->removeWindow();
-					delete this->wordDetail;
-					this->wordDetail = nullptr;
+				if (this->wordDetail) {
+					//this->wordDetail->removeWindow();
+					//delete this->wordDetail;
+					//this->wordDetail = nullptr;
 				}
 
-				this->wordDetail == new WordDetail(this->gui, this->curSet, this->tries, this->tmpDataSet, 25, 100, 450, 600, data[i]);
+				this->wordDetail = new WordDetail(this->gui, this->curSet, this->tries, this->tmpDataSet, 25, 100, 450, 600, data[i]);
 				//std::cout << data[i] << "\n";
 				});
 		}

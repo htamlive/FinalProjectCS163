@@ -20,12 +20,6 @@ void Trie::addWord(const string &word, const pair<int, int>& occurrence) {
 	for (const char& c : word) {
 		if (!checkPrintable(c))
 			return;
-		if (c < 'a' || c > 'z') {
-			if (c != '.' && c != 39 && c != '-') {
-				//cerr << word << '\n';
-				break;
-			}
-		}
 		d = Trie::getID(tolower(c));
 		if ((currentNode->children)[d] == nullptr) {
 			(currentNode->children)[d] = new TrieNode;
@@ -74,7 +68,7 @@ vector<string> Trie::getListOfWords(string prefix, int maximum) {
 	for (const char& c : prefix) {
 		node = (node->children)[Trie::getID(c)];
 		if (node == nullptr) {
-			//std::cerr << "No fucking way ...\n";
+			std::cerr << "No fucking way ...\n";
 			return result;
 		}
 	}

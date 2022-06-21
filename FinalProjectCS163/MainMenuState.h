@@ -42,32 +42,38 @@ public:
 		//cout << this->gui->get<tgui::Picture>("triag1")->getPosition().x << "\n";
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
 		this->favoriteList = new FavoriteList(this->gui);
+
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->onClosing([&](bool* abort) {
+			*abort = true;
+			this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(false);
+			});
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImageScaling(0.8f);
+		//this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 		/*std::cout << this->gui->get<tgui::ListView>("ListView1")->addColumn("Hello");*/
 		//this->gui->get<tgui::ListView>("ListView1")->setColumnText(0, "Hello");
-
-	
 
 		//this->gui->get<tgui::ListView>("ListView1")->setInheritedFont(tgui::Font("Template/fonts/UTM Androgyne.ttf"));
 		//this->gui->get<tgui::ListView>("ListView1")->clic;
 	}
 	void initTries(vector<string> dataName) {
-		//for (int i = 0; i < (int)dataName.size(); i++) {
-		//	DATASET* data = new DATASET(dataName[i]);
-		//	data->loadData();
-		//	dataSet.push_back(data);
-		//	
-		//	Trie* trie = new Trie();
+		for (int i = 0; i < (int)dataName.size(); i++) {
+			DATASET* data = new DATASET(dataName[i]);
+			data->loadData();
+			dataSet.push_back(data);
+			loadTmpData();
+			cerr << tmpDataSet.size() << '\n';
+			Trie* trie = new Trie();
 
-		//	for (int j = 0; j < (int)data->Data.size(); j++) {
-		//		pair<string, vector<string>> cur = data->Data[j];
-		//		//cerr << cur.first << '\n';
-		//		for (int k = 0; k < (int)cur.second.size(); k++) {
-		//			trie->addWord(cur.first, make_pair(j, k));
-		//		}
-		//	}
+			for (int j = 0; j < (int)data->Data.size(); j++) {
+				pair<string, string> cur = data->Data[j];
+				transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
+				for (int k = 0; k < (int)tmpDataSet[j].size(); k++) {
+					trie->addWord(cur.first, make_pair(j, k));
+				}
+			}
 
-		//	tries.push_back(trie);
-		//}
+			tries.push_back(trie);
+		}
 	}
 
 	void initBackground() {
@@ -107,7 +113,7 @@ public:
 	}
 
 	void initSearchBar() {
-		this->searchList = new SearchList(this->gui, this->curSet, this->tries, this->tmpDataSet, 550, 280, 720, 60);
+		this->searchList = new SearchList(this->gui, this->curSet, this->tries, &this->tmpDataSet, 550, 280, 720, 60);
 		data = { "Hello", "Nice", "Helpful", "Helicopter"};
 		this->searchList->update(data);
 		this->isWordMode = true;
@@ -130,6 +136,7 @@ public:
 			}
 			else {
 				this->data = this->getListOfWords(text.toStdString(), 5);
+				//cerr << this->data.size() << '\n';
 				this->searchList->update(data);
 			}
 			});
@@ -165,6 +172,19 @@ public:
 			break;
 		default:
 			break;
+		}
+	}
+
+	void loadTmpData() {
+		DATASET* data = this->dataSet.back();
+		for (int i = 0; i < data->Data.size(); i++) {
+			vector<string> arr;
+			stringstream s(data->Data[i].second);
+			string word;
+			while (s >> word) {
+				arr.push_back(word);
+			}
+			this->tmpDataSet.push_back(arr);
 		}
 	}
 
