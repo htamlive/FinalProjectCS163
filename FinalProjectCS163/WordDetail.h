@@ -36,6 +36,8 @@ public:
 		childCount++;
 		this->tries = tries;
 		this->tmpDataSet = tmpData;
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
+		//cerr << "It's here\n";
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 
