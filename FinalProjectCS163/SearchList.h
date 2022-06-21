@@ -75,6 +75,7 @@ public:
 			eb->onClick([i, this]() {
 				if (this->wordDetail) {
 					delete this->wordDetail;
+					this->wordDetail = nullptr;
 				}
 
 				this->wordDetail = new WordDetail(this->gui, this->curSet, this->tries, this->tmpDataSet, 25, 100, 450, 600, data[i]);

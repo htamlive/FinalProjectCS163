@@ -18,7 +18,7 @@ private:
 	sf::Texture backgroundTexture;
 	sf::Font font;
 
-	int curSet = 0;
+	int curSet = 1;
 
 	DataExecution* dataExec;
 	vector<DATASET*> dataSet;
@@ -37,7 +37,7 @@ public:
 		this->gui = new Gui(ref(*window));
 		this->gui->loadWidgetsFromFile("Template/MenuTem.txt");
 		initBackground();
-		initTries({ "Dataset/FilterENtoVIEAgain.csv", "Dataset/slang.txt", "Dataset/emotional.txt" });
+		initTries({ "Dataset/FilterOxford.csv", "Dataset/FilterENtoVIEAgain.csv", "Dataset/slang.txt", "Dataset/emotional.txt" });
 		initSearchBar();
 		initButtons();
 		initSearchButton();
@@ -154,7 +154,7 @@ public:
 
 	void initSearchButton() {
 		this->gui->get<tgui::Button>("btnSearch")->onClick([&]() {
-			cerr << "In here : " << this->curSet << '\n';
+			//cerr << "In here : " << this->curSet << '\n';
 			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
 			if (text.length() < 2) {
 				cerr << "Type down more shit you idiot\n";
@@ -237,6 +237,7 @@ public:
 			if (this->gui->get<tgui::Button>(btnNames[i])->isFocused() && i != this->curSet) {
 				this->gui->get<tgui::Button>(btnNames[this->curSet])->leftMouseButtonNoLongerDown();
 				this->curSet = i;
+				this->searchList->changeSearchSet(this->curSet);
 				this->gui->get<tgui::Button>(btnNames[this->curSet])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			}
 		}
