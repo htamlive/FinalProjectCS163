@@ -17,6 +17,7 @@ private:
 				this->trieDefs[id]->addWord(words[i], { j, i });
 			}
 		}
+		std::cout << "Finish adding Defs of" << id << "\n";
 	}
 
 	void addToTrieKeys(int id) {
@@ -24,6 +25,7 @@ private:
 			pair<string, string> cur = this->datasets[id]->Data[j];
 			this->trieKeys[id]->addWord(cur.first, { j, 0 });
 		}
+		std::cout << "Finish adding Keys of" << id << "\n";
 	}
 	
 public:
@@ -88,6 +90,7 @@ public:
 		if (id == 4) {
 			this->datasets[id]->swap();
 		}
+		std::cout << "Finish load dataset of" << id << "\n";
 		return true;
 	}
 
