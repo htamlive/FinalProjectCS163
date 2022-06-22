@@ -74,7 +74,7 @@ public:
 	bool loadDefs(int id) {
 		if (id > 4 || id < 0) return false;
 		this->curDataset = id;
-		if (this->trieKeys[id]) return false;
+		if (this->trieDefs[id]) return false;
 
 		this->trieDefs[id] = new Trie();
 		loadDataset(id);
