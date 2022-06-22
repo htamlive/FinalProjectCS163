@@ -98,7 +98,7 @@ void DATASET::saveToCSV() {
 	ofstream fout(dataset_name);
 	for (auto i : Data) {
 		if (i.first != "") {
-			fout << i.first << ',' << i.second << '\n';
+			fout << i.first << ',' << i.second << endl;
 		}
 	}
 	fout.close();
@@ -110,7 +110,11 @@ void DATASET::loadFromEmotional() {
 	while (!fin.eof()) {
 		fin >> temp1;
 		getline(fin, temp2, '\n');
-		replace(temp2.begin(), temp2.end(), '.', ' ');
+		for (int i = 0; i < temp2.size() - 1; i++) {
+			if (temp2[i] == ' ' || temp2[i] == '\t' || temp2[i] == '.') {
+				temp2[i] = '\0';
+			}
+		}
 		Data.push_back(make_pair(temp1, temp2));
 	}
 	fin.close();
@@ -120,7 +124,7 @@ void DATASET::saveToEmotional() {
 	ofstream fout(dataset_name);
 	for (auto i : Data) {
 		if (i.first != "") {
-			fout << i.first << '\t' << i.second << '\n';
+			fout << i.first << '\t' << i.second << endl;
 		}
 	}
 	fout.close();
@@ -146,7 +150,7 @@ void DATASET::saveToSlang() {
 	fout << "Slag" << '`' << "Meaning" << '\n';
 	for (int i = 0; i < Data.size(); i++) {
 		if (Data[i].first != "") {
-			fout << Data[i].first << '`' << Core_Data[i] << '\n';
+			fout << Data[i].first << '`' << Core_Data[i] << endl;
 		}
 	}
 	fout.close();
@@ -178,7 +182,7 @@ void DATASET::saveToOxford() {
 	fout << "Keywords" << ',' << "Definitions" << '\n';
 	for (int i = 0; i < Data.size(); i++) {
 		if (Data[i].first != "") {
-			fout << Data[i].first << ',' << Core_Data[i] << '\n';
+			fout << Data[i].first << ',' << Core_Data[i] << endl;
 		}
 	}
 	fout.close();
