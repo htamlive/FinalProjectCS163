@@ -23,16 +23,12 @@ public:
 		return this->dataExec->getDefinition(str);
 	}
 
-
 	WordDetail(tgui::Gui* GUI, int& curSet,int x, int y, int w, int h, string& str) : x(x), y(y), w(w), h(h), curSet(curSet) {
 
 		this->gui = GUI;
 		this->dataExec = &DataExecution::getInstance();
-		static int childCount = 0;
-		childCount++;
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
-		//cerr << "It's here\n";
 
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->onClick([&]() {
@@ -52,5 +48,15 @@ public:
 			bool check = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->isReadOnly();
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(!check);
 			});
+	}
+
+	void changeWord(int& curSet, string& str) {
+		static int childCount = 0;
+		childCount++;
+		this->favorite = false;
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(str));
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setText(tgui::String(this->getDefinition(str)));
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(true);
 	}
 };

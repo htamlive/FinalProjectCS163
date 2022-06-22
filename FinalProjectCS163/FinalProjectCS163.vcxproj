@@ -156,6 +156,7 @@
     <ClCompile Include="FavoriteList.cpp" />
     <ClCompile Include="FinalProjectCS163.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Hash.cpp" />
     <ClCompile Include="helper.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="SearchList.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FavoriteList.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Hash.h" />
     <ClInclude Include="helper.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="SearchList.h" />

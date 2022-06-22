@@ -72,12 +72,12 @@ public:
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
 				if (this->wordDetail) {
-					delete this->wordDetail;
-					this->wordDetail = nullptr;
+					this->wordDetail->changeWord(curSet, data[i]);
 				}
-
-				this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, data[i]);
-				//std::cout << data[i] << "\n";
+				else {
+					this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, data[i]);
+					//std::cout << data[i] << "\n";
+				}
 				});
 		}
 		

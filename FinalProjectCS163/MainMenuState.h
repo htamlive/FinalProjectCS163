@@ -18,7 +18,7 @@ private:
 	sf::Texture backgroundTexture;
 	sf::Font font;
 
-	int curOpt = 1;
+	int curOpt = 0;
 
 	DataExecution* dataExec;
 	vector<DATASET*> dataSet;
