@@ -302,8 +302,6 @@ Button.btnEmoji {
     }
 }
 
-
-
 Button.btnHistory {
     Position = (1050, 0);
     Size = (118, 56);
@@ -378,17 +376,16 @@ ListView.FavoriteList {
 }
 
 ChildWindow.ChildWindow {
-    Position = (60, 170);
+    Position = (50, 160);
     Size = (460, 550);
     TitleAlignment = Center;
     TitleButtons = Close;
     TitleTextSize = 13;
-    Visible = false;
 
     Renderer {
         BackgroundColor = #E6E6E6;
         BorderBelowTitleBar = 1;
-        BorderColor = black;
+        BorderColor = blue;
         Borders = (1, 1, 1, 1);
         DistanceToSide = 3;
         PaddingBetweenButtons = 1;
@@ -424,11 +421,11 @@ ChildWindow.ChildWindow {
         DefaultText = "Definition goes here";
         HorizontalScrollbarPolicy = Never;
         MaximumCharacters = 0;
-        Position = (90, 340);
+        Position = (40, 180);
         ReadOnly = true;
-        Size = (288, 155);
+        Size = (378, 315);
         Text = "";
-        TextSize = 13;
+        TextSize = 20;
 
         Renderer {
             BackgroundColor = white;
@@ -446,10 +443,11 @@ ChildWindow.ChildWindow {
     }
 
     EditBox.EditBox1 {
-        Position = (150, 290);
+        Alignment = Center;
+        Position = (70, 70);
         ReadOnly = true;
-        Size = (170, 32);
-        TextSize = 13;
+        Size = (320, 62);
+        TextSize = 23;
 
         Renderer {
             BackgroundColor = #F5F5F5;
@@ -474,8 +472,8 @@ ChildWindow.ChildWindow {
         }
     }
 
-    Button.Button2 {
-        Position = (340, 295);
+    Button.EditButton {
+        Position = (400, 85);
         Size = (25, 25);
         TextSize = 13;
 
@@ -507,9 +505,43 @@ ChildWindow.ChildWindow {
     BitmapButton.Button1 {
         Image = None;
         ImageScaling = 0;
-        Position = (10, 20);
+        Position = (10, 10);
         Size = (40, 40);
         TextSize = 13;
+
+        Renderer {
+            BackgroundColor = None;
+            BackgroundColorDisabled = None;
+            BackgroundColorDown = None;
+            BackgroundColorHover = None;
+            BorderColor = white;
+            BorderColorDisabled = white;
+            BorderColorDown = white;
+            BorderColorDownFocused = white;
+            BorderColorDownHover = white;
+            BorderColorFocused = white;
+            BorderColorHover = white;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../images/dark_star.png" Smooth;
+            TextureDisabled = "../images/dark_star.png" Smooth;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = "../images/bright_star.png" Smooth;
+            TextureFocused = None;
+            TextureHover = "../images/bright_star.png" Smooth;
+            TransparentTexture = true;
+        }
+    }
+
+    Button.GreenButton {
+        Position = (400, 70);
+        Size = (25, 25);
+        TextSize = 13;
+        Visible = false;
 
         Renderer {
             BackgroundColor = #F5F5F5;
@@ -526,13 +558,45 @@ ChildWindow.ChildWindow {
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
             TextColorHover = black;
-            Texture = "../images/dark_star.png" Smooth;
-            TextureDisabled = "../images/dark_star.png" Smooth;
+            Texture = "../images/green_tick.png" Smooth;
+            TextureDisabled = None;
             TextureDown = None;
             TextureDownFocused = None;
-            TextureDownHover = "../images/bright_star.png" Smooth;
+            TextureDownHover = None;
             TextureFocused = None;
-            TextureHover = "../images/bright_star.png" Smooth;
+            TextureHover = None;
+            TransparentTexture = true;
+        }
+    }
+
+    Button.RedButton {
+        Position = (400, 110);
+        Size = (25, 25);
+        TextSize = 13;
+        Visible = false;
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "../images/red_cross.png" Smooth;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
             TransparentTexture = true;
         }
     }

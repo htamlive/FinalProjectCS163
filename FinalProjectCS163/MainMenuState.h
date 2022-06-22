@@ -99,9 +99,7 @@ public:
 			else {
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefDef"));
 				dataExec->loadDefs(datasetId[curOpt]);
-			}
-				
-
+			}	
 
 			this->gui->get<tgui::Button>("btnWordDef")->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			this->gui->get<tgui::EditBox>("SearchBar")->setFocused(true);
@@ -129,6 +127,7 @@ public:
 		this->gui->get<tgui::Button>("btnSearch")->onClick([&]() {
 			//cerr << "In here : " << this->curSet << '\n';
 			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+			text = text.toLower();
 			if (text.length() < 1) {
 				cerr << "Type down more shit you idiot\n";
 			}
@@ -191,6 +190,7 @@ public:
 
 	void updateSearchBar() {
 		tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+		text.toLower();
 		vector<string> nwData;
 		for (auto x : this->data) {
 			if (x.substr(0, text.size()) == text && text != "") {

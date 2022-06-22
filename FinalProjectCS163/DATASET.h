@@ -82,8 +82,6 @@ public:
 		default:
 			break;
 		}
-
-
 	}
 
 	void swap() {
