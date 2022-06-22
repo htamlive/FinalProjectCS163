@@ -60,7 +60,7 @@ BtnFavorite {
         BorderColorDown = transparent;
         BorderColorFocused = #1E1EB400;
         BorderColorHover = transparent;
-        Borders = (1, 1, 1, 1);
+        Borders = (0, 0, 0, 0);
         TextColor = #3C3C3C;
         TextColorDisabled = #7D7D7D;
         TextColorDown = black;

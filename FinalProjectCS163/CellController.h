@@ -99,7 +99,12 @@ private:
 		
 	}
 
-
+	string reduceStr(string s, int l) {
+		if (s.length() <= l + 3) return s;
+		s = s.substr(0, l);
+		s += "...";
+		return s;
+	}
 
 public:
 	
@@ -133,17 +138,17 @@ public:
 		for (int i = 1; i <= 4; ++i) {
 			auto x = this->dataExec->getData(ids[i - 1]);
 			if(!this->gameOpt)
-				this->gui->get<tgui::Button>("btn" + std::to_string(i))->setText(x.second);
+				this->gui->get<tgui::Button>("btn" + std::to_string(i))->setText(this->reduceStr(x.second, 34));
 			else 
-				this->gui->get<tgui::Button>("btn" + std::to_string(i))->setText(x.first);
+				this->gui->get<tgui::Button>("btn" + std::to_string(i))->setText(this->reduceStr(x.first, 34));
 		}
 
 		auto promptData = this->dataExec->getData(ids[correctOpt - 1]);
 		if (!this->gameOpt) {
-			this->gui->get<tgui::EditBox>("ebPrompt")->setText(promptData.first);
+			this->gui->get<tgui::EditBox>("ebPrompt")->setText(this->reduceStr(promptData.first, 50));
 		}
 		else {
-			this->gui->get<tgui::EditBox>("ebPrompt")->setText(promptData.second);
+			this->gui->get<tgui::EditBox>("ebPrompt")->setText(this->reduceStr(promptData.second, 50));
 		}
 
 		setUpGamePlay(correctOpt);
