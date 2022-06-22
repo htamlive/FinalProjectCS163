@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "Trie.h"
 #include "helper.h"
 
@@ -7,6 +8,19 @@ class DataExecution
 private:
 	DATASET* datasets[5];
 	Trie* trieKeys[5], *trieDefs[5];
+	std::vector<int> favor;
+
+	void loadFile() {
+		std::ifstream ifs("Dataset/FavoriteId.txt");
+		int tot = 0;
+		ifs >> tot;
+		favor.resize(tot);
+		for (int i = 0; i < tot; ++i) {
+			ifs >> favor[i];
+		}
+		ifs.close();
+	}
+
 	bool finish[5];
 	int curDataset;
 	void addToTrieDefs(int id) {
@@ -44,6 +58,8 @@ public:
 		}
 
 		this->curDataset = 0;
+
+		this->loadFile();
 	}
 
 	virtual ~DataExecution() {
