@@ -7,6 +7,7 @@ class DataExecution
 private:
 	DATASET* datasets[5];
 	Trie* trieKeys[5], *trieDefs[5];
+	bool finish[5];
 	int curDataset;
 	void addToTrieDefs(int id) {
 		for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
@@ -39,6 +40,7 @@ public:
 			this->datasets[i] = nullptr;
 			this->trieKeys[i] = nullptr;
 			this->trieDefs[i] = nullptr;
+			this->finish[i] = false;
 		}
 
 		this->curDataset = 0;
@@ -46,7 +48,7 @@ public:
 
 	virtual ~DataExecution() {
 		for (auto i : {0, 1, 2, 3, 4}) {
-			if (this->datasets[i]) {
+			if (this->datasets[i] && this->finish[i]) {
 				if(i < 4) this->datasets[i]->saveData();
 				delete this->datasets[i];
 			}
@@ -90,6 +92,7 @@ public:
 		if (id == 4) {
 			this->datasets[id]->swap();
 		}
+		this->finish[id] = true;
 		std::cout << "Finish load dataset of " << id << "\n";
 		return true;
 	}
