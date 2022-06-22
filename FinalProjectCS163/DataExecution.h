@@ -10,7 +10,7 @@ private:
 	Trie* trieKeys[5], *trieDefs[5];
 	std::vector<int> favor;
 
-	void loadFile() {
+	void loadFavor() {
 		std::ifstream ifs("Dataset/FavoriteId.txt");
 		int tot = 0;
 		ifs >> tot;
@@ -19,6 +19,17 @@ private:
 			ifs >> favor[i];
 		}
 		ifs.close();
+	}
+
+	void saveFavor() {
+		std::ofstream ofs("Dataset/FavoriteId.txt");
+		int tot = favor.size();
+		ofs << tot << "\n";
+		favor.resize(tot);
+		for (int i = 0; i < tot; ++i) {
+			ofs << favor[i] << "\n";
+		}
+		ofs.close();
 	}
 
 	bool finish[5];
@@ -59,7 +70,7 @@ public:
 
 		this->curDataset = 0;
 
-		this->loadFile();
+		this->loadFavor();
 	}
 
 	virtual ~DataExecution() {
@@ -76,6 +87,8 @@ public:
 				delete this->trieDefs[i];
 			}
 		}
+
+		saveFavor();
 
 	}
 
