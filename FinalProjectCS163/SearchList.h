@@ -76,6 +76,7 @@ public:
 				}
 				else {
 					this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, data[i]);
+					
 					//std::cout << data[i] << "\n";
 				}
 				});

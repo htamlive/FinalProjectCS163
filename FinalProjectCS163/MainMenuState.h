@@ -18,7 +18,7 @@ private:
 	sf::Texture backgroundTexture;
 	sf::Font font;
 
-	int curOpt = 0;
+	int curOpt = 1;
 
 	DataExecution* dataExec;
 	vector<DATASET*> dataSet;
@@ -54,7 +54,7 @@ public:
 
 		this->dataExec = &DataExecution::getInstance();
 
-		this->dataExec->loadKeys(DATASETID::ENtoVIE);
+		this->dataExec->loadKeys(DATASETID::ENtoVIE, true);
 
 		//this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 		/*std::cout << this->gui->get<tgui::ListView>("ListView1")->addColumn("Hello");*/
