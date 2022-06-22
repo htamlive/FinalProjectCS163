@@ -14,7 +14,7 @@ class GameState : public State
 {
 private:
 	vector<string> gametypes = { "Guess Words Quiz:", "Guess Definitions Quiz:" };
-	vector<string> datasets = { "EN TO EN", "EN TO VIE", "VIE TO EN", "SLANG", "EMOJI" };
+	vector<string> datasets = {"EMOJI", "SLANG", "EN TO VIE", "EN TO EN", "VIE TO EN" };
 
 	sf::Texture backgroundTexture;
 	RectangleShape background;
@@ -70,7 +70,7 @@ public:
 		this->curGameType = gameType;
 		this->curDataset = dataset;
 		DataExecution::getInstance().loadDataset(this->curDataset, true);
-		this->gui = new Gui(ref(*window));
+		this->gui = new Gui(*window);
 		this->gui->loadWidgetsFromFile("Template/GameTem.txt");
 		this->initBackground();
 		this->initButtons();

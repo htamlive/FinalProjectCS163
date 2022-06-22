@@ -115,7 +115,6 @@ public:
 		this->initVariables();
 		this->initOptions();
 
-		this->gui->get<tgui::EditBox>("ebPrompt")->setText("Hello hello hello");
 		
 		this->gui->get<tgui::Button>("btnNext")->onClick([&, this]() {
 			getNextGame();

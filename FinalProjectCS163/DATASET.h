@@ -94,8 +94,9 @@ public:
 
 	vector<int> getRand(int tot) {
 		vector<int> res;
+		srand(time(NULL));
 		while (res.size() < tot) {
-			srand(time(NULL));
+			//
 			long long tmp = 1ll * rand() * rand() % (1000000007) % this->Data.size();
 			bool flag = true;
 			for (auto x : res) {
