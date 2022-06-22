@@ -14,8 +14,8 @@ void runProgram() {
 
 void loadData() {
 	DataExecution* dataExecution = &DataExecution::getInstance();
-	for (auto i : {0, 1, 2, 4}) dataExecution->loadKeys(i);
-	for (auto i : { 0, 1, 2, 4 }) dataExecution->loadDefs(i);
+	for (auto i : {0, 1, 2, 4 }) dataExecution->loadKeys(i);
+	for (auto i : {0, 1, 2, 4 }) dataExecution->loadDefs(i);
 }
 
 void loadBig() {
@@ -25,13 +25,16 @@ void loadBig() {
 }
 
 int main() {
+	std::thread work3(loadBig);
 	std::thread work1(loadData);
 	std::thread work2(runProgram);
-	std::thread work3(loadBig);
 	
+
 	work1.join();
 	work2.join();
 	work3.join();
+
+
 	return 0;
 }
 

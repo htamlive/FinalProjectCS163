@@ -76,11 +76,11 @@ public:
 
 	void initButtons() {
 		this->gui->get<tgui::Button>("btnWordQuiz")->onClick([&, this]() {
-			this->states->push_back(new GameState(this->window, this->states, 0, curOpt));
+			this->states->push_back(new GameState(this->window, this->states, 0, datasetId[curOpt]));
 			});		
 		
 		this->gui->get<tgui::Button>("btnDefQuiz")->onClick([&, this]() {
-			this->states->push_back(new GameState(this->window, this->states, 1, curOpt));
+			this->states->push_back(new GameState(this->window, this->states, 1, datasetId[curOpt]));
 			});
 
 
@@ -210,7 +210,7 @@ public:
 				this->searchList->changeSearchSet(this->datasetId[this->curOpt]);
 
 				
-				this->dataExec->load(this->datasetId[this->curOpt]);
+				this->dataExec->loadDataset(this->datasetId[i], true);
 				this->gui->get<tgui::Button>(btnNames[this->curOpt])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			}
 		}

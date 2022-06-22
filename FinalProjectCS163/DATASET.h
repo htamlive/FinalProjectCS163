@@ -5,6 +5,8 @@
 #include <fstream>
 #include <regex>
 #include <iterator>
+#include <random>
+#include <ctime>
 using namespace std;
 
 enum DATASETID
@@ -90,6 +92,23 @@ public:
 			x.first = x.second;
 			x.second = se;
 		}
+	}
+
+	vector<int> getRand(int tot) {
+		vector<int> res;
+		while (res.size() < tot) {
+			srand(time(NULL));
+			long long tmp = 1ll * rand() * rand() % (1000000007) % this->Data.size();
+			bool flag = true;
+			for (auto x : res) {
+				if (x == tmp) {
+					flag = false;
+					break;
+				}
+			}
+			if(flag) res.push_back(tmp);
+		}
+		return res;
 	}
 
 	void loadData();

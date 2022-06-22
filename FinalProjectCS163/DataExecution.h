@@ -17,7 +17,7 @@ private:
 				this->trieDefs[id]->addWord(words[i], { j, i });
 			}
 		}
-		std::cout << "Finish adding Defs of" << id << "\n";
+		std::cout << "Finish adding Defs of " << id << "\n";
 	}
 
 	void addToTrieKeys(int id) {
@@ -25,7 +25,7 @@ private:
 			pair<string, string> cur = this->datasets[id]->Data[j];
 			this->trieKeys[id]->addWord(cur.first, { j, 0 });
 		}
-		std::cout << "Finish adding Keys of" << id << "\n";
+		std::cout << "Finish adding Keys of " << id << "\n";
 	}
 	
 public:
@@ -61,9 +61,9 @@ public:
 
 	}
 
-	bool loadKeys(int id) {
+	bool loadKeys(int id, bool setCur = false) {
 		if (id > 4 || id < 0) return false;
-		this->curDataset = id;
+		if (setCur) this->curDataset = id;
 		if (this->trieKeys[id]) return false;
 
 		this->trieKeys[id] = new Trie();
@@ -71,28 +71,29 @@ public:
 		addToTrieKeys(id);
 	}
 
-	bool loadDefs(int id) {
+	bool loadDefs(int id, bool setCur = false) {
 		if (id > 4 || id < 0) return false;
-		this->curDataset = id;
-		if (this->trieKeys[id]) return false;
+		if (setCur) this->curDataset = id;
+		if (this->trieDefs[id]) return false;
 
 		this->trieDefs[id] = new Trie();
 		loadDataset(id);
 		addToTrieDefs(id);
 	}
 
-	bool loadDataset(int id) {
+	bool loadDataset(int id, bool setCur = false) {
 		if (id > 4 || id < 0) return false;
-		this->curDataset = id;
+		if(setCur) this->curDataset = id;
 		if (this->datasets[id]) return false;
 		this->datasets[id] = new DATASET(id);
 		this->datasets[id]->loadData();
 		if (id == 4) {
 			this->datasets[id]->swap();
 		}
-		std::cout << "Finish load dataset of" << id << "\n";
+		std::cout << "Finish load dataset of " << id << "\n";
 		return true;
 	}
+
 
 	bool load(int id) {
 		if (id > 4 || id < 0) return false;
@@ -132,6 +133,14 @@ public:
 	vector<string> getListOfWords(string prefix, int maximum) {
 		//cerr << this->tries.size() << '\n';
 		return this->trieKeys[this->curDataset]->getListOfWords(prefix, maximum);
+	}
+
+	vector<int> getRand(int tot) {
+		return this->datasets[this->curDataset]->getRand(tot);
+	}
+
+	pair<string, string> getData(int id) {
+		return this->datasets[this->curDataset]->getData(id);
 	}
 };
 

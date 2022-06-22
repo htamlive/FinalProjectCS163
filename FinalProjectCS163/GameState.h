@@ -69,11 +69,12 @@ public:
 		this->window = window;
 		this->curGameType = gameType;
 		this->curDataset = dataset;
+		DataExecution::getInstance().loadDataset(this->curDataset, true);
 		this->gui = new Gui(ref(*window));
 		this->gui->loadWidgetsFromFile("Template/GameTem.txt");
 		this->initBackground();
 		this->initButtons();
-		cellController = new CellController(this->gui, this->window);
+		cellController = new CellController(this->gui, this->window, gameType);
 
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
 		this->initTitle();

@@ -5,11 +5,12 @@
 #include <iostream>
 #include <string>
 
+#include "DataExecution.h"
 class CellController
 {
 private:
 	float height, width, x, y, startTime, totalTime;
-	int lastPlayTime, tot, correct;
+	int lastPlayTime, tot, correct, gameOpt;
 	Clock clock;
 
 	std::vector<std::vector<Cell*>> cells;
@@ -17,7 +18,7 @@ private:
 	std::vector<std::vector<float>> timeOpen;
 	std::vector<std::vector<float>> timeFlag;
 
-
+	DataExecution* dataExec;
 
 	tgui::Gui* gui;
 	//CellAnimations* cellAnimations;
@@ -107,9 +108,10 @@ public:
 	};
 
 
-	CellController(tgui::Gui*& gui, RenderWindow* window) {
+	CellController(tgui::Gui*& gui, RenderWindow* window, int gameOpt) {
 
 		this->gui = gui;
+		this->gameOpt = gameOpt;
 		this->initVariables();
 		this->initOptions();
 
@@ -119,12 +121,33 @@ public:
 			getNextGame();
 			});
 
+		this->dataExec = &DataExecution::getInstance();
 		getNextGame();
 	};
 
 	void getNextGame() {
 		this->setEnabledOptions(true);
-		setUpGamePlay(1);
+		vector<int> ids = this->dataExec->getRand(4);
+		
+		int correctOpt = (ids[0] + ids[1] + ids[2] + ids[3]) % 4  + 1;
+
+		for (int i = 1; i <= 4; ++i) {
+			auto x = this->dataExec->getData(ids[i - 1]);
+			if(!this->gameOpt)
+				this->gui->get<tgui::Button>("btn" + std::to_string(i))->setText(x.second);
+			else 
+				this->gui->get<tgui::Button>("btn" + std::to_string(i))->setText(x.first);
+		}
+
+		auto promptData = this->dataExec->getData(ids[correctOpt - 1]);
+		if (!this->gameOpt) {
+			this->gui->get<tgui::EditBox>("ebPrompt")->setText(promptData.first);
+		}
+		else {
+			this->gui->get<tgui::EditBox>("ebPrompt")->setText(promptData.second);
+		}
+
+		setUpGamePlay(correctOpt);
 		this->gui->get<tgui::Button>("btnNext")->setVisible(false);
 	}
 
