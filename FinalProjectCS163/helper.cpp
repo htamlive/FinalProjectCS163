@@ -1,9 +1,12 @@
 #include <algorithm>
+#include <random>
+#include <ctime>
 
 using namespace std;
 
 #include "helper.h"
 #include "Trie.h"
+#include "Hash.h"
 
 vector<string> splitString(const string& s) {
 	//Split string by space
@@ -43,6 +46,45 @@ bool checkContainStringsAsSubsequence(const vector<string>& s, const vector<stri
 			if (j >= m)
 				return true;
 		}
+	}
+	return false;
+};
+
+int getRandomNumberFromList(const vector<int>& numbers) {
+	srand(time(NULL));
+	return numbers[rand() % numbers.size()];
+};
+
+bool checkContainStringsAsSubarray(const vector<string>& s, const vector<string>& t) {
+	if (t.empty())
+		return true;
+	const int n = s.size(), m = t.size(), base = HashedString::getRandomBase(), MOD = HashedString::getRandomModulo();
+	if (n < m)
+		return false;
+	HashedString a(base, MOD), b(base, MOD);
+	for (const string& e : t) {
+		if (!b.empty())
+			b.addNewCharacter(' ');
+		for (const char& c : e)
+			b.addNewCharacter(c);
+	}
+	for (int i = 0; i < m - 1; ++i) {
+		if (!a.empty())
+			a.addNewCharacter(' ');
+		for (const char& c : s[i])
+			a.addNewCharacter(c);
+	}
+	for (int i = m - 1; i < n; ++i) {
+		if (!a.empty())
+			a.addNewCharacter(' ');
+		for (const char& c : s[i])
+			a.addNewCharacter(c);
+		if (a.getHashedValue() == b.getHashedValue())
+			return true;
+		for (const char& c : s[i - m])
+			a.popFirstCharacter();
+		if (!a.empty())
+			a.popFirstCharacter(); // remove white space
 	}
 	return false;
 };
