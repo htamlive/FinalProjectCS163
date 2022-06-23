@@ -10,29 +10,30 @@ class DataExecution
 private:
 	DATASET* datasets[5];
 	Trie* trieKeys[5], *trieDefs[5];
-	std::vector<int> favor;
+	std::vector<int> favor[5];
 
 
 
-	void loadFavor() {
-		std::ifstream ifs("Dataset/FavoriteId.txt");
+	void loadFavor(int id) {
+		if (id < 0 || id > 4) return;
+		std::ifstream ifs("Dataset/FavoriteId" + std::to_string(id) + (string)".txt");
 		if (!ifs.is_open()) return;
 		int tot = 0;
 		ifs >> tot;
-		favor.resize(tot);
+		favor[id].resize(tot);
 		for (int i = 0; i < tot; ++i) {
-			ifs >> favor[i];
+			ifs >> favor[id][i];
 		}
 		ifs.close();
 	}
 
-	void saveFavor() {
-		std::ofstream ofs("Dataset/FavoriteId.txt");
-		int tot = favor.size();
+	void saveFavor(int id) {
+		if (id < 0 || id > 4) return;
+		std::ofstream ofs("Dataset/FavoriteId"+std::to_string(id) + (string)".txt");
+		int tot = favor[id].size();
 		ofs << tot << "\n";
-		favor.resize(tot);
 		for (int i = 0; i < tot; ++i) {
-			ofs << favor[i] << "\n";
+			ofs << favor[id][i] << "\n";
 		}
 		ofs.close();
 	}
@@ -74,8 +75,8 @@ public:
 		}
 
 		this->curDataset = 0;
-
-		this->loadFavor();
+		for(int i = 0 ; i < 5; ++i)
+			this->loadFavor(i);
 	}
 
 	virtual ~DataExecution() {
@@ -92,8 +93,8 @@ public:
 				delete this->trieDefs[i];
 			}
 		}
-
-		saveFavor();
+		for (int i = 0; i < 5; ++i)
+			this->saveFavor(i);
 
 	}
 
@@ -202,6 +203,10 @@ public:
 
 	int getCurDataset() {
 		return this->curDataset;
+	}
+
+	void restore(int id) {
+		this->datasets[id]->restoreDictionary();
 	}
 };
 

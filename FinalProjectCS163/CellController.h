@@ -145,10 +145,10 @@ public:
 
 		auto promptData = this->dataExec->getData(ids[correctOpt - 1]);
 		if (!this->gameOpt) {
-			this->gui->get<tgui::EditBox>("ebPrompt")->setText(this->reduceStr(promptData.first, 50));
+			this->gui->get<tgui::EditBox>("ebPrompt")->setText(this->reduceStr(promptData.first, 47));
 		}
 		else {
-			this->gui->get<tgui::EditBox>("ebPrompt")->setText(this->reduceStr(promptData.second, 50));
+			this->gui->get<tgui::EditBox>("ebPrompt")->setText(this->reduceStr(promptData.second, 47));
 		}
 
 		setUpGamePlay(correctOpt);

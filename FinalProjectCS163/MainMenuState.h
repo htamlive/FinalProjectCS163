@@ -105,6 +105,11 @@ public:
 			this->gui->get<tgui::EditBox>("SearchBar")->setFocused(true);
 		
 			});	
+
+		this->gui->get<tgui::Button>("btnRestore")->onClick([&, this]() {
+			dataExec->restore(datasetId[curOpt]);
+			searchList->onChangingText();
+			});
 	}
 
 	void initSearchBar() {
