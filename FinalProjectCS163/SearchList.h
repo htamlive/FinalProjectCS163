@@ -9,10 +9,12 @@ class SearchList
 {
 private:
 	int x, y, w, h;
-	std::vector<std::string> data;
+	std::vector<std::string> suggestedKeys;
+	std::vector<pair<int, int>> suggestedIdx;
 	tgui::Gui* gui;
 	
 	int curSet = 0;
+	bool* isWordMode;
 	vector<Trie*> tries;
 	WordDetail* wordDetail;
 	vector<vector<string>>* tmpDataSet;
@@ -27,10 +29,31 @@ private:
 		vector<string> nwData;
 		for (int i = 0; i < this->history.size(); ++i) {
 			tmp[i] = this->dataExec->getData(this->history[i],this->curSet);
+			
 			nwData.push_back(tmp[i].first);
 		}
 		showSuggestions(nwData);
 		
+	}
+
+	void updateDecoration() {
+		if (suggestedKeys.size() + suggestedIdx.size() > 0) {
+			this->gui->get<tgui::Picture>("BottomList")->setVisible(true);
+			this->gui->get<tgui::Picture>("SearchDecoration")->setVisible(true);
+			this->gui->get<tgui::Picture>("BottomList")->setPosition(this->x, this->y + (suggestedKeys.size() + suggestedIdx.size()) * this->h - 5);
+		}
+		else {
+
+			this->gui->get<tgui::Picture>("BottomList")->setVisible(false);
+			this->gui->get<tgui::Picture>("SearchDecoration")->setVisible(false);
+		}
+	}
+
+	string reduceStr(string s, int l) {
+		if (s.length() <= l + 3) return s;
+		s = s.substr(0, l);
+		s += "...";
+		return s;
 	}
 
 public:
@@ -38,12 +61,15 @@ public:
 		
 	};
 
-	SearchList(tgui::Gui* gui, const int& curSet, vector<Trie*> tries, vector<vector<string>>* tmpData, int x, int y, int w, int h) : x(x), y(y), w(w), h(h), curSet(curSet) {
+	SearchList(tgui::Gui* gui, const int& curSet, vector<Trie*> tries, vector<vector<string>>* tmpData, int x, int y, int w, int h, bool *isWordMode) : x(x), y(y), w(w), h(h), curSet(curSet) {
 		this->gui = gui;
 		this->tries = tries;
 		this->tmpDataSet = tmpData;
+		this->isWordMode = isWordMode;
 		this->dataExec = &DataExecution::getInstance();
 		this->history = this->dataExec->loadHistory(this->curSet);
+
+		this->initSearchButton();
 
 		this->gui->get<tgui::Button>("btnHistory")->onClick([&, this] {
 			if (this->curSet != this->dataExec->getCurDataset()) {
@@ -54,16 +80,28 @@ public:
 			});
 
 		//showHistory();
-		this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&]() {
-			onChangingText();
+		this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&, this]() {
+			if(*this->isWordMode == true) onChangingText();
 		});
 
 
-		this->gui->get<tgui::EditBox>("SearchBar")->onFocus([&]() {
-			onChangingText();
+		this->gui->get<tgui::EditBox>("SearchBar")->onFocus([&, this]() {
+			if(*this->isWordMode == true) onChangingText();
 			});
 		//this->wordDetail->setVisible(false);
 	};
+
+	void initSearchButton() {
+		this->gui->get<tgui::Button>("btnSearch")->onClick([&, this]() {
+			if(*this->isWordMode == true) onChangingText();
+			else {
+				tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+				text = text.toLower();
+				auto nwDataId = this->dataExec->getKeySubsequence((string)text);
+				showSuggestions({}, nwDataId);
+			}
+			});
+	}
 
 	void onChangingText() {
 		tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
@@ -73,7 +111,8 @@ public:
 			this->showHistory();
 		}
 		else {
-			auto nwData = this->dataExec->getListOfWords(text.toStdString(), 8);
+			auto nwData = this->dataExec->getListOfKeys(text.toStdString(), 8);
+			//auto nwIds = this->dataExec->getKeySubarray(text.toStdString());
 			showSuggestions(nwData);
 		}
 		
@@ -81,9 +120,17 @@ public:
 	}
 
 	void clear() {
-		for (int i = 0; i < data.size(); ++i) {
+		for (int i = 0; i < suggestedKeys.size(); ++i) {
 			this->gui->remove(this->gui->get<tgui::Button>("op" + std::to_string(i)));
 		}
+
+		for (int i = 0; i < suggestedIdx.size(); ++i) {
+			this->gui->remove(this->gui->get<tgui::Button>("op" + std::to_string(i)));
+		}
+
+		this->suggestedKeys.clear();
+		this->suggestedIdx.clear();
+		this->updateDecoration();
 	}
 
 	void changeSearchSet(const int& curSet) {
@@ -92,15 +139,21 @@ public:
 		
 	}
 
-	void showSuggestions(std::vector<std::string> nwData) {
+	void showSuggestions(std::vector<std::string> nwData = {}, std::vector<pair<int, int>> nwDataIdx = {}) {
 		clear();
-		this->data = nwData;
-		for (int i = 0; i < data.size(); ++i) {
+		this->suggestedKeys = nwData;
+		this->suggestedIdx = nwDataIdx;
+		for (int i = 0; i < suggestedKeys.size() + suggestedIdx.size(); ++i) {
 			auto eb = tgui::Button::create();
 			eb->setWidgetName("op" + std::to_string(i));
 			eb->setPosition(x, y + i * this->h);
 			eb->setSize(w, h);
-			eb->setText(data[i]);
+
+			if(*this->isWordMode == true) eb->setText(suggestedKeys[i]);
+			else {
+				auto tmp = this->dataExec->getData(nwDataIdx[i].first);
+				eb->setText(this->reduceStr(tmp.first + ": " + tmp.second, 80));
+			}
 			eb->setTextSize(16);
 			eb->setTextPosition({ "2%", "40%" },{0, 0});
 			
@@ -109,26 +162,16 @@ public:
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
 				if (this->wordDetail) {
-					this->wordDetail->changeWord(curSet, data[i]);
+					this->wordDetail->changeWord(curSet, suggestedKeys[i]);
 				}
 				else {
-					this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, data[i]);
-					
-					//std::cout << data[i] << "\n";
+					this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, suggestedKeys[i]);
+
 				}
 				});
 		}
 		
-		if (data.size() > 0) {
-			this->gui->get<tgui::Picture>("BottomList")->setVisible(true);
-			this->gui->get<tgui::Picture>("SearchDecoration")->setVisible(true);
-			this->gui->get<tgui::Picture>("BottomList")->setPosition(this->x, this->y + data.size() * this->h - 5);
-		}
-		else {
-			
-			this->gui->get<tgui::Picture>("BottomList")->setVisible(false);
-			this->gui->get<tgui::Picture>("SearchDecoration")->setVisible(false);
-		}
+		this->updateDecoration();
 		
 	};
 

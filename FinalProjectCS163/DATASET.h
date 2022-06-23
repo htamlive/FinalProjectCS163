@@ -42,7 +42,6 @@ public:
 	string dataset_name;
 
 
-
 	DATASET(string dataname) {
 		dataset_name = dataname;
 		if (dataset_name == "Dataset/emotional.txt") {

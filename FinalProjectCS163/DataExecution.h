@@ -130,11 +130,6 @@ public:
 		return true;
 	}
 
-	bool isFavorite(int id) {
-		auto it = find(favor[this->curDataset].begin(), favor[this->curDataset].end(), id);
-		return (it != favor[this->curDataset].end());
-	}
-
 	vector<int> loadHistory(int type) {
 		if (type < 0 || type > 4) return {};
 		string link;
@@ -153,6 +148,12 @@ public:
 		ifs.close();
 		return res;
 	}
+
+	bool isFavorite(int id) {
+		auto it = find(favor[this->curDataset].begin(), favor[this->curDataset].end(), id);
+		return (it != favor[this->curDataset].end());
+	}
+
 
 	int getCurSet() {
 		return this->curDataset;
@@ -199,7 +200,7 @@ public:
 		}
 	}
 
-	vector<string> getListOfWords(string prefix, int maximum) {
+	vector<string> getListOfKeys(string prefix, int maximum) {
 		//cerr << this->tries.size() << '\n';
 		return this->trieKeys[this->curDataset]->getListOfWords(prefix, maximum);
 	}
@@ -219,6 +220,14 @@ public:
 
 	void restore(int id) {
 		this->datasets[id]->restoreDictionary();
+	}
+
+	vector<pair<int, int>> getKeySubarray(string s) {
+		return this->trieDefs[this->curDataset]->getKeySubarray(*this->datasets[this->curDataset], s);
+	}
+
+	vector<pair<int, int>> getKeySubsequence(string s) {
+		return this->trieDefs[this->curDataset]->getKeySubsequence(*this->datasets[this->curDataset], s);
 	}
 };
 

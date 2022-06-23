@@ -41,7 +41,6 @@ public:
 
 		initSearchBar();
 		initButtons();
-		initSearchButton();
 
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
 		this->favoriteList = new FavoriteList(this->gui);
@@ -99,6 +98,7 @@ public:
 			else {
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefDef"));
 				dataExec->loadDefs(datasetId[curOpt]);
+				this->searchList->clear();
 			}	
 
 			this->gui->get<tgui::Button>("btnWordDef")->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
@@ -113,7 +113,7 @@ public:
 	}
 
 	void initSearchBar() {
-		this->searchList = new SearchList(this->gui, this->datasetId[this->curOpt], this->tries, &this->tmpDataSet, 550, 280, 720, 60);
+		this->searchList = new SearchList(this->gui, this->datasetId[this->curOpt], this->tries, &this->tmpDataSet, 550, 280, 720, 60, &this->isWordMode);
 		this->isWordMode = true;
 		//data = { "Hello", "Nice", "Helpful", "Helicopter"};
 		//this->searchList->update(data);
@@ -125,22 +125,7 @@ public:
 	};
 
 	vector<string> getListOfWords(string prefix, int maximum) {
-		return this->dataExec->getListOfWords(prefix, maximum);
-	}
-
-	void initSearchButton() {
-		this->gui->get<tgui::Button>("btnSearch")->onClick([&]() {
-			//cerr << "In here : " << this->curSet << '\n';
-			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
-			text = text.toLower();
-			if (text.length() < 1) {
-				cerr << "Type down more shit you idiot\n";
-			}
-			else {
-				this->data = this->dataExec->getListOfWords(text.toStdString(), 8);
-				this->searchList->showSuggestions(data);
-			}
-			});
+		return this->dataExec->getListOfKeys(prefix, maximum);
 	}
 
 	void resetSearchBar() {
@@ -200,7 +185,8 @@ public:
 				this->gui->get<tgui::Button>(btnNames[this->curOpt])->leftMouseButtonNoLongerDown();
 				this->curOpt = i;
 				this->searchList->changeSearchSet(this->datasetId[this->curOpt]);
-				this->searchList->onChangingText();
+				if (this->isWordMode) this->searchList->onChangingText();
+				else this->searchList->clear();
 
 				
 				this->dataExec->loadDataset(this->datasetId[i], true);
