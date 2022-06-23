@@ -109,17 +109,17 @@ public:
 
 	void initSearchBar() {
 		this->searchList = new SearchList(this->gui, this->datasetId[this->curOpt], this->tries, &this->tmpDataSet, 550, 280, 720, 60);
-		data = { "Hello", "Nice", "Helpful", "Helicopter"};
-		this->searchList->update(data);
 		this->isWordMode = true;
+		//data = { "Hello", "Nice", "Helpful", "Helicopter"};
+		//this->searchList->update(data);
+		
 
-		this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&]() {
-			updateSearchBar();
-			});
+		//this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&]() {
+		//	updateSearchBar();
+		//	});
 	};
 
 	vector<string> getListOfWords(string prefix, int maximum) {
-		//cerr << this->tries.size() << '\n';
 		return this->dataExec->getListOfWords(prefix, maximum);
 	}
 
@@ -133,7 +133,7 @@ public:
 			}
 			else {
 				this->data = this->dataExec->getListOfWords(text.toStdString(), 8);
-				this->searchList->update(data);
+				this->searchList->showSuggestions(data);
 			}
 			});
 	}
@@ -186,20 +186,7 @@ public:
 		this->updateBtns();
 		this->favoriteList->update();
 		this->backgroundAnimations->update(dt);
-	};
-
-	void updateSearchBar() {
-		tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
-		text.toLower();
-		vector<string> nwData;
-		for (auto x : this->data) {
-			if (x.substr(0, text.size()) == text && text != "") {
-				nwData.push_back(x);
-			}
-		}
-
-		this->searchList->update(nwData);
-		
+		this->searchList->update();
 	};
 
 	void updateBtns() {

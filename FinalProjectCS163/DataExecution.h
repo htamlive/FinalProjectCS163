@@ -3,6 +3,8 @@
 #include "Trie.h"
 #include "helper.h"
 
+
+
 class DataExecution
 {
 private:
@@ -10,8 +12,11 @@ private:
 	Trie* trieKeys[5], *trieDefs[5];
 	std::vector<int> favor;
 
+
+
 	void loadFavor() {
 		std::ifstream ifs("Dataset/FavoriteId.txt");
+		if (!ifs.is_open()) return;
 		int tot = 0;
 		ifs >> tot;
 		favor.resize(tot);
@@ -126,6 +131,25 @@ public:
 		return true;
 	}
 
+	vector<int> loadHistory(int type) {
+		if (type < 0 || type > 4) return {};
+		string link;
+		for (string i : { (string)"Dataset/History", (string)to_string(type), (string)".txt"}) {
+			link += i;
+		}
+		std::ifstream ifs(link);
+		if (!ifs.is_open()) return {};
+		int tot;
+		ifs >> tot;
+		vector<int> res(tot);
+		for (int i = 0; i < tot; ++i) {
+			ifs >> res[i];
+		}
+
+		ifs.close();
+		return res;
+	}
+
 
 	bool load(int id) {
 		if (id > 4 || id < 0) return false;
@@ -171,8 +195,13 @@ public:
 		return this->datasets[this->curDataset]->getRand(tot);
 	}
 
-	pair<string, string> getData(int id) {
-		return this->datasets[this->curDataset]->getData(id);
+	pair<string, string> getData(int id, int curSet = -1) {
+		if(curSet == -1) return this->datasets[this->curDataset]->getData(id);
+		return this->datasets[curSet]->getData(id);
+	}
+
+	int getCurDataset() {
+		return this->curDataset;
 	}
 };
 
