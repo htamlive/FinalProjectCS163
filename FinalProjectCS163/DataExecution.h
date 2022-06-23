@@ -229,5 +229,9 @@ public:
 	vector<pair<int, int>> getKeySubsequence(string s) {
 		return this->trieDefs[this->curDataset]->getKeySubsequence(*this->datasets[this->curDataset], s);
 	}
+
+	void removeWord(int id) {
+		this->datasets[this->curDataset]->removeWord(id);
+	}
 };
 

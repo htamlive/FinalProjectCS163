@@ -156,6 +156,34 @@ vector<pair<int, int> > Trie::getKey(const DATASET &dataset, const string& defin
 	return result;
 };
 
+vector<int> Trie::getKeys(const DATASET& dataset, const string& definition, const int maximum) const {
+	// Return the (sorted) list of occurences (the line id) of words whose definitions contain set of words from input definition
+	// The occurence in each node should be in sorted order (before calling this function)
+	const vector<string> words = splitString(definition);
+	int previousOccurence, remain;
+	vector<int> result;
+	for (const string& word : words) {
+		previousOccurence = -1;
+		remain = maximum;
+		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+			if (remain <= 0)
+				break;
+			if (previousOccurence == occurence.first)
+				continue;
+			const pair<string, string> data = dataset.getData(occurence.first);
+			const string& key = data.first, & definitionOfKey = data.second;
+			if (checkContainStrings(splitString(definitionOfKey), words)) {
+				result.push_back(occurence.first);
+				--remain;
+			}
+		}
+	}
+	sort(result.begin(), result.end());
+	if (result.size() >= maximum)
+		result.resize(maximum);
+	return result;
+};
+
 vector<pair<int, int> > Trie::getKeySubsequence(const DATASET& dataset, const string& definition) const {
 	// Second type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
@@ -201,3 +229,59 @@ int Trie::getSize() const {
 bool Trie::empty() const {
 	return (this->root) == nullptr;
 }
+
+vector<int> Trie::getKeysSubsequence(const DATASET& dataset, const string& definition, const int maximum) const {
+	// Second type searching
+	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
+	const vector<string> words = splitString(definition);
+	int previousOccurence, remain;
+	vector<int> result;
+	for (const string& word : words) {
+		previousOccurence = -1;
+		remain = maximum;
+		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+			if (remain <= 0)
+				break;
+			if (previousOccurence == occurence.first)
+				continue;
+			const pair<string, string> data = dataset.getData(occurence.first);
+			const string& key = data.first, & definitionOfKey = data.second;
+			if (checkContainStringsAsSubsequence(splitString(definitionOfKey), words)) {
+				result.push_back(occurence.first);
+				--remain;
+			}
+		}
+	}
+	sort(result.begin(), result.end());
+	if (result.size() >= maximum)
+		result.resize(maximum);
+	return result;
+};
+
+vector<int> Trie::getKeysSubarray(const DATASET& dataset, const string& definition, const int maximum) const {
+	// Third type searching
+	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
+	const vector<string> words = splitString(definition);
+	int previousOccurence, remain;
+	vector<int> result;
+	for (const string& word : words) {
+		previousOccurence = -1;
+		remain = maximum;
+		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+			if (remain <= 0)
+				break;
+			if (previousOccurence == occurence.first)
+				continue;
+			const pair<string, string> data = dataset.getData(occurence.first);
+			const string& key = data.first, & definitionOfKey = data.second;
+			if (checkContainStringsAsSubarray(splitString(definitionOfKey), words)) {
+				result.push_back(occurence.first);
+				--remain;
+			}
+		}
+	}
+	sort(result.begin(), result.end());
+	if (result.size() >= maximum)
+		result.resize(maximum);
+	return result;
+};

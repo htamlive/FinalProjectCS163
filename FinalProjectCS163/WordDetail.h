@@ -66,6 +66,13 @@ public:
 			});
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->onClick([&]() {
+			if (this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->getText() == "") {
+				for (int i = 0; i < this->IDs.size(); i++) {
+					this->dataExec->removeWord(this->IDs[i]);
+				}
+				this->dataExec->removeFavoriteIDs(this->IDs);
+			}
+
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(true);
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(true);
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(false);
@@ -85,9 +92,7 @@ public:
 		this->IDs = this->dataExec->getID(this->curString);
 		for (int i = 0; i < IDs.size(); i++) {
 			this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
-			//cerr << IDs[i] << '\n';
 		}
-		//cerr << str << ' ' << this->favorite << '\n';
 
 		if (this->favorite) this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/bright_star.png");
 		else this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
