@@ -236,5 +236,9 @@ public:
 	void restore(int id) {
 		this->datasets[id]->restoreDictionary();
 	}
+
+	void removeWord(int id) {
+		this->datasets[this->curDataset]->removeWord(id);
+	}
 };
 

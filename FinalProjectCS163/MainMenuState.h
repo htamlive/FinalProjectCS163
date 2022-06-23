@@ -55,13 +55,6 @@ public:
 		this->dataExec = &DataExecution::getInstance();
 
 		this->dataExec->loadKeys(DATASETID::ENtoVIE, true);
-
-		//this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
-		/*std::cout << this->gui->get<tgui::ListView>("ListView1")->addColumn("Hello");*/
-		//this->gui->get<tgui::ListView>("ListView1")->setColumnText(0, "Hello");
-
-		//this->gui->get<tgui::ListView>("ListView1")->setInheritedFont(tgui::Font("Template/fonts/UTM Androgyne.ttf"));
-		//this->gui->get<tgui::ListView>("ListView1")->clic;
 	}
 
 	void initBackground() {
