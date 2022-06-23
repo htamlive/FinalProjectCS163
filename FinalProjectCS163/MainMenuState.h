@@ -200,6 +200,7 @@ public:
 				this->gui->get<tgui::Button>(btnNames[this->curOpt])->leftMouseButtonNoLongerDown();
 				this->curOpt = i;
 				this->searchList->changeSearchSet(this->datasetId[this->curOpt]);
+				this->searchList->onChangingText();
 
 				
 				this->dataExec->loadDataset(this->datasetId[i], true);

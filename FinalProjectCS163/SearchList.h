@@ -88,6 +88,8 @@ public:
 
 	void changeSearchSet(const int& curSet) {
 		this->curSet = curSet;
+		this->history = this->dataExec->loadHistory(this->curSet);
+		
 	}
 
 	void showSuggestions(std::vector<std::string> nwData) {
