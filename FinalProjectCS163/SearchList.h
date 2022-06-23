@@ -158,14 +158,25 @@ public:
 			eb->setTextPosition({ "2%", "40%" },{0, 0});
 			
 			//eb->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(50));
+
 			eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordButton"));
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
 				if (this->wordDetail) {
-					this->wordDetail->changeWord(curSet, suggestedKeys[i]);
+					if (*this->isWordMode == true)
+						this->wordDetail->changeWord(curSet, suggestedKeys[i]);
+					else {
+						string str = this->dataExec->getData(suggestedIdx[i].first).first;
+						this->wordDetail->changeWord(curSet,str);
+					}
 				}
 				else {
-					this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, suggestedKeys[i]);
+					if (*this->isWordMode == true)
+						this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, suggestedKeys[i]);
+					else {
+						string str = this->dataExec->getData(suggestedIdx[i].first).first;
+						this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, str);
+					}
 
 				}
 				});

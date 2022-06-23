@@ -222,6 +222,10 @@ public:
 		this->datasets[id]->restoreDictionary();
 	}
 
+	//vector<pair<int, int>> getKeys(string s, int maximum = 8) {
+	//	return this->trieDefs[this->curDataset]->getKeys(*this->datasets[this->curDataset], s, maximum);
+	//}
+
 	vector<pair<int, int>> getKeySubarray(string s) {
 		return this->trieDefs[this->curDataset]->getKeySubarray(*this->datasets[this->curDataset], s);
 	}
