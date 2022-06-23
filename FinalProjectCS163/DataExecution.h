@@ -10,32 +10,10 @@ private:
 	Trie* trieKeys[5], *trieDefs[5];
 	std::vector<int> favor[5];
 
-	void loadFavor(int id) {
-		if (id < 0 || id > 4) return;
-		std::ifstream ifs("Dataset/FavoriteId" + std::to_string(id) + (string)".txt");
-		if (!ifs.is_open()) return;
-		int tot = 0;
-		ifs >> tot;
-		favor[id].resize(tot);
-		for (int i = 0; i < tot; ++i) {
-			ifs >> favor[id][i];
-		}
-		ifs.close();
-	}
-
-	void saveFavor(int id) {
-		if (id < 0 || id > 4) return;
-		std::ofstream ofs("Dataset/FavoriteId"+std::to_string(id) + (string)".txt");
-		int tot = favor[id].size();
-		ofs << tot << "\n";
-		for (int i = 0; i < tot; ++i) {
-			ofs << favor[id][i] << "\n";
-		}
-		ofs.close();
-	}
-
 	bool finish[5];
+
 	int curDataset;
+
 	void addToTrieDefs(int id) {
 		for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
 			pair<string, string> cur = this->datasets[id]->Data[j];
@@ -54,6 +32,30 @@ private:
 			this->trieKeys[id]->addWord(cur.first, { j, 0 });
 		}
 		std::cout << "Finish adding Keys of " << id << "\n";
+	}
+
+	void loadFavor(int id) {
+		if (id < 0 || id > 4) return;
+		std::ifstream ifs("Dataset/FavoriteId" + std::to_string(id) + (string)".txt");
+		if (!ifs.is_open()) return;
+		int tot = 0;
+		ifs >> tot;
+		favor[id].resize(tot);
+		for (int i = 0; i < tot; ++i) {
+			ifs >> favor[id][i];
+		}
+		ifs.close();
+	}
+
+	void saveFavor(int id) {
+		if (id < 0 || id > 4) return;
+		std::ofstream ofs("Dataset/FavoriteId" + std::to_string(id) + (string)".txt");
+		int tot = favor[id].size();
+		ofs << tot << "\n";
+		for (int i = 0; i < tot; ++i) {
+			ofs << favor[id][i] << "\n";
+		}
+		ofs.close();
 	}
 	
 public:
@@ -150,24 +152,6 @@ public:
 
 		ifs.close();
 		return res;
-	}
-
-
-	bool load(int id) {
-		if (id > 4 || id < 0) return false;
-		this->curDataset = id;
-		if (this->datasets[id]) return false;
-		this->datasets[id] = new DATASET(id);
-		this->datasets[id]->loadData();
-		if (id == 4) {
-			this->datasets[id]->swap();
-		}
-
-		this->trieDefs[id] = new Trie();
-		this->trieKeys[id] = new Trie();
-		this->addToTrieDefs(id);
-		this->addToTrieKeys(id);
-		return true;
 	}
 
 	int getCurSet() {
