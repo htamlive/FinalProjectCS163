@@ -108,13 +108,11 @@ void DATASET::loadFromEmotional() {
 	ifstream fin(dataset_name);
 	string temp1, temp2;
 	while (!fin.eof()) {
-		fin >> temp1;
-		getline(fin, temp2, '\n');
-		for (int i = 0; i < temp2.size() - 1; i++) {
-			if (temp2[i] == ' ' || temp2[i] == '\t' || temp2[i] == '.') {
-				temp2[i] = '\0';
-			}
-		}
+		getline(fin, temp1, '\t');
+		getline(fin, temp2);
+		if (fin.fail())
+			break;
+		temp2.erase(remove(temp2.begin(), temp2.end(), '\t'), temp2.end());
 		Data.push_back(make_pair(temp1, temp2));
 	}
 	fin.close();
@@ -123,9 +121,7 @@ void DATASET::loadFromEmotional() {
 void DATASET::saveToEmotional() {
 	ofstream fout(dataset_name);
 	for (auto i : Data) {
-		if (i.first != "") {
-			fout << i.first << '\t' << i.second << endl;
-		}
+		fout << i.first << '\t' << i.second << endl;
 	}
 	fout.close();
 }
@@ -138,6 +134,8 @@ void DATASET::loadFromSlang() {
 	while (!fin.eof()) {
 		getline(fin, temp1, '`');
 		getline(fin, temp2, '\n');
+		if (fin.fail())
+			break;
 		Core_Data.push_back(temp2);
 		remove(temp2.begin(), temp2.end(), '|');
 		Data.push_back(make_pair(temp1, temp2));
