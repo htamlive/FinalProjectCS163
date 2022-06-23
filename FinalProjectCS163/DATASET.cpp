@@ -188,6 +188,8 @@ void DATASET::saveToOxford() {
 }
 
 void DATASET::restoreDictionary() {
+	this->Core_Data.clear();
+	this->Data.clear();
 	if (_typeOfdata == DATASETID::EMOJI) {
 		ifstream src("OrgData/emotional.txt", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
