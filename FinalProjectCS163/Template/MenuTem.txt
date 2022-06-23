@@ -390,7 +390,7 @@ ChildWindow.ChildWindow {
         DistanceToSide = 3;
         PaddingBetweenButtons = 1;
         ShowTextOnTitleButtons = true;
-        TextureBackground = "../images/dickbutt_2022.jpg" NoSmooth;
+        TextureBackground = "../images/Vertical_art.jpg" NoSmooth;
         TextureTitleBar = "themes/bgPrompt.png" Part(0, 100, 2004, 30) Smooth;
         TitleBarColor = white;
         TitleColor = #3C3C3C;
@@ -563,8 +563,8 @@ ChildWindow.ChildWindow {
             TextureDown = None;
             TextureDownFocused = None;
             TextureDownHover = None;
-            TextureFocused = None;
-            TextureHover = None;
+            TextureFocused = "../images/green_tick_hover.png" Smooth;
+            TextureHover = "../images/green_tick_hover.png" Smooth;
             TransparentTexture = true;
         }
     }
@@ -596,7 +596,7 @@ ChildWindow.ChildWindow {
             TextureDownFocused = None;
             TextureDownHover = None;
             TextureFocused = None;
-            TextureHover = None;
+            TextureHover = "../images/red_cross_hover.png" Smooth;
             TransparentTexture = true;
         }
     }

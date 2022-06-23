@@ -16,6 +16,8 @@ private:
 	DataExecution* dataExec;
 	vector<Trie*> tries;
 	vector<vector<string>>* tmpDataSet;
+	vector<int> IDs;
+	string curString;
 	bool favorite = false;
 
 public:
@@ -24,28 +26,37 @@ public:
 	}
 
 	WordDetail(tgui::Gui* GUI, int& curSet,int x, int y, int w, int h, string& str) : x(x), y(y), w(w), h(h), curSet(curSet) {
-
+		this->favorite = false;
 		this->gui = GUI;
 		this->dataExec = &DataExecution::getInstance();
-
+		this->curString = str;
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
+	
+		this->IDs = this->dataExec->getID(this->curString);
+		for (int i = 0; i < IDs.size(); i++) {
+			this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
+		}
+	
+		if (this->favorite) this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/bright_star.png");
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->onClick([&]() {
 			if (!favorite) {
 				this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/bright_star.png");
+				this->dataExec->addFavoriteIDs(this->IDs);
 			}
 			else {
 				this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
+				this->dataExec->removeFavoriteIDs(this->IDs);
 			}
 			favorite = !favorite;
 			});
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setText(tgui::String(this->getDefinition(str)));
-		if (str.size() && str[0] >= 'a' && str[0] <= 'z') {
-			str[0] -= 32;
+		if (this->curString.size() && this->curString[0] >= 'a' && this->curString[0] <= 'z') {
+			this->curString[0] -= 32;
 		}
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(str));
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(this->curString));
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->onClick([&]() {
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(false);
@@ -70,10 +81,20 @@ public:
 		static int childCount = 0;
 		childCount++;
 		this->favorite = false;
+		this->curString = str;
+		this->IDs = this->dataExec->getID(this->curString);
+		for (int i = 0; i < IDs.size(); i++) {
+			this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
+			//cerr << IDs[i] << '\n';
+		}
+		//cerr << str << ' ' << this->favorite << '\n';
+
+		if (this->favorite) this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/bright_star.png");
+		else this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
+
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(str));
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setText(tgui::String(this->getDefinition(str)));
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(this->curString));
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setText(tgui::String(this->getDefinition(this->curString)));
 
 		if (!this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->isVisible()) {
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(false);
@@ -81,8 +102,8 @@ public:
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(true);
 		}
 
-		if (str.size() && str[0] >= 'a' && str[0] <= 'z') {
-			str[0] -= 32;
+		if (this->curString.size() && this->curString[0] >= 'a' && this->curString[0] <= 'z') {
+			this->curString[0] -= 32;
 		}
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(str));
 
