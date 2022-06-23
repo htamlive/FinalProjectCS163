@@ -173,6 +173,23 @@ vector<pair<int, int> > Trie::getKeySubsequence(const DATASET& dataset, const st
 	return result;
 };
 
+vector<pair<int, int> > Trie::getKeySubarray(const DATASET& dataset, const string& definition) const {
+	// Second type searching
+	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
+	const vector<string> words = splitString(definition);
+	vector<pair<int, int> > result;
+	for (const string& word : words) {
+		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+			const pair<string, string> data = dataset.getData(occurence.first);
+			const string& key = data.first, & definitionOfKey = data.second;
+			if (checkContainStringsAsSubarray(splitString(definitionOfKey), words))
+				result.push_back(occurence);
+		}
+	}
+	sort(result.begin(), result.end());
+	return result;
+};
+
 int Trie::getID(const char c) {
 	return c - Trie::offset;
 }

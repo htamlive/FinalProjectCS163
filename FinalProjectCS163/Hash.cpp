@@ -17,7 +17,7 @@ HashedString::HashedString() {
 
 void HashedString::addNewCharacter(const int c) {
 	(this->characters).push(c);
-	(this->power).push_back(1LL * (this->power).back() * c % MOD);
+	(this->power).push_back(1LL * (this->power).back() * (this->base) % MOD);
 	(this->value) = (1LL * (this -> value) * base % (this -> MOD) + c) % (this -> MOD);
 };
 

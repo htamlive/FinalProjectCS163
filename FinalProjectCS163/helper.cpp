@@ -81,7 +81,7 @@ bool checkContainStringsAsSubarray(const vector<string>& s, const vector<string>
 			a.addNewCharacter(c);
 		if (a.getHashedValue() == b.getHashedValue())
 			return true;
-		for (const char& c : s[i - m])
+		for (const char& c : s[i - m + 1])
 			a.popFirstCharacter();
 		if (!a.empty())
 			a.popFirstCharacter(); // remove white space

@@ -36,6 +36,7 @@ public:
 
 	vector<pair<int, int> > getKey(const DATASET& dataset, const string &definition) const;
 	vector<pair<int, int> > getKeySubsequence(const DATASET& dataset, const string& definition) const;
+	vector<pair<int, int> > getKeySubarray(const DATASET& dataset, const string& definition) const;
 
 	bool containsWord(const string& s) const;
 
