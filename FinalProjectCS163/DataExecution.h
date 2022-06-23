@@ -3,8 +3,6 @@
 #include "Trie.h"
 #include "helper.h"
 
-
-
 class DataExecution
 {
 private:
@@ -132,6 +130,11 @@ public:
 		return true;
 	}
 
+	bool isFavorite(int id) {
+		auto it = find(favor[this->curDataset].begin(), favor[this->curDataset].end(), id);
+		return (it != favor[this->curDataset].end());
+	}
+
 	vector<int> loadHistory(int type) {
 		if (type < 0 || type > 4) return {};
 		string link;
@@ -166,7 +169,34 @@ public:
 		}
 
 		return defText;
+	}
 
+	vector<int> getID(string& str) {
+		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+		vector<pair<int, int>> def = this->trieKeys[this->curDataset]->getDefinitions(str);
+		vector<int> ans;
+
+		for (int i = 0; i < (int)def.size(); i++) {
+			ans.push_back(def[i].first);
+		}
+		return ans;
+	}
+
+	void addFavoriteIDs(vector<int>& IDs) {
+		for (int i = 0; i < (int)IDs.size(); i++) {
+			this->favor[this->curDataset].push_back(IDs[i]);
+		}
+	}
+
+	void removeFavoriteIDs(vector<int> IDs) {
+		for (int i = 0; i < (int)IDs.size(); i++) {
+			for (auto j = this->favor[this->curDataset].begin(); j != this->favor[this->curDataset].end(); j++) {
+				if (*j == IDs[i]) {
+					this->favor[this->curDataset].erase(j);
+					break;
+				}
+			}
+		}
 	}
 
 	vector<string> getListOfWords(string prefix, int maximum) {

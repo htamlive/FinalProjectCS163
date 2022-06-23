@@ -36,6 +36,7 @@ public:
 
 	vector<pair<int, int> > getKey(const DATASET& dataset, const string &definition) const;
 	vector<pair<int, int> > getKeySubsequence(const DATASET& dataset, const string& definition) const;
+	vector<pair<int, int> > getKeySubarray(const DATASET& dataset, const string& definition) const;
 
 	bool containsWord(const string& s) const;
 
@@ -47,7 +48,10 @@ public:
 
 	void popCharacter();
 
-	void clearTrie();
+	int getSize() const;
 
+	bool empty() const;
+	
+	void clearTrie();
 
 };
