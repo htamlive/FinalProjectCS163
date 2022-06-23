@@ -174,7 +174,7 @@ vector<pair<int, int> > Trie::getKeySubsequence(const DATASET& dataset, const st
 };
 
 vector<pair<int, int> > Trie::getKeySubarray(const DATASET& dataset, const string& definition) const {
-	// Second type searching
+	// Third type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
 	const vector<string> words = splitString(definition);
 	vector<pair<int, int> > result;
@@ -192,4 +192,12 @@ vector<pair<int, int> > Trie::getKeySubarray(const DATASET& dataset, const strin
 
 int Trie::getID(const char c) {
 	return c - Trie::offset;
+}
+
+int Trie::getSize() const {
+	return this->size;
+}
+
+bool Trie::empty() const {
+	return (this->root) == nullptr;
 }

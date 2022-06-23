@@ -48,7 +48,10 @@ public:
 
 	void popCharacter();
 
-	void clearTrie();
+	int getSize() const;
 
+	bool empty() const;
+	
+	void clearTrie();
 
 };

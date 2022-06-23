@@ -27,6 +27,11 @@ public:
 		return a.value == b.value;
 	};
 
+	friend bool operator != (const HashedString& a, const HashedString& b) {
+		assert(a.base == b.base && a.MOD == b.MOD);
+		return a.value != b.value;
+	};
+
 	void addNewCharacter(const int c);
 	bool popFirstCharacter();
 	int getHashedValue() const;
