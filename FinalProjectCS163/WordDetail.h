@@ -18,11 +18,26 @@ private:
 	vector<vector<string>>* tmpDataSet;
 	vector<int> IDs;
 	string curString;
+	bool hasChangeDef = false;
 	bool favorite = false;
 
 public:
 	string getDefinition(string& str) {
 		return this->dataExec->getDefinition(str);
+	}
+
+	void setOnClickEdit() {
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(false);
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(false);
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(true);
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(true);
+	}
+
+	void setOnClickGreen() {
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(true);
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(true);
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(false);
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(false);
 	}
 
 	WordDetail(tgui::Gui* GUI, int& curSet,int x, int y, int w, int h, string& str) : x(x), y(y), w(w), h(h), curSet(curSet) {
@@ -49,6 +64,7 @@ public:
 				this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
 				this->dataExec->removeFavoriteIDs(this->IDs);
 			}
+			
 			favorite = !favorite;
 			});
 
@@ -59,28 +75,33 @@ public:
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(this->curString));
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->onClick([&]() {
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(false);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(false);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(true);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(true);
+			this->setOnClickEdit();
 			});
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->onClick([&]() {
-			if (this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->getText() == "") {
-				for (int i = 0; i < this->IDs.size(); i++) {
-					this->dataExec->removeWord(this->IDs[i]);
-				}
-				this->dataExec->removeFavoriteIDs(this->IDs);
+			if (!this->hasChangeDef) {
+				cerr << "Nothing has changed\n";
+				this->setOnClickGreen();
+				return;
 			}
+			cout << "I've change yo mama\n";
+			for (int i = 0; i < this->IDs.size(); i++) {
+				this->dataExec->removeWord(this->IDs[i]);
+			}
+			this->dataExec->removeFavoriteIDs(this->IDs);
 
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(true);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(true);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(false);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(false);
+			string newDef = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->getText().toStdString();
+			if (newDef != "") this->dataExec->addWord(make_pair(this->curString, newDef));
+			this->setOnClickGreen();
+			});
+
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->onTextChange([&]() {
+			this->hasChangeDef = true;
 			});
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->onClick([&]() {
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setText("");
+			this->hasChangeDef = true;
 			});
 	}
 
@@ -88,6 +109,7 @@ public:
 		static int childCount = 0;
 		childCount++;
 		this->favorite = false;
+		this->hasChangeDef = false;
 		this->curString = str;
 		this->IDs = this->dataExec->getID(this->curString);
 		for (int i = 0; i < IDs.size(); i++) {
@@ -102,16 +124,12 @@ public:
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setText(tgui::String(this->getDefinition(this->curString)));
 
 		if (!this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->isVisible()) {
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(false);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(false);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(true);
+			this->setOnClickGreen();
 		}
 
 		if (this->curString.size() && this->curString[0] >= 'a' && this->curString[0] <= 'z') {
 			this->curString[0] -= 32;
 		}
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("EditBox1")->setText(tgui::String(str));
-
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setReadOnly(true);
 	}
 };

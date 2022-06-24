@@ -116,6 +116,17 @@ public:
 		addToTrieDefs(id);
 	}
 
+	void addWord(pair<string, string> word) {
+		this->datasets[this->curDataset]->addWord(word);
+		pair<string, string> cur = this->datasets[this->curDataset]->Data.back();
+		transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
+		const vector<string> words = splitString(cur.second);
+		int j = this->datasets[this->curDataset]->Data.size() - 1;
+		for (int i = 0; i < words.size(); ++i) {
+			this->trieDefs[this->curDataset]->addWord(words[i], { j, i });
+		}
+	}
+
 	bool loadDataset(int id, bool setCur = false) {
 		if (id > 4 || id < 0) return false;
 		if(setCur) this->curDataset = id;
