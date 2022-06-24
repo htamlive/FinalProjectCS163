@@ -11,7 +11,6 @@ class WordDetail
 private:
 	int x, y, w, h;
 	tgui::Gui* gui;
-	int curSet;
 
 	DataExecution* dataExec;
 	vector<Trie*> tries;
@@ -25,7 +24,7 @@ public:
 		return this->dataExec->getDefinition(str);
 	}
 
-	WordDetail(tgui::Gui* GUI, int& curSet,int x, int y, int w, int h, string& str) : x(x), y(y), w(w), h(h), curSet(curSet) {
+	WordDetail(tgui::Gui* GUI, int x, int y, int w, int h, string& str) : x(x), y(y), w(w), h(h) {
 		this->favorite = false;
 		this->gui = GUI;
 		this->dataExec = &DataExecution::getInstance();
@@ -84,7 +83,7 @@ public:
 			});
 	}
 
-	void changeWord(int& curSet, string& str) {
+	void changeWord(const string& str) {
 		static int childCount = 0;
 		childCount++;
 		this->favorite = false;

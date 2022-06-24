@@ -5,6 +5,8 @@
 #include <iostream>
 #include <TGUI/TGUI.hpp>
 #include <TGUI/Backend/SFML-Graphics.hpp>
+#include "DataExecution.h"
+#include "WordDetail.h"
 
 class FavoriteList
 {
@@ -13,23 +15,15 @@ private:
 	int tot;
 	bool isVisible;
 	std::vector<int> memo;
-	void loadFile() {
-		std::ifstream ifs("Dataset/FavoriteId.txt");
-		ifs >> this->tot;
-		memo.resize(this->tot);
-		for (int i = 0; i < this->tot; ++i) {
-			ifs >> memo[i];
-		}
-		ifs.close();
-	}
+	DataExecution* dataExec;
+	WordDetail** wordDetail;
+
 
 	void setup() {
 		this->gui->get<tgui::ListView>("FavoriteList")->setVisible(false);
 		this->gui->get<tgui::ListView>("FavoriteList")->setVerticalScrollbarPolicy(tgui::Scrollbar::Policy::Always);
-		std::cout << this->gui->get<tgui::ListView>("FavoriteList")->addColumn("Favorite List");
-		for (int i = 0; i < this->tot; ++i) {
-			// load from dataset
-		}
+		this->gui->get<tgui::ListView>("FavoriteList")->addColumn("Favorite List");
+
 	}
 
 	void initButtons() {
@@ -42,21 +36,71 @@ private:
 			isVisible = !isVisible;
 			this->gui->get<tgui::ListView>("FavoriteList")->setVisible(isVisible);
 			this->gui->get<tgui::ToggleButton>("togBtnList")->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
+			this->memo = this->dataExec->getFavor();
+			this->gui->get<tgui::ListView>("FavoriteList")->removeAllItems();
+			for (int i = 0; i < this->memo.size(); ++i) {
+				auto tmp = this->dataExec->getData(this->memo[i]);
+				//cout << tmp.first << " " << tmp.second << "\n";
+
+				this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceStr(tmp.first + ": " + tmp.second, 34));
+			}
 			});
 
 		
 	}
+
+	void reload() {
+		auto nwMemo = this->dataExec->getFavor();
+		bool flag = nwMemo.size() == this->memo.size();
+		
+		for (int i = 0; flag && i < nwMemo.size(); ++i) {
+			if (nwMemo[i] != memo[i]) flag = false;
+		}
+		if (flag) return;
+		this->memo = nwMemo;
+		this->gui->get<tgui::ListView>("FavoriteList")->removeAllItems();
+		for (int i = 0; i < this->memo.size(); ++i) {
+			auto tmp = this->dataExec->getData(this->memo[i]);
+			//cout << tmp.first << " " << tmp.second << "\n";
+
+			this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceStr(tmp.first + ": " + tmp.second, 34));
+		}
+	}
+
+	string reduceStr(string s, int l) {
+		if (s.length() <= l + 3) return s;
+		s = s.substr(0, l);
+		s += "...";
+		return s;
+	}
+
+	void setupWordDetail(int i) {
+		string keys = this->dataExec->getData(this->memo[i]).first;
+		if ((*this->wordDetail)) {
+			(*this->wordDetail)->changeWord(keys);
+		}
+		else {
+			*this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, keys);
+
+		}
+	}
 public:
-	FavoriteList(tgui::Gui* gui) {
+	FavoriteList(tgui::Gui* gui, WordDetail** wordDetail) {
 		this->gui = gui;
 		this->isVisible = false;
-		loadFile();
+		this->dataExec = &DataExecution::getInstance();
+		this->wordDetail = wordDetail;
 		setup();
 		initButtons();
 	}
 
 	void update() {
-
+		
+		int id = this->gui->get<tgui::ListView>("FavoriteList")->getSelectedItemIndex();
+		if (id != -1) {
+			setupWordDetail(id);
+			this->gui->get<tgui::ListView>("FavoriteList")->deselectItems();
+		} else reload();
 	}
 };
 

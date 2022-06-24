@@ -21,16 +21,13 @@ private:
 	int curOpt = 1;
 
 	DataExecution* dataExec;
-	vector<DATASET*> dataSet;
-	vector<Trie*> tries;
-	vector<vector<string>> tmpDataSet;
 	
 	vector<string> btnNames = {"btnENtoEN", "btnENtoVIE","btnVIEtoEN" ,"btnSLANG", "btnEmoji" };
 	vector<int> datasetId = { DATASETID::ENtoEN, DATASETID::ENtoVIE,DATASETID::VIEtoEN ,DATASETID::SLANG, DATASETID::EMOJI };
 	
 	SearchList* searchList;
 	BackgroundAnimations* backgroundAnimations;
-	FavoriteList* favoriteList;
+
 	vector<string> data;
 public:
 	bool isWordMode = true;
@@ -43,7 +40,7 @@ public:
 		initButtons();
 
 		this->backgroundAnimations = new BackgroundAnimations(this->gui);
-		this->favoriteList = new FavoriteList(this->gui);
+		
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->onClosing([&](bool* abort) {
 			*abort = true;
@@ -106,7 +103,7 @@ public:
 	}
 
 	void initSearchBar() {
-		this->searchList = new SearchList(this->gui, this->datasetId[this->curOpt], this->tries, &this->tmpDataSet, 550, 280, 720, 60, &this->isWordMode);
+		this->searchList = new SearchList(this->gui, this->datasetId[this->curOpt], 550, 280, 720, 60, &this->isWordMode);
 		this->isWordMode = true;
 		//data = { "Hello", "Nice", "Helpful", "Helicopter"};
 		//this->searchList->update(data);
@@ -152,22 +149,9 @@ public:
 		}
 	};
 
-	void loadTmpData() {
-		DATASET* data = this->dataSet.back();
-		for (int i = 0; i < data->Data.size(); i++) {
-			vector<string> arr;
-			stringstream s(data->Data[i].second);
-			string word;
-			while (s >> word) {
-				arr.push_back(word);
-			}
-			this->tmpDataSet.push_back(arr);
-		}
-	}
-
 	void update(const float& dt) {
 		this->updateBtns();
-		this->favoriteList->update();
+		//this->favoriteList->update();
 		this->backgroundAnimations->update(dt);
 		this->searchList->update();
 	};

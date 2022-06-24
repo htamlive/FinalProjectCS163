@@ -200,6 +200,13 @@ public:
 		}
 	}
 
+	vector<int> getFavor(int id = -1) {
+		if (id == -1) return this->favor[this->curDataset];
+		if (id < 0 || id > 4) return {};
+		return this->favor[id];
+	}
+
+
 	vector<string> getListOfKeys(string prefix, int maximum) {
 		//cerr << this->tries.size() << '\n';
 		return this->trieKeys[this->curDataset]->getListOfWords(prefix, maximum);
@@ -237,5 +244,7 @@ public:
 	void removeWord(int id) {
 		this->datasets[this->curDataset]->removeWord(id);
 	}
+
+
 };
 

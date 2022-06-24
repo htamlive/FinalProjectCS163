@@ -5,6 +5,7 @@
 #include <TGUI/Backend/SFML-Graphics.hpp>
 #include <iostream>
 #include "WordDetail.h"
+#include "FavoriteList.h"
 class SearchList
 {
 private:
@@ -15,14 +16,10 @@ private:
 	
 	int curSet = 0;
 	bool* isWordMode;
-	vector<Trie*> tries;
 	WordDetail* wordDetail;
-	vector<vector<string>>* tmpDataSet;
+	FavoriteList* favoriteList;
 	vector<int> history;
 	DataExecution* dataExec;
-
-	//sf::Texture backgroundTexture;
-	//RectangleShape background;
 
 	void showHistory() {
 		vector<pair<string, string>> tmp(this->history.size());
@@ -56,18 +53,37 @@ private:
 		return s;
 	}
 
+	void setupWordDetail(int i) {
+		if (this->wordDetail) {
+			if (*this->isWordMode == true)
+				this->wordDetail->changeWord(suggestedKeys[i]);
+			else {
+				string str = this->dataExec->getData(suggestedIdx[i]).first;
+				this->wordDetail->changeWord(str);
+			}
+		}
+		else {
+			if (*this->isWordMode == true)
+				this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, suggestedKeys[i]);
+			else {
+				string str = this->dataExec->getData(suggestedIdx[i]).first;
+				this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, str);
+			}
+
+		}
+	}
 public:
 	SearchList() {
 		
 	};
 
-	SearchList(tgui::Gui* gui, const int& curSet, vector<Trie*> tries, vector<vector<string>>* tmpData, int x, int y, int w, int h, bool *isWordMode) : x(x), y(y), w(w), h(h), curSet(curSet) {
+	SearchList(tgui::Gui* gui, const int& curSet, int x, int y, int w, int h, bool *isWordMode) : x(x), y(y), w(w), h(h), curSet(curSet) {
 		this->gui = gui;
-		this->tries = tries;
-		this->tmpDataSet = tmpData;
 		this->isWordMode = isWordMode;
+		this->wordDetail = nullptr;	
 		this->dataExec = &DataExecution::getInstance();
 		this->history = this->dataExec->loadHistory(this->curSet);
+		this->favoriteList = new FavoriteList(this->gui, &wordDetail);
 
 		this->initSearchButton();
 
@@ -82,8 +98,9 @@ public:
 		//showHistory();
 		this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&, this]() {
 			if(*this->isWordMode == true) onChangingText();
-		});
-
+		});		
+		
+		
 
 		this->gui->get<tgui::EditBox>("SearchBar")->onFocus([&, this]() {
 			if(*this->isWordMode == true) onChangingText();
@@ -162,23 +179,7 @@ public:
 			eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordButton"));
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
-				if (this->wordDetail) {
-					if (*this->isWordMode == true)
-						this->wordDetail->changeWord(curSet, suggestedKeys[i]);
-					else {
-						string str = this->dataExec->getData(suggestedIdx[i]).first;
-						this->wordDetail->changeWord(curSet,str);
-					}
-				}
-				else {
-					if (*this->isWordMode == true)
-						this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, suggestedKeys[i]);
-					else {
-						string str = this->dataExec->getData(suggestedIdx[i]).first;
-						this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, str);
-					}
-
-				}
+				setupWordDetail(i);
 				});
 		}
 		
@@ -190,7 +191,7 @@ public:
 		//std::cout << x->getWidgetName() << "\n";
 		if (this->gui->getFocusedChild() == nullptr)
 			showSuggestions({});
-
+		this->favoriteList->update();
 	}
 };
 
