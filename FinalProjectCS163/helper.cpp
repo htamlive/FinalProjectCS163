@@ -88,3 +88,9 @@ bool checkContainStringsAsSubarray(const vector<string>& s, const vector<string>
 	}
 	return false;
 };
+
+string toLowerString(string s) {
+	for (char& c : s)
+		c = tolower(c);
+	return s;
+};
