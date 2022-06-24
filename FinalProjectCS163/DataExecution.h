@@ -226,12 +226,12 @@ public:
 	//	return this->trieDefs[this->curDataset]->getKeys(*this->datasets[this->curDataset], s, maximum);
 	//}
 
-	vector<pair<int, int>> getKeySubarray(string s) {
-		return this->trieDefs[this->curDataset]->getKeySubarray(*this->datasets[this->curDataset], s);
+	vector<int> getKeysSubarray(string s, int maximum = 8) {
+		return this->trieDefs[this->curDataset]->getKeysSubarray(*this->datasets[this->curDataset], s,maximum);
 	}
 
-	vector<pair<int, int>> getKeySubsequence(string s) {
-		return this->trieDefs[this->curDataset]->getKeySubsequence(*this->datasets[this->curDataset], s);
+	vector<int> getKeysSubsequence(string s, int maximum = 8) {
+		return this->trieDefs[this->curDataset]->getKeysSubsequence(*this->datasets[this->curDataset], s, maximum);
 	}
 
 	void removeWord(int id) {

@@ -10,7 +10,7 @@ class SearchList
 private:
 	int x, y, w, h;
 	std::vector<std::string> suggestedKeys;
-	std::vector<pair<int, int>> suggestedIdx;
+	std::vector<int> suggestedIdx;
 	tgui::Gui* gui;
 	
 	int curSet = 0;
@@ -97,7 +97,7 @@ public:
 			else {
 				tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
 				text = text.toLower();
-				auto nwDataId = this->dataExec->getKeySubsequence((string)text);
+				auto nwDataId = this->dataExec->getKeysSubsequence((string)text);
 				showSuggestions({}, nwDataId);
 			}
 			});
@@ -139,7 +139,7 @@ public:
 		
 	}
 
-	void showSuggestions(std::vector<std::string> nwData = {}, std::vector<pair<int, int>> nwDataIdx = {}) {
+	void showSuggestions(std::vector<std::string> nwData = {}, std::vector<int> nwDataIdx = {}) {
 		clear();
 		this->suggestedKeys = nwData;
 		this->suggestedIdx = nwDataIdx;
@@ -151,7 +151,7 @@ public:
 
 			if(*this->isWordMode == true) eb->setText(suggestedKeys[i]);
 			else {
-				auto tmp = this->dataExec->getData(nwDataIdx[i].first);
+				auto tmp = this->dataExec->getData(nwDataIdx[i]);
 				eb->setText(this->reduceStr(tmp.first + ": " + tmp.second, 80));
 			}
 			eb->setTextSize(16);
@@ -166,7 +166,7 @@ public:
 					if (*this->isWordMode == true)
 						this->wordDetail->changeWord(curSet, suggestedKeys[i]);
 					else {
-						string str = this->dataExec->getData(suggestedIdx[i].first).first;
+						string str = this->dataExec->getData(suggestedIdx[i]).first;
 						this->wordDetail->changeWord(curSet,str);
 					}
 				}
@@ -174,7 +174,7 @@ public:
 					if (*this->isWordMode == true)
 						this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, suggestedKeys[i]);
 					else {
-						string str = this->dataExec->getData(suggestedIdx[i].first).first;
+						string str = this->dataExec->getData(suggestedIdx[i]).first;
 						this->wordDetail = new WordDetail(this->gui, this->curSet, 25, 100, 450, 600, str);
 					}
 
