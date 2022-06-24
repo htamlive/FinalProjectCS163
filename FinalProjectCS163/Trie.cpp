@@ -179,6 +179,7 @@ vector<int> Trie::getKeys(const DATASET& dataset, const string& definition, cons
 		}
 	}
 	sort(result.begin(), result.end());
+	result.erase(unique(result.begin(), result.end()), result.end());
 	if (result.size() >= maximum)
 		result.resize(maximum);
 	return result;
@@ -253,6 +254,7 @@ vector<int> Trie::getKeysSubsequence(const DATASET& dataset, const string& defin
 		}
 	}
 	sort(result.begin(), result.end());
+	result.erase(unique(result.begin(), result.end()), result.end());
 	if (result.size() >= maximum)
 		result.resize(maximum);
 	return result;
@@ -281,6 +283,7 @@ vector<int> Trie::getKeysSubarray(const DATASET& dataset, const string& definiti
 		}
 	}
 	sort(result.begin(), result.end());
+	result.erase(unique(result.begin(), result.end()), result.end());
 	if (result.size() >= maximum)
 		result.resize(maximum);
 	return result;
