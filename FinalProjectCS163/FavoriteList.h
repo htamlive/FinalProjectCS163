@@ -61,6 +61,7 @@ private:
 		this->gui->get<tgui::ListView>("FavoriteList")->removeAllItems();
 		for (int i = 0; i < this->memo.size(); ++i) {
 			auto tmp = this->dataExec->getData(this->memo[i]);
+			if (tmp.first == "") continue;
 			//cout << tmp.first << " " << tmp.second << "\n";
 
 			this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceStr(tmp.first + ": " + tmp.second, 34));
