@@ -90,7 +90,9 @@ public:
 			this->dataExec->removeFavoriteIDs(this->IDs);
 
 			string newDef = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->getText().toStdString();
-			if (newDef != "") this->dataExec->addWord(make_pair(this->curString, newDef));
+			if (newDef != "") { 
+				this->dataExec->addWord(make_pair(this->curString, newDef)); 
+			}
 			this->setOnClickGreen();
 			});
 

@@ -125,6 +125,7 @@ public:
 		for (int i = 0; i < words.size(); ++i) {
 			this->trieDefs[this->curDataset]->addWord(words[i], { j, i });
 		}
+		this->trieKeys[this->curDataset]->addWord(cur.first, { j, 0 });
 	}
 
 	bool loadDataset(int id, bool setCur = false) {
@@ -176,7 +177,8 @@ public:
 		string defText = "";
 		for (int i = 0; i < (int)def.size(); i++) {
 			auto ans = this->datasets[this->curDataset]->getData(def[i].first);
-			defText += "+ " +  ans.second + "\n";
+			if (ans.second != "")
+				defText += "+ " +  ans.second + "\n";
 		}
 
 		return defText;

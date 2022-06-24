@@ -135,8 +135,6 @@ public:
 			//auto nwIds = this->dataExec->getKeySubarray(text.toStdString());
 			showSuggestions(nwData);
 		}
-		
-
 	}
 
 	void clear() {

@@ -106,9 +106,12 @@ vector<pair<int, int> > Trie::getDefinitions(const string &s) const {
 		if (!checkPrintable(c)) 
 			return vector<pair<int, int> >();
 		node = node->children[Trie::getID(tolower(c))];
-		if (node == nullptr)
+		if (node == nullptr) {
+			cout << "Nullshit\n";
 			return vector<pair<int, int> >();
+		}
 	}
+	cout << node->id << '\n';
 	return node->occurences;
 };
 
