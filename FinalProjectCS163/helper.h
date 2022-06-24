@@ -11,3 +11,4 @@ bool checkPrintable(const char c);
 bool checkContainStrings(const vector<string> &s, const vector<string> &t);
 bool checkContainStringsAsSubsequence(const vector<string>& s, const vector<string>& t);
 bool checkContainStringsAsSubarray(const vector<string> &s, const vector<string> &t);
+string toLowerString(string s);

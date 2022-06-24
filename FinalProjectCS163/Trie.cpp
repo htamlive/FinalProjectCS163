@@ -148,7 +148,7 @@ vector<pair<int, int> > Trie::getKey(const DATASET &dataset, const string& defin
 		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
 			const pair<string, string> data = dataset.getData(occurence.first);
 			const string& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStrings(splitString(definitionOfKey), words))
+			if (checkContainStrings(splitString(toLowerString(definitionOfKey)), words))
 				result.push_back(occurence);
 		}
 	}
@@ -172,7 +172,7 @@ vector<int> Trie::getKeys(const DATASET& dataset, const string& definition, cons
 				continue;
 			const pair<string, string> data = dataset.getData(occurence.first);
 			const string& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStrings(splitString(definitionOfKey), words)) {
+			if (checkContainStrings(splitString(toLowerString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
 				--remain;
 			}
@@ -194,7 +194,7 @@ vector<pair<int, int> > Trie::getKeySubsequence(const DATASET& dataset, const st
 		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
 			const pair<string, string> data = dataset.getData(occurence.first);
 			const string& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStringsAsSubsequence(splitString(definitionOfKey), words))
+			if (checkContainStringsAsSubsequence(splitString(toLowerString(definitionOfKey)), words))
 				result.push_back(occurence);
 		}
 	}
@@ -211,7 +211,7 @@ vector<pair<int, int> > Trie::getKeySubarray(const DATASET& dataset, const strin
 		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
 			const pair<string, string> data = dataset.getData(occurence.first);
 			const string& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStringsAsSubarray(splitString(definitionOfKey), words))
+			if (checkContainStringsAsSubarray(splitString(toLowerString(definitionOfKey)), words))
 				result.push_back(occurence);
 		}
 	}
@@ -247,7 +247,7 @@ vector<int> Trie::getKeysSubsequence(const DATASET& dataset, const string& defin
 				continue;
 			const pair<string, string> data = dataset.getData(occurence.first);
 			const string& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStringsAsSubsequence(splitString(definitionOfKey), words)) {
+			if (checkContainStringsAsSubsequence(splitString(toLowerString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
 				--remain;
 			}
@@ -276,7 +276,7 @@ vector<int> Trie::getKeysSubarray(const DATASET& dataset, const string& definiti
 				continue;
 			const pair<string, string> data = dataset.getData(occurence.first);
 			const string& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStringsAsSubarray(splitString(definitionOfKey), words)) {
+			if (checkContainStringsAsSubarray(splitString(toLowerString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
 				--remain;
 			}
