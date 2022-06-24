@@ -165,7 +165,6 @@ public:
 		return (it != favor[this->curDataset].end());
 	}
 
-
 	int getCurSet() {
 		return this->curDataset;
 	}

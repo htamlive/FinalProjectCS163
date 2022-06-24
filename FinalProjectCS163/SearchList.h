@@ -110,9 +110,12 @@ public:
 
 	void initSearchButton() {
 		this->gui->get<tgui::Button>("btnSearch")->onClick([&, this]() {
-			if(*this->isWordMode == true) onChangingText();
-			else {
-				tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+			text = text.toLower();
+			if (*this->isWordMode == true) {
+				if (this->wordDetail) this->wordDetail->changeWord((string)text);
+				else this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, (string)text);
+			} else {
 				text = text.toLower();
 				auto nwDataId = this->dataExec->getKeysSubsequence((string)text);
 				showSuggestions({}, nwDataId);

@@ -39,7 +39,7 @@ public:
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(false);
 	}
 
-	WordDetail(tgui::Gui* GUI, int x, int y, int w, int h, string& str) : x(x), y(y), w(w), h(h) {
+	WordDetail(tgui::Gui* GUI, int x, int y, int w, int h, string str) : x(x), y(y), w(w), h(h) {
 		this->favorite = false;
 		this->gui = GUI;
 		this->dataExec = &DataExecution::getInstance();

@@ -35,10 +35,15 @@ public:
 	vector<int> getIDofRandomWords(const int numberOfWords) const;
 
 	vector<pair<int, int> > getKey(const DATASET& dataset, const string &definition) const;
+
 	vector<pair<int, int> > getKeySubsequence(const DATASET& dataset, const string& definition) const;
+
 	vector<pair<int, int> > getKeySubarray(const DATASET& dataset, const string& definition) const;
+
 	vector<int> getKeys(const DATASET& dataset, const string& definition, const int maximum) const;
+
 	vector<int> getKeysSubsequence(const DATASET& dataset, const string& definition, const int maximum) const;
+
 	vector<int> getKeysSubarray(const DATASET& dataset, const string& definition, const int maximum) const;
 
 	bool containsWord(const string& s) const;
