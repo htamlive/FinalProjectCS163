@@ -111,7 +111,7 @@ vector<pair<int, int> > Trie::getDefinitions(const string &s) const {
 			return vector<pair<int, int> >();
 		}
 	}
-	cout << node->id << '\n';
+	//cout << node->id << '\n';
 	return node->occurences;
 };
 
