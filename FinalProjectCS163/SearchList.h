@@ -196,6 +196,15 @@ public:
 		
 	};
 
+	void delDetail() {
+		if (this->wordDetail) {
+			delete this->wordDetail;
+		}
+		if (this->favoriteList) {
+			delete this->favoriteList;
+		}
+	}
+
 	void update() {
 		//std::cout << x->getWidgetName() << "\n";
 		if (this->gui->getFocusedChild() == nullptr)
