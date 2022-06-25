@@ -194,6 +194,8 @@ void DATASET::restoreDictionary() {
 		ifstream src("OrgData/emotional.txt", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
 		dst << src.rdbuf();
+		src.close();
+		dst.close();
 		loadFromEmotional();
 		return;
 	}
@@ -201,6 +203,8 @@ void DATASET::restoreDictionary() {
 		ifstream src("OrgData/slang.txt", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
 		dst << src.rdbuf();
+		src.close();
+		dst.close();
 		loadFromSlang();
 		return;
 	}
@@ -208,6 +212,8 @@ void DATASET::restoreDictionary() {
 		ifstream src("OrgData/FilterENtoVIEAgain.csv", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
 		dst << src.rdbuf();
+		src.close();
+		dst.close();
 		loadFromCSV();
 		return;
 	}
@@ -215,6 +221,8 @@ void DATASET::restoreDictionary() {
 		ifstream src("OrgData/FilterOxford.csv", ios::binary);
 		ofstream dst(dataset_name, ios::binary);
 		dst << src.rdbuf();
+		src.close();
+		dst.close();
 		loadFromOxford();
 		return;
 	}

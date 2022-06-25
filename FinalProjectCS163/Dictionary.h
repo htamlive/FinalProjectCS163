@@ -3,7 +3,7 @@
 #include <vector>
 #include <chrono>
 #include <random>
-
+#include <thread>
 #include "State.h"
 
 using namespace sf;

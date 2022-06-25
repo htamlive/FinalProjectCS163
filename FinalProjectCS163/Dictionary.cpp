@@ -1,5 +1,6 @@
 #include "Dictionary.h"
 #include "MainMenuState.h"
+#include "LoadingState.h"
 
 void Dictionary::initVariables()
 {
@@ -40,6 +41,7 @@ void Dictionary::initWindow()
 void Dictionary::initState()
 {
 	this->states.push_back(new MainMenuState(this->window, &this->states));
+	this->states.push_back(new LoadingState(this->window, &this->states));
 }
 
 
@@ -138,6 +140,8 @@ void Dictionary::run()
 		this->update();
 		this->render();
 	}
+	
+	DataExecution::getInstance().setShutDown();
 }
 
 void Dictionary::closeWindow()

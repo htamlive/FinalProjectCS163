@@ -158,6 +158,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Hash.cpp" />
     <ClCompile Include="helper.cpp" />
+    <ClCompile Include="LoadingState.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="SearchList.cpp" />
     <ClCompile Include="State.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="helper.h" />
+    <ClInclude Include="LoadingState.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="SearchList.h" />
     <ClInclude Include="State.h" />

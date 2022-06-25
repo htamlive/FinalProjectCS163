@@ -16,6 +16,13 @@ void loadData() {
 	DataExecution* dataExecution = &DataExecution::getInstance();
 	for (auto i : {0, 1, 2, 4 }) dataExecution->loadKeys(i);
 	for (auto i : {0, 1, 2, 4 }) dataExecution->loadDefs(i);
+
+	while (!dataExecution->getShutDown()) {
+		if (dataExecution->getReload()) {
+			dataExecution->setReload(false);
+			dataExecution->restore();
+		}
+	}
 }
 
 void loadBig() {

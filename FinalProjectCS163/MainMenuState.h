@@ -11,6 +11,7 @@
 #include "BackgroundAnimations.h"
 #include "FavoriteList.h"
 #include "DataExecution.h"
+#include "LoadingState.h"
 class MainMenuState : public State
 {
 private:
@@ -97,8 +98,12 @@ public:
 			});	
 
 		this->gui->get<tgui::Button>("btnRestore")->onClick([&, this]() {
-			dataExec->restore(datasetId[curOpt]);
-			searchList->onChangingText();
+			//dataExec->restore(datasetId[curOpt]);
+			dataExec->setReload(true);
+			states->push_back(new LoadingState(this->window, this->states));
+			//searchList->onChangingText();
+			dataExec->clearHistory();
+			//add state
 			});
 	}
 

@@ -9,8 +9,9 @@ private:
 	DATASET* datasets[5];
 	Trie* trieKeys[5], *trieDefs[5];
 	std::vector<int> favor[5];
+	std::vector<int> history[5];
 
-	bool finish[5];
+	bool finishDataset[5], finishKeys[5], finishDefs[5], isShutDown, isReload;
 
 	int curDataset;
 
@@ -23,6 +24,7 @@ private:
 				this->trieDefs[id]->addWord(words[i], { j, i });
 			}
 		}
+		this->finishDefs[id] = true;
 		std::cout << "Finish adding Defs of " << id << "\n";
 	}
 
@@ -31,6 +33,7 @@ private:
 			pair<string, string> cur = this->datasets[id]->Data[j];
 			this->trieKeys[id]->addWord(cur.first, { j, 0 });
 		}
+		this->finishKeys[id] = true;
 		std::cout << "Finish adding Keys of " << id << "\n";
 	}
 
@@ -57,6 +60,42 @@ private:
 		}
 		ofs.close();
 	}
+
+	void loadHistory(int id) {
+		if (id < 0 || id > 4) return;
+		string link;
+		for (string i : { (string)"Dataset/History", (string)to_string(id), (string)".txt"}) {
+			link += i;
+		}
+		std::ifstream ifs(link);
+		if (!ifs.is_open()) return;
+		int tot;
+		ifs >> tot;
+		this->history[id].resize(tot);
+		for (int i = 0; i < tot; ++i) {
+			ifs >> history[id][i];
+		}
+
+		ifs.close();
+	}
+
+	void saveHistory(int id) {
+		if (id < 0 || id > 4) return;
+		string link;
+		for (string i : { (string)"Dataset/History", (string)to_string(id), (string)".txt"}) {
+			link += i;
+		}
+		std::ofstream ofs(link);
+		if (!ofs.is_open()) return;
+		ofs << min((int)this->history[id].size(), 8) << "\n";
+
+		int start = max(0, (int)history[id].size() - 8);
+		for (int i = start; i < history[id].size(); ++i) {
+			ofs << this->history[id][i] << "\n";
+		}
+
+		ofs.close();
+	}
 	
 public:
 	static DataExecution& getInstance() {
@@ -69,18 +108,26 @@ public:
 			this->datasets[i] = nullptr;
 			this->trieKeys[i] = nullptr;
 			this->trieDefs[i] = nullptr;
-			this->finish[i] = false;
+			this->finishDataset[i] = false;
+			this->finishKeys[i] = false;
+			this->finishDefs[i] = false;
 		}
-
+		this->isShutDown = false;
 		this->curDataset = 0;
-		for(int i = 0 ; i < 5; ++i)
+		for (int i = 0; i < 5; ++i) {
 			this->loadFavor(i);
+			this->loadHistory(i);
+		}
+			
 	}
 
 	virtual ~DataExecution() {
 		for (auto i : {0, 1, 2, 3, 4}) {
-			if (this->datasets[i] && this->finish[i]) {
-				if(i < 4) this->datasets[i]->saveData();
+			if (this->datasets[i] && this->finishDataset[i]) {
+				if (i < 4) {
+					this->datasets[i]->saveData();
+					std::cout << "Finish saving " << i << " " << datasets[i]->Data.size() << "\n";
+				}
 				delete this->datasets[i];
 			}
 
@@ -91,8 +138,10 @@ public:
 				delete this->trieDefs[i];
 			}
 		}
-		for (int i = 0; i < 5; ++i)
+		for (int i = 0; i < 5; ++i) {
+			this->saveHistory(i);
 			this->saveFavor(i);
+		}
 
 	}
 
@@ -136,28 +185,28 @@ public:
 		if (id == 4) {
 			this->datasets[id]->swap();
 		}
-		this->finish[id] = true;
-		std::cout << "Finish load dataset of " << id << "\n";
+		this->finishDataset[id] = true;
+		std::cout << "Finish load dataset of " << id << " size:" << this->datasets[id]->Data.size() <<  "\n";
 		return true;
 	}
 
-	vector<int> loadHistory(int type) {
+	const vector<int>& getHistory(int type = -1) {
+		if (type == -1) type = this->curDataset;
 		if (type < 0 || type > 4) return {};
+		
+		return this->history[type];
+	}
+
+	void clearHistory(int type = -1) {
+		if (type == -1) type = this->curDataset;
 		string link;
 		for (string i : { (string)"Dataset/History", (string)to_string(type), (string)".txt"}) {
 			link += i;
 		}
-		std::ifstream ifs(link);
-		if (!ifs.is_open()) return {};
-		int tot;
-		ifs >> tot;
-		vector<int> res(tot);
-		for (int i = 0; i < tot; ++i) {
-			ifs >> res[i];
-		}
-
-		ifs.close();
-		return res;
+		std::ofstream ofs(link);
+		if (!ofs.is_open()) return;
+		ofs << 0;
+		ofs.close();
 	}
 
 	bool isFavorite(int id) {
@@ -216,6 +265,26 @@ public:
 		return this->favor[id];
 	}
 
+	void setShutDown() {
+		this->isShutDown = true;
+	}
+
+	bool getShutDown() {
+		return this->isShutDown;
+	}
+
+	void setReload(bool flag) {
+		this->isReload = flag;
+	}
+
+	bool getReload() {
+		return this->isReload;
+	}
+
+	bool checkFinishAll() {
+		for (int i = 0; i < 5; ++i) if (!finishDataset[i] || !finishKeys[i] || !finishDefs[i]) return false;
+		return true;
+	}
 
 	vector<string> getListOfKeys(string prefix, int maximum) {
 		//cerr << this->tries.size() << '\n';
@@ -235,8 +304,26 @@ public:
 		return this->curDataset;
 	}
 
-	void restore(int id) {
+	void restore(int id = -1) {
+		//this->setReload(true);
+		if (id == -1) id = this->curDataset;
+		this->finishDataset[id] = false;
+		this->finishKeys[id] = false;
+		this->finishDefs[id] = false;
+
 		this->datasets[id]->restoreDictionary();
+		this->finishDataset[id] = true;
+		delete this->trieDefs[id];
+		delete this->trieKeys[id];
+		
+
+		this->trieDefs[id] = nullptr;
+		this->trieKeys[id] = nullptr;
+
+		loadKeys(id);
+		loadDefs(id);
+		
+		std::cout << "Finish restoring " << id << " " << this->datasets[id]->Data.size() << "\n";
 	}
 
 	//vector<pair<int, int>> getKeys(string s, int maximum = 8) {

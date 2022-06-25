@@ -18,16 +18,17 @@ private:
 	bool* isWordMode;
 	WordDetail* wordDetail;
 	FavoriteList* favoriteList;
-	vector<int> history;
 	DataExecution* dataExec;
 
 	void showHistory() {
-		vector<pair<string, string>> tmp(this->history.size());
-		vector<string> nwData;
-		for (int i = 0; i < this->history.size(); ++i) {
-			tmp[i] = this->dataExec->getData(this->history[i],this->curSet);
+		const vector<int>& history = this->dataExec->getHistory(this->curSet);
+		
+		int mx = min(8, (int)history.size());
+		vector<string> nwData(mx);
+		for (int i = 0; i < mx; ++i) {
+			string tmp = this->dataExec->getData(history[history.size() - 1 - i],this->curSet).first;
 			
-			nwData.push_back(tmp[i].first);
+			nwData[i] = tmp;
 		}
 		showSuggestions(nwData);
 		
@@ -73,16 +74,12 @@ private:
 		}
 	}
 public:
-	SearchList() {
-		
-	};
 
 	SearchList(tgui::Gui* gui, const int& curSet, int x, int y, int w, int h, bool *isWordMode) : x(x), y(y), w(w), h(h), curSet(curSet) {
 		this->gui = gui;
 		this->isWordMode = isWordMode;
 		this->wordDetail = nullptr;	
 		this->dataExec = &DataExecution::getInstance();
-		this->history = this->dataExec->loadHistory(this->curSet);
 		this->favoriteList = new FavoriteList(this->gui, &wordDetail);
 
 		this->initSearchButton();
@@ -90,7 +87,6 @@ public:
 		this->gui->get<tgui::Button>("btnHistory")->onClick([&, this] {
 			if (this->curSet != this->dataExec->getCurDataset()) {
 				this->curSet = this->dataExec->getCurDataset();
-				this->history = this->dataExec->loadHistory(this->curSet);
 			}
 			showHistory();
 			});
@@ -155,7 +151,6 @@ public:
 
 	void changeSearchSet(const int& curSet) {
 		this->curSet = curSet;
-		this->history = this->dataExec->loadHistory(this->curSet);
 		
 	}
 

@@ -1,0 +1,79 @@
+Picture.triag1 {
+    Position = (420, 690);
+    Size = (160, 115);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(0, 107, 420, 350) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.triag2 {
+    Position = (130, 362);
+    Size = (90, 66.4286);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(0, 107, 420, 350) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross1 {
+    Position = (74, 296.875);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross2 {
+    Position = (74, 380);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross3 {
+    Position = (1073, 380);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross4 {
+    Position = (1171, 382);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+ProgressBar.LoadingBar {
+    Maximum = 100;
+    Minimum = 0;
+    Position = (340, 561.647);
+    Size = (650, 62.0588);
+    TextSize = 13;
+    Value = 80;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = black;
+        Borders = (0, 0, 0, 0);
+        FillColor = #006EFF;
+        TextColor = #3C3C3C;
+        TextColorFilled = white;
+        TextureBackground = None;
+        TextureFill = "themes/ProgressBarTheme.png" Part(0, 270, 2444, 270) Smooth;
+    }
+}
