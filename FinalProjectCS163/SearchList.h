@@ -131,8 +131,6 @@ public:
 			//auto nwIds = this->dataExec->getKeySubarray(text.toStdString());
 			showSuggestions(nwData);
 		}
-		
-
 	}
 
 	void clear() {
@@ -151,6 +149,11 @@ public:
 
 	void changeSearchSet(const int& curSet) {
 		this->curSet = curSet;
+	}
+
+	bool checkSuggestion(string& str) {
+		string getDef = this->dataExec->getDefinition(str);
+		return getDef != "";
 		
 	}
 
@@ -158,10 +161,13 @@ public:
 		clear();
 		this->suggestedKeys = nwData;
 		this->suggestedIdx = nwDataIdx;
+		int cnt = 0;
 		for (int i = 0; i < suggestedKeys.size() + suggestedIdx.size(); ++i) {
+			if (!this->checkSuggestion(suggestedKeys[i])) continue;
+
 			auto eb = tgui::Button::create();
 			eb->setWidgetName("op" + std::to_string(i));
-			eb->setPosition(x, y + i * this->h);
+			eb->setPosition(x, y + cnt * this->h);
 			eb->setSize(w, h);
 
 			if(*this->isWordMode == true) eb->setText(suggestedKeys[i]);
@@ -179,11 +185,21 @@ public:
 			eb->onClick([i, this]() {
 				setupWordDetail(i);
 				});
+			cnt++;
 		}
 		
 		this->updateDecoration();
 		
 	};
+
+	void delDetail() {
+		if (this->wordDetail) {
+			delete this->wordDetail;
+		}
+		if (this->favoriteList) {
+			delete this->favoriteList;
+		}
+	}
 
 	void update() {
 		//std::cout << x->getWidgetName() << "\n";

@@ -132,6 +132,8 @@ public:
 	~MainMenuState() {
 		delete this->gui;
 		delete this->backgroundAnimations;
+		this->searchList->delDetail();
+		delete this->searchList;
 	};
 
 	void updateInput(const float& dt) {
