@@ -169,11 +169,11 @@ public:
 				this->gui->get<tgui::Button>(btnNames[this->curOpt])->leftMouseButtonNoLongerDown();
 				this->curOpt = i;
 				this->searchList->changeSearchSet(this->datasetId[this->curOpt]);
+				this->dataExec->loadDataset(this->datasetId[i], true);
+
 				if (this->isWordMode) this->searchList->onChangingText();
 				else this->searchList->clear();
-
 				
-				this->dataExec->loadDataset(this->datasetId[i], true);
 				this->gui->get<tgui::Button>(btnNames[this->curOpt])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			}
 		}

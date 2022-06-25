@@ -34,8 +34,8 @@ private:
 		
 	}
 
-	void updateDecoration() {
-		if (suggestedKeys.size() + suggestedIdx.size() > 0) {
+	void updateDecoration(int cnt = 0) {
+		if (cnt) {
 			this->gui->get<tgui::Picture>("BottomList")->setVisible(true);
 			this->gui->get<tgui::Picture>("SearchDecoration")->setVisible(true);
 			this->gui->get<tgui::Picture>("BottomList")->setPosition(this->x, this->y + (suggestedKeys.size() + suggestedIdx.size()) * this->h - 5);
@@ -187,8 +187,11 @@ public:
 				});
 			cnt++;
 		}
+
+		if (suggestedIdx.size()) suggestedIdx.resize(cnt);
+		else suggestedKeys.resize(cnt);
 		
-		this->updateDecoration();
+		this->updateDecoration(cnt);
 		
 	};
 
