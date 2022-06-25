@@ -250,11 +250,27 @@ public:
 		}
 	}
 
+	void addHistoryID(int ID) {
+		this->removeHistoryIDs({ ID });
+		this->history[this->curDataset].push_back(ID);
+	}
+
 	void removeFavoriteIDs(vector<int> IDs) {
 		for (int i = 0; i < (int)IDs.size(); i++) {
 			for (auto j = this->favor[this->curDataset].begin(); j != this->favor[this->curDataset].end(); j++) {
 				if (*j == IDs[i]) {
 					this->favor[this->curDataset].erase(j);
+					break;
+				}
+			}
+		}
+	}
+
+	void removeHistoryIDs(vector<int> IDs) {
+		for (int i = 0; i < (int)IDs.size(); i++) {
+			for (auto j = this->history[this->curDataset].begin(); j != this->history[this->curDataset].end(); j++) {
+				if (*j == IDs[i]) {
+					this->history[this->curDataset].erase(j);
 					break;
 				}
 			}

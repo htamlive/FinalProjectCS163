@@ -119,9 +119,6 @@ public:
 		//	});
 	};
 
-	vector<string> getListOfWords(string prefix, int maximum) {
-		return this->dataExec->getListOfKeys(prefix, maximum);
-	}
 
 	void resetSearchBar() {
 		this->gui->get<tgui::EditBox>("SearchBar")->setText("");
@@ -132,7 +129,6 @@ public:
 	~MainMenuState() {
 		delete this->gui;
 		delete this->backgroundAnimations;
-		this->searchList->delDetail();
 		delete this->searchList;
 	};
 

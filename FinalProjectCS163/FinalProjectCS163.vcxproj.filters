@@ -84,14 +84,14 @@
     <ClCompile Include="TrieNode.cpp">
       <Filter>Data Controller</Filter>
     </ClCompile>
-    <ClCompile Include="DataExecution.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Hash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataExecution.cpp">
+      <Filter>Data Controller</Filter>
+    </ClCompile>
     <ClCompile Include="LoadingState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,14 +143,14 @@
     <ClInclude Include="TrieNode.h">
       <Filter>Data Controller</Filter>
     </ClInclude>
-    <ClInclude Include="DataExecution.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Hash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DataExecution.h">
+      <Filter>Data Controller</Filter>
+    </ClInclude>
     <ClInclude Include="LoadingState.h">
-      <Filter>Header Files</Filter>
+      <Filter>State</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

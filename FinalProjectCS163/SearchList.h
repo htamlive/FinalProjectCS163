@@ -38,7 +38,7 @@ private:
 		if (cnt) {
 			this->gui->get<tgui::Picture>("BottomList")->setVisible(true);
 			this->gui->get<tgui::Picture>("SearchDecoration")->setVisible(true);
-			this->gui->get<tgui::Picture>("BottomList")->setPosition(this->x, this->y + (suggestedKeys.size() + suggestedIdx.size()) * this->h - 5);
+			this->gui->get<tgui::Picture>("BottomList")->setPosition(this->x, this->y + cnt * this->h - 5);
 		}
 		else {
 
@@ -188,21 +188,21 @@ public:
 			cnt++;
 		}
 
-		if (suggestedIdx.size()) suggestedIdx.resize(cnt);
-		else suggestedKeys.resize(cnt);
 		
 		this->updateDecoration(cnt);
 		
 	};
 
-	void delDetail() {
+	~SearchList() {
 		if (this->wordDetail) {
 			delete this->wordDetail;
 		}
 		if (this->favoriteList) {
 			delete this->favoriteList;
 		}
+
 	}
+
 
 	void update() {
 		//std::cout << x->getWidgetName() << "\n";

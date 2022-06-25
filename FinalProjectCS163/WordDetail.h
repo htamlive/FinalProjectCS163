@@ -13,8 +13,6 @@ private:
 	tgui::Gui* gui;
 
 	DataExecution* dataExec;
-	vector<Trie*> tries;
-	vector<vector<string>>* tmpDataSet;
 	vector<int> IDs;
 	string curString;
 	bool hasChangeDef = false;
@@ -48,6 +46,10 @@ public:
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 	
 		this->IDs = this->dataExec->getID(this->curString);
+		if (this->IDs.size()) {
+			this->dataExec->addHistoryID(this->IDs[0]);
+		}
+
 		for (int i = 0; i < IDs.size(); i++) {
 			this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
 		}
@@ -88,6 +90,7 @@ public:
 				this->dataExec->removeWord(this->IDs[i]);
 			}
 			this->dataExec->removeFavoriteIDs(this->IDs);
+			this->dataExec->removeHistoryIDs(this->IDs);
 
 			string newDef = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->getText().toStdString();
 			if (newDef != "") { 
