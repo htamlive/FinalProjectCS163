@@ -54,7 +54,7 @@ public:
 	}
 
 	void update(const float& dt) override {
-		if (DataExecution::getInstance().checkFinishAll() && cur >= 100) {
+		if (DataExecution::getInstance().checkFinishAll() && cur > 120) {
 			this->endState();
 		}
 		cur += 10.5 * dt;

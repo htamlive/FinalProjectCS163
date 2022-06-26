@@ -163,7 +163,8 @@ public:
 		this->suggestedIdx = nwDataIdx;
 		int cnt = 0;
 		for (int i = 0; i < suggestedKeys.size() + suggestedIdx.size(); ++i) {
-			if (!this->checkSuggestion(suggestedKeys[i])) continue;
+			if (*this->isWordMode && !this->checkSuggestion(suggestedKeys[i])) continue;
+
 
 			auto eb = tgui::Button::create();
 			eb->setWidgetName("op" + std::to_string(i));

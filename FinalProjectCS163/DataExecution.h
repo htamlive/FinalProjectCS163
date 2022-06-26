@@ -124,10 +124,8 @@ public:
 	virtual ~DataExecution() {
 		for (auto i : {0, 1, 2, 3, 4}) {
 			if (this->datasets[i] && this->finishDataset[i]) {
-				if (i < 4) {
-					this->datasets[i]->saveData();
-					std::cout << "Finish saving " << i << " " << datasets[i]->Data.size() << "\n";
-				}
+				this->datasets[i]->saveData();
+				std::cout << "Finish saving " << i << " " << datasets[i]->Data.size() << "\n";
 				delete this->datasets[i];
 			}
 
@@ -183,9 +181,9 @@ public:
 		if (this->datasets[id]) return false;
 		this->datasets[id] = new DATASET(id);
 		this->datasets[id]->loadData();
-		if (id == 4) {
-			this->datasets[id]->swap();
-		}
+		//if (id == 4) {
+		//	this->datasets[id]->swap();
+		//}
 		this->finishDataset[id] = true;
 		std::cout << "Finish load dataset of " << id << " size:" << this->datasets[id]->Data.size() <<  "\n";
 		return true;
@@ -227,7 +225,7 @@ public:
 		for (int i = 0; i < (int)def.size(); i++) {
 			auto ans = this->datasets[this->curDataset]->getData(def[i].first);
 			if (ans.second != "")
-				defText += "+ " +  ans.second + "\n";
+				defText +=  ans.second + "\n";
 		}
 
 		return defText;

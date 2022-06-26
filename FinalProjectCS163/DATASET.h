@@ -23,16 +23,16 @@ class DATASET
 private:
 	//type -1 <=> default
 	int _typeOfdata = -1;
-	//type 0
+	//type ENtoVIE
 	void loadFromCSV();
 	void saveToCSV();
-	//type 1
+	//type EMOJI
 	void loadFromEmotional();
 	void saveToEmotional();
-	//type 2
+	//type ENtoVIE
 	void loadFromSlang();
 	void saveToSlang();
-	//type 3
+	//type SLANG
 	void loadFromOxford();
 	void saveToOxford();
 
@@ -56,6 +56,9 @@ public:
 		if (dataset_name == "Dataset/FilterOxford.csv") {
 			_typeOfdata = DATASETID::ENtoEN;
 		}
+		if (dataset_name == "Dataset/VIEtoEN.csv") {
+			_typeOfdata = DATASETID::VIEtoEN;
+		}
 	}
 
 	DATASET(int id) {
@@ -76,7 +79,7 @@ public:
 			dataset_name = "Dataset/FilterOxford.csv";
 			break;
 		case DATASETID::VIEtoEN:
-			dataset_name = "Dataset/FilterENtoVIEAgain.csv";
+			dataset_name = "Dataset/VIEtoEN.csv";
 			break;
 		default:
 			break;

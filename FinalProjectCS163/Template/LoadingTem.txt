@@ -64,7 +64,7 @@ ProgressBar.LoadingBar {
     Position = (340, 561.647);
     Size = (650, 62.0588);
     TextSize = 13;
-    Value = 80;
+    Value = 100;
 
     Renderer {
         BackgroundColor = transparent;
@@ -74,6 +74,6 @@ ProgressBar.LoadingBar {
         TextColor = #3C3C3C;
         TextColorFilled = white;
         TextureBackground = None;
-        TextureFill = "themes/ProgressBarTheme.png" Part(0, 270, 2444, 270) Smooth;
+        TextureFill = "themes/ProgressBarTheme.png" Part(0, 270, 2750, 270) Smooth;
     }
 }
