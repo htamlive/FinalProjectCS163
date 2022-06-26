@@ -12,14 +12,13 @@ vector<string> splitString(const string& s) {
 	//Split string by space
 	vector<string> result;
 	string t;
-	for (const char& c : s) {
-		if (c == ' ') {
-			result.push_back(t);
-			t.clear();
-		} else
-			t += c;
+
+	stringstream ss(s);
+
+	while (ss >> t) {
+		result.push_back(t);
 	}
-	result.push_back(t);
+	
 	return result;
 };
 
