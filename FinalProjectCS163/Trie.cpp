@@ -291,3 +291,16 @@ vector<int> Trie::getKeysSubarray(const DATASET& dataset, const string& definiti
 		result.resize(maximum);
 	return result;
 };
+
+bool Trie::removeOccurences(const string& word) {
+	TrieNode* node = this->root;
+	for (const char& c : word) {
+		if (!checkPrintable(c))
+			return false;
+		node = node->children[Trie::getID(tolower(c))];
+		if (node == nullptr)
+			return false;
+	}
+	(node->occurences).clear();
+	return true;
+};
