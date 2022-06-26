@@ -15,7 +15,7 @@ private:
 	tgui::Gui* gui;
 	
 	int curSet = 0;
-	bool* isWordMode;
+	bool* isWordModePtr;
 	WordDetail* wordDetail;
 	FavoriteList* favoriteList;
 	DataExecution* dataExec;
@@ -56,7 +56,7 @@ private:
 
 	void setupWordDetail(int i) {
 		if (this->wordDetail) {
-			if (*this->isWordMode == true)
+			if (*this->isWordModePtr == true)
 				this->wordDetail->changeWord(suggestedKeys[i]);
 			else {
 				string str = this->dataExec->getData(suggestedIdx[i]).first;
@@ -64,7 +64,7 @@ private:
 			}
 		}
 		else {
-			if (*this->isWordMode == true)
+			if (*this->isWordModePtr == true)
 				this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, suggestedKeys[i]);
 			else {
 				string str = this->dataExec->getData(suggestedIdx[i]).first;
@@ -77,7 +77,7 @@ public:
 
 	SearchList(tgui::Gui* gui, const int& curSet, int x, int y, int w, int h, bool *isWordMode) : x(x), y(y), w(w), h(h), curSet(curSet) {
 		this->gui = gui;
-		this->isWordMode = isWordMode;
+		this->isWordModePtr = isWordMode;
 		this->wordDetail = nullptr;	
 		this->dataExec = &DataExecution::getInstance();
 		this->favoriteList = new FavoriteList(this->gui, &wordDetail);
@@ -93,13 +93,13 @@ public:
 
 		//showHistory();
 		this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&, this]() {
-			if(*this->isWordMode == true) onChangingText();
+			if(*this->isWordModePtr == true) onChangingText();
 		});		
 		
 		
 
 		this->gui->get<tgui::EditBox>("SearchBar")->onFocus([&, this]() {
-			if(*this->isWordMode == true) onChangingText();
+			if(*this->isWordModePtr == true) onChangingText();
 			});
 		//this->wordDetail->setVisible(false);
 	};
@@ -108,7 +108,7 @@ public:
 		this->gui->get<tgui::Button>("btnSearch")->onClick([&, this]() {
 			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
 			text = text.toLower();
-			if (*this->isWordMode == true) {
+			if (*this->isWordModePtr == true) {
 				if (this->wordDetail) this->wordDetail->changeWord((string)text);
 				else this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, (string)text);
 			} else {
@@ -163,7 +163,7 @@ public:
 		this->suggestedIdx = nwDataIdx;
 		int cnt = 0;
 		for (int i = 0; i < suggestedKeys.size() + suggestedIdx.size(); ++i) {
-			if (*this->isWordMode && !this->checkSuggestion(suggestedKeys[i])) continue;
+			if (*this->isWordModePtr && !this->checkSuggestion(suggestedKeys[i])) continue;
 
 
 			auto eb = tgui::Button::create();
@@ -171,7 +171,7 @@ public:
 			eb->setPosition(x, y + cnt * this->h);
 			eb->setSize(w, h);
 
-			if(*this->isWordMode == true) eb->setText(suggestedKeys[i]);
+			if(*this->isWordModePtr == true) eb->setText(suggestedKeys[i]);
 			else {
 				auto tmp = this->dataExec->getData(nwDataIdx[i]);
 				eb->setText(this->reduceStr(tmp.first + ": " + tmp.second, 80));
