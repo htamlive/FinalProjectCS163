@@ -60,6 +60,8 @@ public:
 
 	bool empty() const;
 	
+	bool removeOccurences(const string &word);
+
 	void clearTrie();
 
 };
