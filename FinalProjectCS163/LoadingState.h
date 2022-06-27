@@ -60,6 +60,7 @@ public:
 		cur += 10.5 * dt;
 		this->bgAnimation->update(dt);
 		this->gui->get<tgui::ProgressBar>("LoadingBar")->setValue(cur);
+		this->gui->get<tgui::Label>("lblLoading")->setText((std::to_string(std::min(cur, (float)100.0))));
 	}
 
 	void updateInput(const float& dt) override {

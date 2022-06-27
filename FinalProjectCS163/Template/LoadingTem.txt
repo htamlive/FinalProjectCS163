@@ -77,3 +77,24 @@ ProgressBar.LoadingBar {
         TextureFill = "themes/ProgressBarTheme.png" Part(0, 270, 2750, 270) Smooth;
     }
 }
+
+Label.lblLoading {
+    Enabled = false;
+    HorizontalAlignment = Center;
+    Position = (600, 640);
+    Size = (157.2, 66.3871);
+    Text = 100%;
+    TextSize = 20;
+    UserData = "";
+    VerticalAlignment = Center;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C;
+        Borders = (0, 0, 0, 0);
+        TextColor = white;
+        TextOutlineThickness = 10;
+        TextStyle = Bold;
+        TextureBackground = None;
+    }
+}
