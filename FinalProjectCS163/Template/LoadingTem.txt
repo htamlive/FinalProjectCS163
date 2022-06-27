@@ -98,3 +98,22 @@ Label.lblLoading {
         TextureBackground = None;
     }
 }
+
+Label.lblLoadingTitle {
+    HorizontalAlignment = Center;
+    Position = (450, 370);
+    Size = (437.2, 150.258);
+    Text = "LOADING DATA";
+    TextSize = 50;
+    VerticalAlignment = Center;
+
+    Renderer {
+        BackgroundColor = transparent;
+        BorderColor = #3C3C3C;
+        Borders = (0, 0, 0, 0);
+        TextColor = white;
+        TextOutlineColor = white;
+        TextOutlineThickness = 2;
+        TextureBackground = None;
+    }
+}
