@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <random>
 #include <ctime>
+#include <sstream>
 
 using namespace std;
 
@@ -19,6 +20,105 @@ vector<string> splitString(const string& s) {
 		result.push_back(t);
 	}
 	
+	return result;
+};
+
+vector<string> splitString(const string& text, const string& seperate) {
+	const int lengthOfText = text.size(), lengthOfDelimiter = seperate.size(), base = HashedString::getRandomBase(), MOD = HashedString::getRandomModulo();
+	vector<long long> power(1, 1), h(1, 0);
+	long long hashedDelimiter = 0;
+	vector<string> result;
+	int i = 0, j = 0, k;
+	for (int i = 1; i <= lengthOfText; ++i) {
+		power.push_back(power.back() * base % MOD);
+		h.push_back((h.back() * base % MOD + text[i - 1]) % MOD);
+	}
+	for (const char& c : seperate)
+		hashedDelimiter = (hashedDelimiter * base % MOD + c) % MOD;
+	while (i < lengthOfText) {
+		k = i + lengthOfDelimiter - 1;
+		if (k < lengthOfText && (h[k + 1] - h[i] * power[lengthOfDelimiter] % MOD + MOD) % MOD == hashedDelimiter) {
+			result.push_back(text.substr(j, i - j));
+			j = i = k + 1;
+		} else
+			++i;
+	}
+	if (j < lengthOfText)
+		result.push_back(text.substr(j, lengthOfText));
+	return result;
+};
+
+vector<string> splitString(const string& text, const string& seperate, int maximum) {
+	const int lengthOfText = text.size(), lengthOfDelimiter = seperate.size(), base = HashedString::getRandomBase(), MOD = HashedString::getRandomModulo();
+	vector<long long> power(1, 1), h(1, 0);
+	long long hashedDelimiter = 0;
+	vector<string> result;
+	int i = 0, j = 0, k;
+	for (int i = 1; i <= lengthOfText; ++i) {
+		power.push_back(power.back() * base % MOD);
+		h.push_back((h.back() * base % MOD + text[i - 1]) % MOD);
+	}
+	for (const char& c : seperate)
+		hashedDelimiter = (hashedDelimiter * base % MOD + c) % MOD;
+	while (i < lengthOfText) {
+		k = i + lengthOfDelimiter - 1;
+		if (maximum > 0 && k < lengthOfText && (h[k + 1] - h[i] * power[lengthOfDelimiter] % MOD + MOD) % MOD == hashedDelimiter) {
+			result.push_back(text.substr(j, i - j));
+			j = i = k + 1;
+			--maximum;
+		}
+		else
+			++i;
+	}
+	if (j < lengthOfText)
+		result.push_back(text.substr(j, lengthOfText));
+	return result;
+};
+
+string replaceString(const string& text, const string& oldSubstring, const string& newSubstring) {
+	const int lengthOfText = text.size(), lengthOfOldSubstring = oldSubstring.size(), base = HashedString::getRandomBase(), MOD = HashedString::getRandomModulo();
+	vector<long long> power(1, 1), h(1, 0);
+	long long hashedOldSubstring = 0;
+	string result;
+	int i = 0, k;
+	for (int i = 1; i <= lengthOfText; ++i) {
+		power.push_back(power.back() * base % MOD);
+		h.push_back((h.back() * base % MOD + text[i - 1]) % MOD);
+	}
+	for (const char& c : oldSubstring)
+		hashedOldSubstring = (hashedOldSubstring * base % MOD + c) % MOD;
+	while (i < lengthOfText) {
+		k = i + lengthOfOldSubstring - 1;
+		if (k < lengthOfText && (h[k + 1] - h[i] * power[lengthOfOldSubstring] % MOD + MOD) % MOD == hashedOldSubstring) {
+			result += newSubstring;
+			i = k + 1;
+		} else
+			result += text[i++];
+	}
+	return result;
+};
+
+string replaceString(const string& text, const string& oldSubstring, const string& newSubstring, int maximum) {
+	const int lengthOfText = text.size(), lengthOfOldSubstring = oldSubstring.size(), base = HashedString::getRandomBase(), MOD = HashedString::getRandomModulo();
+	vector<long long> power(1, 1), h(1, 0);
+	long long hashedOldSubstring = 0;
+	string result;
+	int i = 0, k;
+	for (int i = 1; i <= lengthOfText; ++i) {
+		power.push_back(power.back() * base % MOD);
+		h.push_back((h.back() * base % MOD + text[i - 1]) % MOD);
+	}
+	for (const char& c : oldSubstring)
+		hashedOldSubstring = (hashedOldSubstring * base % MOD + c) % MOD;
+	while (i < lengthOfText) {
+		k = i + lengthOfOldSubstring - 1;
+		if (maximum > 0 && k < lengthOfText && (h[k + 1] - h[i] * power[lengthOfOldSubstring] % MOD + MOD) % MOD == hashedOldSubstring) {
+			result += newSubstring;
+			i = k + 1;
+			--maximum;
+		} else
+			result += text[i++];
+	}
 	return result;
 };
 
