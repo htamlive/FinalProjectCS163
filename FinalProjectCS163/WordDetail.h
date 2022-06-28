@@ -94,9 +94,16 @@ public:
 			this->dataExec->removeFavoriteIDs(this->IDs);
 			this->dataExec->removeHistoryIDs(this->IDs);
 
-			string newDef = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->getText().toStdString();
+			tgui::String stdText = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->getText().toStdString();
+			tgui::String newDef;
+
+			for (int i = 0; i < (int)stdText.length(); i++) {
+				newDef.push_back(atomic_char32_t(stdText[i]));
+			}
+			bool check = turnNonUnicodeString(newDef);
+			newDef = newDef.toStdString();
 			if (newDef != "") { 
-				this->dataExec->addWord(make_pair(this->curString, newDef)); 
+				this->dataExec->addWord(make_pair(this->curString, newDef.toStdString())); 
 			}
 			this->setOnClickGreen();
 			});

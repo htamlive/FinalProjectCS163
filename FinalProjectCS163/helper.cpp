@@ -8,7 +8,7 @@ using namespace std;
 #include "helper.h"
 #include "Trie.h"
 #include "Hash.h"
-#include <TGUI/String.hpp>
+#include <SFML/Network/Packet.hpp>
 
 vector<string> splitString(const string& s) {
 	//Split string by space
@@ -148,11 +148,14 @@ bool checkContainStringsAsSubsequence(const vector<string>& s, const vector<stri
 		}
 	}
 	return false;
+
 };
 
 int getRandomNumberFromList(const vector<int>& numbers) {
 	srand(time(NULL));
 	return numbers[rand() % numbers.size()];
+
+	
 };
 
 bool checkContainStringsAsSubarray(const vector<string>& s, const vector<string>& t) {
@@ -195,17 +198,23 @@ string toLowerString(string s) {
 	return s;
 };
 
-void turnNonUnicodeString(string& s) {
-	if (s.length() == 0) return;
-	char c = s.back();
-	s.pop_back();
+bool turnNonUnicodeString(tgui::String& s) {
+	if (s.length() == 0) return false;
 
 	int siz = sizeof(SOURCE_CHARACTERS);
-	auto low = SOURCE_CHARACTERS.begin();
-	//auto low = std::lower_bound(SOURCE_CHARACTERS, SOURCE_CHARACTERS + siz, c);
-	if (low == SOURCE_CHARACTERS.end()) {
-		return;
+
+	for (int i = 0; i < (int)s.size(); i++) {
+		
+		auto low = std::find(SOURCE_CHARACTERS.begin(), SOURCE_CHARACTERS.end(), s[i]);
+		
+		if (low == SOURCE_CHARACTERS.end()) {
+			//cerr << "Yes your character suck\n";
+			continue;
+		}
+		int pos = low - SOURCE_CHARACTERS.begin();
+		//cerr << pos << ' ';
+		s[i] = DESTINATION_CHARACTERS[pos];
 	}
-	int pos = low - SOURCE_CHARACTERS.begin();
-	s.push_back(DESTINATION_CHARACTERS[pos]);
+	cerr << '\n';
+	return true;
 }
