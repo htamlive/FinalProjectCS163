@@ -122,12 +122,17 @@ public:
 	void onChangingText() {
 		tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
 		text = text.toLower();
-		if (text.length() < 1) {
+		string stdText = text.toStdString();
+		
+		turnNonUnicodeString(stdText);
+		this->gui->get<tgui::EditBox>("SearchBar")->setText(tgui::String(stdText));
+		
+		if (stdText.length() < 1) {
 			//cerr << "Type down more shit you idiot\n";
 			this->showHistory();
 		}
 		else {
-			auto nwData = this->dataExec->getListOfKeys(text.toStdString(), 8);
+			auto nwData = this->dataExec->getListOfKeys(stdText, 8);
 			//auto nwIds = this->dataExec->getKeySubarray(text.toStdString());
 			showSuggestions(nwData);
 		}

@@ -193,3 +193,18 @@ string toLowerString(string s) {
 		c = tolower(c);
 	return s;
 };
+
+void turnNonUnicodeString(string& s) {
+	if (s.length() == 0) return;
+	char c = s.back();
+	s.pop_back();
+
+	int siz = sizeof(SOURCE_CHARACTERS);
+
+	auto low = std::lower_bound(SOURCE_CHARACTERS, SOURCE_CHARACTERS + siz, c);
+	if (low == SOURCE_CHARACTERS + siz) {
+		return;
+	}
+	int pos = low - SOURCE_CHARACTERS;
+	s.push_back(DESTINATION_CHARACTERS[pos]);
+}

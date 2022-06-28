@@ -376,8 +376,8 @@ ListView.FavoriteList {
 }
 
 ChildWindow.ChildWindow {
-    Position = (50, 160);
-    Size = (460, 550);
+    Position = (20, 110);
+    Size = (500, 600);
     TitleAlignment = Center;
     TitleButtons = Close;
     TitleTextSize = 13;
@@ -391,7 +391,7 @@ ChildWindow.ChildWindow {
         DistanceToSide = 3;
         PaddingBetweenButtons = 1;
         ShowTextOnTitleButtons = true;
-        TextureBackground = "../images/Vertical_art.jpg" NoSmooth;
+        TextureBackground = None;
         TextureTitleBar = "themes/bgPrompt.png" Part(0, 100, 2004, 30) Smooth;
         TitleBarColor = white;
         TitleColor = #3C3C3C;
@@ -422,7 +422,7 @@ ChildWindow.ChildWindow {
         DefaultText = "Definition goes here";
         HorizontalScrollbarPolicy = Never;
         MaximumCharacters = 0;
-        Position = (40, 180);
+        Position = (50, 180);
         ReadOnly = true;
         Size = (378, 315);
         Text = "";
@@ -445,7 +445,7 @@ ChildWindow.ChildWindow {
 
     EditBox.EditBox1 {
         Alignment = Center;
-        Position = (70, 70);
+        Position = (80, 70);
         ReadOnly = true;
         Size = (320, 62);
         TextSize = 23;
@@ -474,8 +474,8 @@ ChildWindow.ChildWindow {
     }
 
     Button.EditButton {
-        Position = (400, 85);
-        Size = (25, 25);
+        Position = (440, 305);
+        Size = (40, 40);
         TextSize = 13;
 
         Renderer {
@@ -507,7 +507,7 @@ ChildWindow.ChildWindow {
         Image = None;
         ImageScaling = 0;
         Position = (10, 10);
-        Size = (40, 40);
+        Size = (50, 50);
         TextSize = 13;
 
         Renderer {
@@ -515,14 +515,14 @@ ChildWindow.ChildWindow {
             BackgroundColorDisabled = None;
             BackgroundColorDown = None;
             BackgroundColorHover = None;
-            BorderColor = white;
-            BorderColorDisabled = white;
-            BorderColorDown = white;
-            BorderColorDownFocused = white;
-            BorderColorDownHover = white;
+            BorderColor = None;
+            BorderColorDisabled = None;
+            BorderColorDown = None;
+            BorderColorDownFocused = None;
+            BorderColorDownHover = None;
             BorderColorFocused = white;
             BorderColorHover = white;
-            Borders = (1, 1, 1, 1);
+            Borders = (0, 0, 0, 0);
             TextColor = #3C3C3C;
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
@@ -539,8 +539,8 @@ ChildWindow.ChildWindow {
     }
 
     Button.GreenButton {
-        Position = (400, 70);
-        Size = (25, 25);
+        Position = (100, 510);
+        Size = (50, 50);
         TextSize = 13;
         Visible = false;
 
@@ -571,8 +571,8 @@ ChildWindow.ChildWindow {
     }
 
     Button.RedButton {
-        Position = (400, 110);
-        Size = (25, 25);
+        Position = (320, 510);
+        Size = (50, 50);
         TextSize = 13;
         Visible = false;
 
@@ -632,5 +632,3 @@ Button.btnRestore {
         TextureHover = "images/RestoreHover.png" Smooth;
     }
 }
-
-
