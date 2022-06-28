@@ -110,6 +110,7 @@ public:
 	void initSearchBar() {
 		this->searchList = new SearchList(this->gui, this->datasetId[this->curOpt], 550, 280, 720, 60, &this->isWordMode);
 		this->isWordMode = true;
+		this->gui->get<tgui::EditBox>("SearchBar")->setInputValidator("[a-zA-Z0-9]*");
 		//data = { "Hello", "Nice", "Helpful", "Helicopter"};
 		//this->searchList->update(data);
 		

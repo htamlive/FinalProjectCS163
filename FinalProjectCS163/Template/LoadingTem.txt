@@ -81,8 +81,8 @@ ProgressBar.LoadingBar {
 Label.lblLoading {
     Enabled = false;
     HorizontalAlignment = Center;
-    Position = (600, 640);
-    Size = (157.2, 66.3871);
+    Position = (590, 640);
+    Size = (177.2, 66.3871);
     Text = 100%;
     TextSize = 20;
     UserData = "";

@@ -44,7 +44,7 @@ public:
 		this->curString = str;
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImage("images/dark_star.png");
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
-	
+		
 		this->IDs = this->dataExec->getID(this->curString);
 		if (this->IDs.size()) {
 			this->dataExec->addHistoryID(this->IDs[0]);
