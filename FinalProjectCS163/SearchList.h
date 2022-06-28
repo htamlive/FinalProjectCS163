@@ -95,8 +95,7 @@ public:
 		this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&, this]() {
 			if(*this->isWordModePtr == true) onChangingText();
 		});		
-		
-		
+	
 
 		this->gui->get<tgui::EditBox>("SearchBar")->onFocus([&, this]() {
 			if(*this->isWordModePtr == true) onChangingText();
@@ -121,18 +120,20 @@ public:
 
 	void onChangingText() {
 		tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
-		text = text.toLower();
-		string stdText = text.toStdString();
-		
-		turnNonUnicodeString(stdText);
-		this->gui->get<tgui::EditBox>("SearchBar")->setText(tgui::String(stdText));
-		
+		tgui::String stdText;
+
+		for (int i = 0; i < (int)text.length(); i++) {
+			stdText.push_back(atomic_char32_t(text[i]));
+		}
+		bool check = turnNonUnicodeString(stdText);
+		stdText = stdText.toLower();
+		//cerr << stdText << '\n';
 		if (stdText.length() < 1) {
 			//cerr << "Type down more shit you idiot\n";
 			this->showHistory();
 		}
 		else {
-			auto nwData = this->dataExec->getListOfKeys(stdText, 8);
+			auto nwData = this->dataExec->getListOfKeys((string)stdText, 8);
 			//auto nwIds = this->dataExec->getKeySubarray(text.toStdString());
 			showSuggestions(nwData);
 		}
