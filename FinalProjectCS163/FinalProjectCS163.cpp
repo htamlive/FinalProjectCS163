@@ -32,16 +32,19 @@ void loadBig() {
 }
 
 int main() {
-	std::thread work3(loadBig);
-	std::thread work1(loadData);
-	std::thread work2(runProgram);
+	//std::thread work3(loadBig);
+	//std::thread work1(loadData);
+	//std::thread work2(runProgram);
 	
 
-	work1.join();
-	work2.join();
-	work3.join();
+	//work1.join();
+	//work2.join();
+	//work3.join();
 
-
+	vector<int> x = { 0, 1, 4, 5 };
+		
+	//int id = std::distance(x.begin(), std::binary_search(x.begin(), x.end(), 3));
+	//std::cout << id << "\n";
 	return 0;
 }
 

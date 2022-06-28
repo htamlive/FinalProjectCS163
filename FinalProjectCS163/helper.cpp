@@ -8,6 +8,7 @@ using namespace std;
 #include "helper.h"
 #include "Trie.h"
 #include "Hash.h"
+#include <TGUI/String.hpp>
 
 vector<string> splitString(const string& s) {
 	//Split string by space
@@ -200,11 +201,11 @@ void turnNonUnicodeString(string& s) {
 	s.pop_back();
 
 	int siz = sizeof(SOURCE_CHARACTERS);
-
-	auto low = std::lower_bound(SOURCE_CHARACTERS, SOURCE_CHARACTERS + siz, c);
-	if (low == SOURCE_CHARACTERS + siz) {
+	auto low = SOURCE_CHARACTERS.begin();
+	//auto low = std::lower_bound(SOURCE_CHARACTERS, SOURCE_CHARACTERS + siz, c);
+	if (low == SOURCE_CHARACTERS.end()) {
 		return;
 	}
-	int pos = low - SOURCE_CHARACTERS;
+	int pos = low - SOURCE_CHARACTERS.begin();
 	s.push_back(DESTINATION_CHARACTERS[pos]);
 }

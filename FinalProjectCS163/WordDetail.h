@@ -69,6 +69,8 @@ public:
 			favorite = !favorite;
 			});
 
+		
+
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->setText(tgui::String(this->getDefinition(str)));
 		if (this->curString.size() && this->curString[0] >= 'a' && this->curString[0] <= 'z') {
 			this->curString[0] -= 32;

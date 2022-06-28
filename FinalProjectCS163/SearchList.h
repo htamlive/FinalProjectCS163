@@ -125,7 +125,8 @@ public:
 		string stdText = text.toStdString();
 		
 		turnNonUnicodeString(stdText);
-		this->gui->get<tgui::EditBox>("SearchBar")->setText(tgui::String(stdText));
+		std::cout << stdText << "\n";
+		//this->gui->get<tgui::EditBox>("SearchBar")->setText(tgui::String(stdText));
 		
 		if (stdText.length() < 1) {
 			//cerr << "Type down more shit you idiot\n";
