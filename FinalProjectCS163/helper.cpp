@@ -201,8 +201,6 @@ string toLowerString(string s) {
 bool turnNonUnicodeString(tgui::String& s) {
 	if (s.length() == 0) return false;
 
-	int siz = sizeof(SOURCE_CHARACTERS);
-
 	for (int i = 0; i < (int)s.size(); i++) {
 		
 		auto low = std::find(SOURCE_CHARACTERS.begin(), SOURCE_CHARACTERS.end(), s[i]);
@@ -215,6 +213,21 @@ bool turnNonUnicodeString(tgui::String& s) {
 		//cerr << pos << ' ';
 		s[i] = DESTINATION_CHARACTERS[pos];
 	}
-	cerr << '\n';
+	//cerr << '\n';
+	return true;
+}
+
+bool checkValidChar(int id)
+{
+	if (id >= 32 && id <= 127) return true;
+	if (std::binary_search(SOURCE_CHARACTERS.begin(), SOURCE_CHARACTERS.end(), id)) return true;
+	return false;
+}
+
+bool checkValidString(const tgui::String& s)
+{
+	for (const auto& x : s) {
+		if (!checkValidChar(x)) return false;
+	}
 	return true;
 }

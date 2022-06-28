@@ -106,6 +106,10 @@ public:
 	void initSearchButton() {
 		this->gui->get<tgui::Button>("btnSearch")->onClick([&, this]() {
 			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+			if (!checkValidString(text)) {
+				this->gui->get<tgui::EditBox>("SearchBar")->setText("");
+				return;
+			}
 			text = text.toLower();
 			if (*this->isWordModePtr == true) {
 				if (this->wordDetail) this->wordDetail->changeWord((string)text);
@@ -120,6 +124,10 @@ public:
 
 	void onChangingText() {
 		tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+		if (!checkValidString(text)) {
+			clear();
+			return;
+		}
 		tgui::String stdText;
 
 		for (int i = 0; i < (int)text.length(); i++) {
@@ -216,6 +224,9 @@ public:
 		if (this->gui->getFocusedChild() == nullptr)
 			showSuggestions({});
 		this->favoriteList->update();
+		if (this->wordDetail != NULL) {
+			this->wordDetail->update();
+		}
 	}
 };
 

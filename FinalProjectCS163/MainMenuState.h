@@ -47,7 +47,7 @@ public:
 			*abort = true;
 			this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(false);
 			});
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("Button1")->setImageScaling(0.8f);
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImageScaling(0.8f);
 
 		this->dataExec = &DataExecution::getInstance();
 

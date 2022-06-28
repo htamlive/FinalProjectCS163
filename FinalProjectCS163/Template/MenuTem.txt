@@ -418,7 +418,7 @@ ChildWindow.ChildWindow {
         }
     }
 
-    TextArea.TextArea1 {
+    TextArea.txtDef {
         DefaultText = "Definition goes here";
         HorizontalScrollbarPolicy = Never;
         MaximumCharacters = 0;
@@ -443,7 +443,7 @@ ChildWindow.ChildWindow {
         }
     }
 
-    EditBox.EditBox1 {
+    EditBox.ebKey {
         Alignment = Center;
         Position = (80, 70);
         ReadOnly = true;
@@ -503,7 +503,7 @@ ChildWindow.ChildWindow {
         }
     }
 
-    BitmapButton.Button1 {
+    BitmapButton.btnFavor {
         Image = None;
         ImageScaling = 0;
         Position = (10, 10);
