@@ -1,41 +1,61 @@
 #include "DATASET.h"
 
 void DATASET::loadData() {
-	if (_typeOfdata == DATASETID::EMOJI) {
-		loadFromEmotional();
-		return;
+	ifstream fin("Dataset/" + dataset_name);
+	string key, def;
+	if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::VIEtoEN) {
+		while (!fin.eof()) {
+			getline(fin, key, '\t');
+			getline(fin, def, '\t');
+			if (fin.fail())
+				break;
+			Core_Data.push_back(def);
+			string temp = "";
+			for (auto i : def) {
+				if (isalnum((unsigned char)i) || isspace((unsigned char)i)) {
+					temp += i;
+				}
+			}
+			Data.push_back(make_pair(key, temp));
+		}
 	}
-	if (_typeOfdata == DATASETID::SLANG) {
-		loadFromSlang();
-		return;
+	else if (_typeOfdata == DATASETID::SLANG) {
+		while (!fin.eof()) {
+			getline(fin, key, '\t');
+			getline(fin, def, '\t');
+			Core_Data.push_back(def);
+			if (fin.fail()) {
+				break;
+			}
+			remove(def.begin(), def.end(), '|');
+			Data.push_back(make_pair(key, def));
+		}
 	}
-	if (_typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
-		loadFromCSV();
-		return;
+	else {
+		while (!fin.eof()) {
+			getline(fin, key, '\t');
+			getline(fin, def, '\t');
+			if (fin.fail())
+				break;
+			Data.push_back(make_pair(key, def));
+		}
 	}
-	if (_typeOfdata == DATASETID::ENtoEN) {
-		loadFromOxford();
-		return;
-	}
+	fin.close();
 }
 
 void DATASET::saveData() {
-	if (_typeOfdata == DATASETID::EMOJI) {
-		saveToEmotional();
-		return;
+	ofstream fout("Dataset/" + dataset_name);
+	if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::VIEtoEN) {
+		for (int i = 0; i < Data.size(); i++) {
+			fout << Data[i].first << '\t' << Core_Data[i] << '\t';
+		}
 	}
-	if (_typeOfdata == DATASETID::SLANG) {
-		saveToSlang();
-		return;
+	else {
+		for (int i = 0; i < Data.size(); i++) {
+			fout << Data[i].first << '\t' << Data[i].second << '\t';
+		}
 	}
-	if (_typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
-		saveToCSV();
-		return;
-	}
-	if (_typeOfdata == DATASETID::ENtoEN) {
-		saveToOxford();
-		return;
-	}
+	fout.close();
 }
 
 void DATASET::addWord(pair<string, string> newWord) {
@@ -69,7 +89,7 @@ void DATASET::removeWord(int id) {
 }
 
 pair<string, string> DATASET::getData(int id) const {
-	
+
 	if (id > Data.size() || Data[id].first == "") {
 		cout << id << "\n";
 		cerr << "Error index" << endl;
@@ -85,146 +105,13 @@ pair<string, string> DATASET::getData(int id) const {
 	return make_pair("", "");
 }
 
-void DATASET::loadFromCSV() {
-	ifstream fin(dataset_name);
-	string temp1, temp2;
-	while (!fin.eof()) {
-		getline(fin, temp1, ',');
-		getline(fin, temp2, '\n');
-		Data.push_back(make_pair(temp1, temp2));
-	}
-	fin.close();
-}
-
-void DATASET::saveToCSV() {
-	ofstream fout(dataset_name);
-	for (auto i : Data) {
-		if (i.first != "") {
-			fout << i.first << ',' << i.second << endl;
-		}
-	}
-	fout.close();
-}
-
-void DATASET::loadFromEmotional() {
-	ifstream fin(dataset_name);
-	string temp1, temp2;
-	while (!fin.eof()) {
-		getline(fin, temp1, '\t');
-		getline(fin, temp2);
-		if (fin.fail())
-			break;
-		temp2.erase(remove(temp2.begin(), temp2.end(), '\t'), temp2.end());
-		Data.push_back(make_pair(temp1, temp2));
-	}
-	fin.close();
-}
-
-void DATASET::saveToEmotional() {
-	ofstream fout(dataset_name);
-	for (auto i : Data) {
-		fout << i.first << '\t' << i.second << endl;
-	}
-	fout.close();
-}
-
-void DATASET::loadFromSlang() {
-	ifstream fin(dataset_name);
-	string temp1, temp2;
-	getline(fin, temp1, '`');
-	getline(fin, temp2, '\n');
-	while (!fin.eof()) {
-		getline(fin, temp1, '`');
-		getline(fin, temp2, '\n');
-		if (fin.fail())
-			break;
-		Core_Data.push_back(temp2);
-		remove(temp2.begin(), temp2.end(), '|');
-		Data.push_back(make_pair(temp1, temp2));
-	}
-	fin.close();
-}
-
-void DATASET::saveToSlang() {
-	ofstream fout(dataset_name);
-	fout << "Slag" << '`' << "Meaning" << '\n';
-	for (int i = 0; i < Data.size(); i++) {
-		if (Data[i].first != "") {
-			fout << Data[i].first << '`' << Core_Data[i] << endl;
-		}
-	}
-	fout.close();
-}
-
-void DATASET::loadFromOxford() {
-	ifstream fin(dataset_name);
-	string temp1, temp2;
-	string targ;
-	getline(fin, temp1, ',');
-	getline(fin, temp2, '\n');
-	while (!fin.eof()) {
-		getline(fin, temp1, ',');
-		getline(fin, temp2, '\n');
-		targ = "";
-		for (auto i : temp2) {
-			if (isalnum(i) || isspace(i)) {
-				targ += i;
-			}
-		}
-		Data.push_back(make_pair(temp1, targ));
-		Core_Data.push_back(temp2);
-	}
-	fin.close();
-}
-
-void DATASET::saveToOxford() {
-	ofstream fout(dataset_name);
-	fout << "Keywords" << ',' << "Definitions" << '\n';
-	for (int i = 0; i < Data.size(); i++) {
-		if (Data[i].first != "") {
-			fout << Data[i].first << ',' << Core_Data[i] << endl;
-		}
-	}
-	fout.close();
-}
-
 void DATASET::restoreDictionary() {
 	this->Core_Data.clear();
 	this->Data.clear();
-	if (_typeOfdata == DATASETID::EMOJI) {
-		ifstream src("OrgData/emotional.txt", ios::binary);
-		ofstream dst(dataset_name, ios::binary);
-		dst << src.rdbuf();
-		src.close();
-		dst.close();
-		loadFromEmotional();
-		return;
-	}
-	if (_typeOfdata == DATASETID::SLANG) {
-		ifstream src("OrgData/slang.txt", ios::binary);
-		ofstream dst(dataset_name, ios::binary);
-		dst << src.rdbuf();
-		src.close();
-		dst.close();
-		loadFromSlang();
-		return;
-	}
-	if (_typeOfdata == DATASETID::ENtoVIE) {
-		ifstream src("OrgData/FilterENtoVIEAgain.csv", ios::binary);
-		ofstream dst(dataset_name, ios::binary);
-		dst << src.rdbuf();
-		src.close();
-		dst.close();
-		loadFromCSV();
-		return;
-	}
-	if (_typeOfdata == DATASETID::ENtoEN) {
-		ifstream src("OrgData/FilterOxford.csv", ios::binary);
-		ofstream dst(dataset_name, ios::binary);
-		dst << src.rdbuf();
-		src.close();
-		dst.close();
-		loadFromOxford();
-		return;
-	}
+	ifstream src("OrgData/" + dataset_name, ios::binary);
+	ofstream dst(dataset_name, ios::binary);
+	dst << src.rdbuf();
+	loadData();
+	src.close();
+	dst.close();
 }

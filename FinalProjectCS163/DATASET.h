@@ -7,6 +7,8 @@
 #include <iterator>
 #include <random>
 #include <ctime>
+#include <stdio.h>
+#include <ctype.h>
 using namespace std;
 
 enum DATASETID
@@ -23,18 +25,6 @@ class DATASET
 private:
 	//type -1 <=> default
 	int _typeOfdata = -1;
-	//type ENtoVIE
-	void loadFromCSV();
-	void saveToCSV();
-	//type EMOJI
-	void loadFromEmotional();
-	void saveToEmotional();
-	//type ENtoVIE
-	void loadFromSlang();
-	void saveToSlang();
-	//type SLANG
-	void loadFromOxford();
-	void saveToOxford();
 
 public:
 	vector<pair<string, string>> Data;
@@ -42,24 +32,7 @@ public:
 	string dataset_name;
 
 
-	DATASET(string dataname) {
-		dataset_name = dataname;
-		if (dataset_name == "Dataset/emotional.txt") {
-			_typeOfdata = DATASETID::EMOJI;
-		}
-		if (dataset_name == "Dataset/slang.txt") {
-			_typeOfdata = DATASETID::SLANG;
-		}
-		if (dataset_name == "Dataset/FilterENtoVIEAgain.csv") {
-			_typeOfdata = DATASETID::ENtoVIE;
-		}
-		if (dataset_name == "Dataset/FilterOxford.csv") {
-			_typeOfdata = DATASETID::ENtoEN;
-		}
-		if (dataset_name == "Dataset/VIEtoEN.csv") {
-			_typeOfdata = DATASETID::VIEtoEN;
-		}
-	}
+	
 
 	DATASET(int id) {
 		_typeOfdata = id;
@@ -67,19 +40,19 @@ public:
 		switch (this->_typeOfdata)
 		{
 		case DATASETID::EMOJI:
-			dataset_name = "Dataset/emotional.txt";
+			dataset_name = "emotional.txt";
 			break;
 		case DATASETID::SLANG:
-			dataset_name = "Dataset/slang.txt";
+			dataset_name = "slang.txt";
 			break;
 		case DATASETID::ENtoVIE:
-			dataset_name = "Dataset/FilterENtoVIEAgain.csv";
+			dataset_name = "en-vi.txt";
 			break;
 		case DATASETID::ENtoEN:
-			dataset_name = "Dataset/FilterOxford.csv";
+			dataset_name = "en-en.txt";
 			break;
 		case DATASETID::VIEtoEN:
-			dataset_name = "Dataset/VIEtoEN.csv";
+			dataset_name = "vi-en.txt";
 			break;
 		default:
 			break;
@@ -107,7 +80,7 @@ public:
 					break;
 				}
 			}
-			if(flag) res.push_back(tmp);
+			if (flag) res.push_back(tmp);
 		}
 		return res;
 	}
