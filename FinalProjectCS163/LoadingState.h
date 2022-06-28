@@ -60,7 +60,7 @@ public:
 		cur += 10.5 * dt;
 		this->bgAnimation->update(dt);
 		this->gui->get<tgui::ProgressBar>("LoadingBar")->setValue(cur);
-		this->gui->get<tgui::Label>("lblLoadingTitle")->setInheritedOpacity(1 - sin(this->cur/10)* sin(this->cur / 10));
+		this->gui->get<tgui::Label>("lblLoadingTitle")->setInheritedOpacity(cos(this->cur/10)* cos(this->cur / 10));
 		this->gui->get<tgui::Label>("lblLoading")->setText(std::to_string(std::min(cur, (float)100.0)) + " %");
 	}
 

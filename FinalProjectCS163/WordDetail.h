@@ -98,6 +98,7 @@ public:
 			}
 			this->setOnClickGreen();
 			});
+		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("TextArea1")->onTextChange([&]() {
 			this->hasChangeDef = true;
