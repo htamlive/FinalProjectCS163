@@ -115,6 +115,7 @@ public:
 				if (this->wordDetail) this->wordDetail->changeWord((string)text);
 				else this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, (string)text);
 			} else {
+				turnNonUnicodeString(text);
 				text = text.toLower();
 				auto nwDataId = this->dataExec->getKeysSubsequence((string)text);
 				showSuggestions({}, nwDataId);

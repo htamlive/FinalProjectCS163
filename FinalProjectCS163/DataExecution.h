@@ -111,6 +111,7 @@ public:
 			this->finishDataset[i] = false;
 			this->finishKeys[i] = false;
 			this->finishDefs[i] = false;
+
 		}
 		this->isShutDown = false;
 		this->curDataset = 0;

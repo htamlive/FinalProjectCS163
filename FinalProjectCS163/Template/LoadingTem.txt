@@ -101,10 +101,10 @@ Label.lblLoading {
 
 Label.lblLoadingTitle {
     HorizontalAlignment = Center;
-    Position = (450, 370);
+    Position = (450, 440);
     Size = (437.2, 150.258);
     Text = "LOADING DATA";
-    TextSize = 50;
+    TextSize = 40;
     VerticalAlignment = Center;
 
     Renderer {
@@ -115,5 +115,60 @@ Label.lblLoadingTitle {
         TextOutlineColor = white;
         TextOutlineThickness = 2;
         TextureBackground = None;
+    }
+}
+
+Picture.logoBrand {
+    Position = (440, 145.894);
+    Size = (429, 281.106);
+    Visible = false;
+
+    Renderer {
+        Texture = "themes/LogoBrand.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.appname {
+    Position = (200, 123.723);
+    Size = (988, 288.817);
+    Visible = false;
+
+    Renderer {
+        Texture = "themes/Dictionary.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.picB {
+    Position = (330, 350);
+    Size = (51.4834, 61);
+    Visible = false;
+
+    Renderer {
+        Texture = "themes/WordDecorations.png" Part(0, 0, 330, 391) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.picC {
+    Position = (930, 370);
+    Size = (46.9565, 51);
+    Visible = false;
+
+    Renderer {
+        Texture = "themes/WordDecorations.png" Part(400, 0, 360, 391) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.picA {
+    Position = (850, 93.7807);
+    Size = (60, 57.2195);
+    Visible = false;
+
+    Renderer {
+        Texture = "themes/WordDecorations.png" Part(820, 0, 410, 391) Smooth;
+        TransparentTexture = false;
     }
 }
