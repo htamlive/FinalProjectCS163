@@ -89,6 +89,7 @@ Picture.BottomList {
 }
 
 EditBox.SearchBar {
+    MaximumCharacters = 1000;
     Position = (550, 180);
     Size = (720, 80);
     TextSize = 28;
