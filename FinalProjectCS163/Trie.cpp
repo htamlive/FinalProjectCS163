@@ -354,12 +354,12 @@ bool Trie::readNodeInformation(const string& serialization, int length, int &ind
 
 
 void Trie::deserialize(const string& serialization) {
+	this->clearTrie();
 	const int length = serialization.size();
 	vector<pair<int, int> > occurences;
 	vector<TrieNode*> stackOfNodes;
 	TrieNode* node = this->root;
 	int character, id;
-	this->clearTrie();
 	for (int i = 0; i < length;) {
 		if (serialization[i] == '{') {
 			stackOfNodes.push_back(node);

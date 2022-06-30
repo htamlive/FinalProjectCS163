@@ -260,8 +260,8 @@ std::string getStringBin(std::string link)
 	std::ifstream ifs(link.c_str(), ios::binary);
 	ifs.read((char*)&bufSz, sizeof(size_t));
 	char* tmp = new char[bufSz + 1];
-	tmp[bufSz] = 0;
 	ifs.read(tmp, bufSz);
+	tmp[bufSz] = 0;
 	std::string res = tmp;
 	delete[] tmp;
 	ifs.close();

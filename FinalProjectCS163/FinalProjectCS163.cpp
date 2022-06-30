@@ -2,6 +2,8 @@
 #include <thread>
 #include "DataExecution.h"
 #include "Dictionary.h"
+#include <string>
+#include <cstring>
 
 using namespace sf;
 using namespace tgui;
@@ -10,6 +12,12 @@ using namespace std;
 void runProgram() {
 	Dictionary dictionary;
 	dictionary.run();
+	DataExecution* dataExecution = &DataExecution::getInstance();
+	for (auto i : { 0, 1, 2, 4 }) {
+		dataExecution->saveAndRemoveTrie(i, "Keys");
+		dataExecution->saveAndRemoveTrie(i, "Defs");
+	}
+
 };
 
 void loadData() {
@@ -23,6 +31,10 @@ void loadData() {
 			dataExecution->restore();
 		}
 	}
+
+	dataExecution->saveAndRemoveTrie(3, "Keys");
+	dataExecution->saveAndRemoveTrie(3, "Defs");
+
 }
 
 void loadBig() {
@@ -32,21 +44,24 @@ void loadBig() {
 }
 
 int main() {
-	//std::thread work3(loadBig);
-	//std::thread work1(loadData);
-	//std::thread work2(runProgram);
+	std::thread work3(loadBig);
+	std::thread work1(loadData);
+	std::thread work2(runProgram);
+	
+
+	work1.join();
+	work2.join();
+	work3.join();
+
+	//Trie t;
+	//const string s = getStringBin("Data/OrgData/emotionalDefs.bin");
+	//string tmp = s;
+	//cout << s.length() << "\n";
+	//cout << (tmp == s);
+	//t.deserialize(s);
 	//
-
-	//work1.join();
-	//work2.join();
-	//work3.join();
-
-	Trie t;
-	string s = getStringBin("Data/OrgData/emotionalDefs.bin");
-	cout << s.length() << "\n";
-	t.deserialize(s);
-	string ss = t.serialize();
-	cout << ss.length();
+	//string ss = t.serialize();
+	//cerr << ss.length();
 
 	return 0;
 }

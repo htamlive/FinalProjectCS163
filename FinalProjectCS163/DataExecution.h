@@ -13,7 +13,7 @@ private:
 
 	bool finishDataset[5], finishKeys[5], finishDefs[5], isShutDown, isReload;
 
-	bool loadSer = false;
+	bool loadSer = true;
 
 	int curDataset;
 
@@ -36,9 +36,6 @@ private:
 				}
 			}
 		}
-		//
-
-		//
 		std::cout << "Finish adding Defs of " << id << "\n";
 		this->finishDefs[id] = true;
 	}
@@ -59,9 +56,7 @@ private:
 				this->trieKeys[id]->addWord(cur.first, { j, 0 });
 			}
 		}
-		
 
-		//
 		std::cout << "Finish adding Keys of " << id << "\n";
 		this->finishKeys[id] = true;
 	}
@@ -126,19 +121,7 @@ private:
 		ofs.close();
 	}
 
-	void saveTrie(int id, string additionStr) {
-		std::string name = this->datasets[id]->dataset_name;
-		std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + additionStr + (string)".bin";
-		std::ofstream ofs(link, ios::binary);
-		std::string res;
-		if(additionStr == "Keys") res = this->trieKeys[id]->serialize();
-		else  res = this->trieDefs[id]->serialize();
-		size_t sz = res.length();
-		ofs.write((char*)&sz, sizeof(size_t));
-		ofs.write(res.c_str(), sz);
-		ofs.close();
-		cout << "finish " << id << " " << additionStr << " " << res.length() << "\n";
-	}
+
 	
 public:
 	static DataExecution& getInstance() {
@@ -164,17 +147,14 @@ public:
 		}		
 	}
 
-
 	virtual ~DataExecution() {
 		for (auto i : {0, 1, 2, 3, 4}) {
 			
 			if (this->trieKeys[i]) {
-				saveTrie(i,"Keys");
-				delete this->trieKeys[i];
+				saveAndRemoveTrie(i,"Keys");
 			}
 			if (this->trieDefs[i]) {
-				saveTrie(i, "Defs");
-				delete this->trieDefs[i];
+				saveAndRemoveTrie(i, "Defs");
 			}
 
 			if (this->datasets[i] && this->finishDataset[i]) {
@@ -190,6 +170,32 @@ public:
 
 	}
 
+	void saveAndRemoveTrie(int id, string additionStr) {
+
+		std::string res;
+		if (additionStr == "Keys") {
+			if (!this->trieKeys[id]) return;
+			res = this->trieKeys[id]->serialize();
+			delete this->trieKeys[id];
+		}
+		else {
+			if (!this->trieDefs[id]) return;
+			res = this->trieDefs[id]->serialize();
+			delete this->trieDefs[id];
+		}
+
+		std::string name = this->datasets[id]->dataset_name;
+		std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + additionStr + (string)".bin";
+		std::ofstream ofs(link, ios::binary);
+		size_t sz = res.length();
+		ofs.write((char*)&sz, sizeof(size_t));
+		ofs.write(res.c_str(), sz);
+		ofs.close();
+
+
+		cout << "finish " << id << " " << additionStr << " " << res.length() << "\n";
+	}
+
 	bool loadKeys(int id, bool setCur = false) {
 		if (id > 4 || id < 0) return false;
 		if (setCur) this->curDataset = id;
@@ -198,6 +204,7 @@ public:
 		this->trieKeys[id] = new Trie();
 		loadDataset(id);
 		addToTrieKeys(id);
+		return true;
 	}
 
 	bool loadDefs(int id, bool setCur = false) {
@@ -208,6 +215,7 @@ public:
 		this->trieDefs[id] = new Trie();
 		loadDataset(id);
 		addToTrieDefs(id);
+		return true;
 	}
 
 	void addWord(pair<string, string> word) {
@@ -401,7 +409,6 @@ public:
 	void removeWord(int id) {
 		this->datasets[this->curDataset]->removeWord(id);
 	}
-
 
 };
 
