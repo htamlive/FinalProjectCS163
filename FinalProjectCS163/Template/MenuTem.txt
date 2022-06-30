@@ -348,7 +348,7 @@ ListView.FavoriteList {
     TextSize = 20;
 
     Renderer {
-        BackgroundColor = #F5F5F5;
+        BackgroundColor = white;
         BackgroundColorHover = white;
         BorderColor = #F0F0F000;
         Borders = (1, 1, 1, 1);
@@ -377,7 +377,7 @@ ListView.FavoriteList {
 }
 
 ChildWindow.ChildWindow {
-    Position = (20, 110);
+    Position = (30, 130);
     Size = (500, 600);
     TitleAlignment = Center;
     TitleButtons = Close;
@@ -385,15 +385,15 @@ ChildWindow.ChildWindow {
     Visible = false;
 
     Renderer {
-        BackgroundColor = #E6E6E6;
+        BackgroundColor = white;
         BorderBelowTitleBar = 1;
         BorderColor = blue;
         Borders = (1, 1, 1, 1);
-        DistanceToSide = 3;
+        DistanceToSide = 5;
         PaddingBetweenButtons = 1;
         ShowTextOnTitleButtons = true;
         TextureBackground = None;
-        TextureTitleBar = "themes/bgPrompt.png" Part(0, 100, 2004, 30) Smooth;
+        TextureTitleBar = "themes/bgPrompt.png" Part(0, 100, 2004, 40) Smooth;
         TitleBarColor = white;
         TitleColor = #3C3C3C;
         TransparentTexture = true;
@@ -420,23 +420,23 @@ ChildWindow.ChildWindow {
     }
 
     TextArea.txtDef {
-        DefaultText = "Definition goes here";
-        HorizontalScrollbarPolicy = Never;
+        DefaultText = "Date: \n\nMeaning 1:\n   - Example:\n\nMeaning 2:\n   - Example:\n\n\nSpecial case:\n   - Example:\n\n";
         MaximumCharacters = 0;
-        Position = (50, 180);
+        Position = (120, 150);
         ReadOnly = true;
-        Size = (378, 315);
+        Size = (383, 405);
         Text = "";
-        TextSize = 20;
+        TextSize = 24;
 
         Renderer {
-            BackgroundColor = white;
+            BackgroundColor = #D9FFFF;
             BorderColor = black;
-            Borders = (1, 1, 1, 1);
+            Borders = (0, 0, 0, 0);
             CaretColor = black;
-            CaretWidth = 1;
+            CaretWidth = 3;
             DefaultTextColor = #A0A0A0;
-            Padding = (0, 0, 0, 0);
+            Padding = (10, 30, 0, 0);
+            ScrollbarWidth = 10;
             SelectedTextBackgroundColor = #006EFF;
             SelectedTextColor = white;
             TextColor = #3C3C3C;
@@ -445,28 +445,31 @@ ChildWindow.ChildWindow {
     }
 
     EditBox.ebKey {
-        Alignment = Center;
-        Position = (80, 70);
+        Enabled = false;
+        Position = (0, 70);
         ReadOnly = true;
-        Size = (320, 62);
-        TextSize = 23;
+        Size = (500, 82);
+        Text = Text;
+        TextSize = 50;
 
         Renderer {
-            BackgroundColor = #F5F5F5;
-            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColor = #FFF3E0;
+            BackgroundColorDisabled = #F9FFF7;
+            BackgroundColorFocused = white;
             BackgroundColorHover = white;
             BorderColor = #3C3C3C;
             BorderColorDisabled = #7D7D7D;
             BorderColorHover = black;
-            Borders = (1, 1, 1, 1);
+            Borders = (0, 0, 0, 0);
             CaretColor = black;
             CaretWidth = 1;
             DefaultTextColor = #A0A0A0;
-            Padding = (0, 0, 0, 0);
+            DefaultTextStyle = Bold | Italic;
+            Padding = (20, 0, 0, 0);
             SelectedTextBackgroundColor = #006EFF;
             SelectedTextColor = white;
-            TextColor = #3C3C3C;
-            TextColorDisabled = #7D7D7D;
+            TextColor = black;
+            TextColorDisabled = black;
             Texture = None;
             TextureDisabled = None;
             TextureFocused = None;
@@ -475,21 +478,21 @@ ChildWindow.ChildWindow {
     }
 
     Button.EditButton {
-        Position = (440, 305);
-        Size = (40, 40);
+        Position = (240, 15);
+        Size = (50, 50);
         TextSize = 13;
 
         Renderer {
             BackgroundColor = #F5F5F5;
             BackgroundColorDisabled = #E6E6E6;
             BackgroundColorDown = #EBEBEB;
-            BackgroundColorHover = white;
+            BackgroundColorHover = #CCCCCC;
             BorderColor = #3C3C3C;
             BorderColorDisabled = #7D7D7D;
             BorderColorDown = black;
             BorderColorFocused = #1E1EB4;
             BorderColorHover = black;
-            Borders = (1, 1, 1, 1);
+            Borders = (0, 0, 0, 0);
             TextColor = #3C3C3C;
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
@@ -507,7 +510,7 @@ ChildWindow.ChildWindow {
     BitmapButton.btnFavor {
         Image = None;
         ImageScaling = 0;
-        Position = (10, 10);
+        Position = (360, 10);
         Size = (50, 50);
         TextSize = 13;
 
@@ -540,22 +543,21 @@ ChildWindow.ChildWindow {
     }
 
     Button.GreenButton {
-        Position = (100, 510);
-        Size = (50, 50);
+        Position = (20, 10);
+        Size = (70, 70);
         TextSize = 13;
-        Visible = false;
 
         Renderer {
             BackgroundColor = #F5F5F5;
             BackgroundColorDisabled = #E6E6E6;
             BackgroundColorDown = #EBEBEB;
-            BackgroundColorHover = white;
+            BackgroundColorHover = #CCCCCC;
             BorderColor = #3C3C3C;
             BorderColorDisabled = #7D7D7D;
             BorderColorDown = black;
             BorderColorFocused = #1E1EB4;
             BorderColorHover = black;
-            Borders = (1, 1, 1, 1);
+            Borders = (0, 0, 0, 0);
             TextColor = #3C3C3C;
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
@@ -572,22 +574,21 @@ ChildWindow.ChildWindow {
     }
 
     Button.RedButton {
-        Position = (320, 510);
-        Size = (50, 50);
+        Position = (120, 10);
+        Size = (70, 70);
         TextSize = 13;
-        Visible = false;
 
         Renderer {
             BackgroundColor = #F5F5F5;
             BackgroundColorDisabled = #E6E6E6;
             BackgroundColorDown = #EBEBEB;
-            BackgroundColorHover = white;
+            BackgroundColorHover = #CCCCCC;
             BorderColor = #3C3C3C;
             BorderColorDisabled = #7D7D7D;
             BorderColorDown = black;
             BorderColorFocused = #1E1EB4;
             BorderColorHover = black;
-            Borders = (1, 1, 1, 1);
+            Borders = (0, 0, 0, 0);
             TextColor = #3C3C3C;
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
@@ -599,7 +600,7 @@ ChildWindow.ChildWindow {
             TextureDownHover = None;
             TextureFocused = None;
             TextureHover = "../images/red_cross_hover.png" Smooth;
-            TransparentTexture = true;
+            TransparentTexture = false;
         }
     }
 }
