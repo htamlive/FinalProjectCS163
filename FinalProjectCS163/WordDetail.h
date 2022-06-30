@@ -90,6 +90,8 @@ public:
 	}
 
 	void initDefinitionArea() {
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setInheritedFont(tgui::Font("Template\\fonts\\UTM AvoBold_Italic.ttf"));
+
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->setText(tgui::String(this->getDefinition(curString)));
 		if (this->curString.size() && this->curString[0] >= 'a' && this->curString[0] <= 'z') {
 			this->curString[0] -= 32;
