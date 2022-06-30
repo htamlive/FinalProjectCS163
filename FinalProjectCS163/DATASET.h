@@ -30,8 +30,6 @@ public:
 	vector<pair<string, string>> Data;
 	vector<string> Core_Data;
 	string dataset_name;
-
-
 	
 
 	DATASET(int id) {

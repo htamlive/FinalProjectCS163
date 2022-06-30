@@ -1,7 +1,7 @@
 #include "DATASET.h"
 
 void DATASET::loadData() {
-	ifstream fin("Dataset/" + dataset_name);
+	ifstream fin("Data/Dataset/" + dataset_name);
 	string key, def;
 	if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::VIEtoEN) {
 		while (!fin.eof()) {
@@ -108,8 +108,8 @@ pair<string, string> DATASET::getData(int id) const {
 void DATASET::restoreDictionary() {
 	this->Core_Data.clear();
 	this->Data.clear();
-	ifstream src("OrgData/" + dataset_name, ios::binary);
-	ofstream dst("Dataset/" + dataset_name, ios::binary);
+	ifstream src("Data/OrgData/" + dataset_name, ios::binary);
+	ofstream dst("Data/Dataset/" + dataset_name, ios::binary);
 	dst << src.rdbuf();
 	loadData();
 	src.close();

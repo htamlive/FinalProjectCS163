@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <fstream>
 
 #include <TGUI/TGUI.hpp>
 #include <TGUI/Backend/SFML-Graphics.hpp>
@@ -63,3 +64,5 @@ bool checkValidChar(int id);
 bool checkValidString(const tgui::String& s);
 
 bool readInteger(const string &s, int &i, int &result);
+
+std::string getStringBin(std::string link);

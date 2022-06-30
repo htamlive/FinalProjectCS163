@@ -13,33 +13,62 @@ private:
 
 	bool finishDataset[5], finishKeys[5], finishDefs[5], isShutDown, isReload;
 
+	bool loadSer = false;
+
 	int curDataset;
 
 	void addToTrieDefs(int id) {
-		for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
-			pair<string, string> cur = this->datasets[id]->Data[j];
-			transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
-			const vector<string> words = splitString(cur.second);
-			for (int i = 0; i < words.size(); ++i) {
-				this->trieDefs[id]->addWord(words[i], { j, i });
+		if (loadSer) {
+			std::string name = this->datasets[id]->dataset_name;
+			cout << name << "\n";
+			std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + "Defs" + (string)".bin";
+			string s = getStringBin(link);
+			this->trieDefs[id]->deserialize(s);
+			cout << "sz " << s.length() << "\n";
+		}
+		else {
+			for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
+				pair<string, string> cur = this->datasets[id]->Data[j];
+				transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
+				const vector<string> words = splitString(cur.second);
+				for (int i = 0; i < words.size(); ++i) {
+					this->trieDefs[id]->addWord(words[i], { j, i });
+				}
 			}
 		}
-		this->finishDefs[id] = true;
+		//
+
+		//
 		std::cout << "Finish adding Defs of " << id << "\n";
+		this->finishDefs[id] = true;
 	}
 
 	void addToTrieKeys(int id) {
-		for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
-			pair<string, string> cur = this->datasets[id]->Data[j];
-			this->trieKeys[id]->addWord(cur.first, { j, 0 });
+		if (loadSer) {
+
+			std::string name = this->datasets[id]->dataset_name;
+			cout << name << "\n";
+			std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + "Keys" + (string)".bin";
+			string s = getStringBin(link);
+			this->trieKeys[id]->deserialize(s);
+			cout << "sz " << s.length() << "\n";
 		}
-		this->finishKeys[id] = true;
+		else {
+			for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
+				pair<string, string> cur = this->datasets[id]->Data[j];
+				this->trieKeys[id]->addWord(cur.first, { j, 0 });
+			}
+		}
+		
+
+		//
 		std::cout << "Finish adding Keys of " << id << "\n";
+		this->finishKeys[id] = true;
 	}
 
 	void loadFavor(int id) {
 		if (id < 0 || id > 4) return;
-		std::ifstream ifs("Dataset/FavoriteId" + std::to_string(id) + (string)".txt");
+		std::ifstream ifs("Data/Favorite/FavoriteId" + std::to_string(id) + (string)".txt");
 		if (!ifs.is_open()) return;
 		int tot = 0;
 		ifs >> tot;
@@ -52,7 +81,7 @@ private:
 
 	void saveFavor(int id) {
 		if (id < 0 || id > 4) return;
-		std::ofstream ofs("Dataset/FavoriteId" + std::to_string(id) + (string)".txt");
+		std::ofstream ofs("Data/Favorite/FavoriteId" + std::to_string(id) + (string)".txt");
 		int tot = favor[id].size();
 		ofs << tot << "\n";
 		for (int i = 0; i < tot; ++i) {
@@ -64,7 +93,7 @@ private:
 	void loadHistory(int id) {
 		if (id < 0 || id > 4) return;
 		string link;
-		for (string i : { (string)"Dataset/History", (string)to_string(id), (string)".txt"}) {
+		for (string i : { (string)"Data/History/History", (string)to_string(id), (string)".txt"}) {
 			link += i;
 		}
 		std::ifstream ifs(link);
@@ -82,7 +111,7 @@ private:
 	void saveHistory(int id) {
 		if (id < 0 || id > 4) return;
 		string link;
-		for (string i : { (string)"Dataset/History", (string)to_string(id), (string)".txt"}) {
+		for (string i : { (string)"Data/History/History", (string)to_string(id), (string)".txt"}) {
 			link += i;
 		}
 		std::ofstream ofs(link);
@@ -95,6 +124,20 @@ private:
 		}
 
 		ofs.close();
+	}
+
+	void saveTrie(int id, string additionStr) {
+		std::string name = this->datasets[id]->dataset_name;
+		std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + additionStr + (string)".bin";
+		std::ofstream ofs(link, ios::binary);
+		std::string res;
+		if(additionStr == "Keys") res = this->trieKeys[id]->serialize();
+		else  res = this->trieDefs[id]->serialize();
+		size_t sz = res.length();
+		ofs.write((char*)&sz, sizeof(size_t));
+		ofs.write(res.c_str(), sz);
+		ofs.close();
+		cout << "finish " << id << " " << additionStr << " " << res.length() << "\n";
 	}
 	
 public:
@@ -118,23 +161,26 @@ public:
 		for (int i = 0; i < 5; ++i) {
 			this->loadFavor(i);
 			this->loadHistory(i);
-		}
-			
+		}		
 	}
+
 
 	virtual ~DataExecution() {
 		for (auto i : {0, 1, 2, 3, 4}) {
+			
+			if (this->trieKeys[i]) {
+				saveTrie(i,"Keys");
+				delete this->trieKeys[i];
+			}
+			if (this->trieDefs[i]) {
+				saveTrie(i, "Defs");
+				delete this->trieDefs[i];
+			}
+
 			if (this->datasets[i] && this->finishDataset[i]) {
 				this->datasets[i]->saveData();
 				std::cout << "Finish saving " << i << " " << datasets[i]->Data.size() << "\n";
 				delete this->datasets[i];
-			}
-
-			if (this->trieKeys[i]) {
-				delete this->trieKeys[i];
-			}
-			if (this->trieDefs[i]) {
-				delete this->trieDefs[i];
 			}
 		}
 		for (int i = 0; i < 5; ++i) {
@@ -182,9 +228,6 @@ public:
 		if (this->datasets[id]) return false;
 		this->datasets[id] = new DATASET(id);
 		this->datasets[id]->loadData();
-		//if (id == 4) {
-		//	this->datasets[id]->swap();
-		//}
 		this->finishDataset[id] = true;
 		std::cout << "Finish load dataset of " << id << " size:" << this->datasets[id]->Data.size() <<  "\n";
 		return true;
@@ -200,7 +243,7 @@ public:
 	void clearHistory(int type = -1) {
 		if (type == -1) type = this->curDataset;
 		string link;
-		for (string i : { (string)"Dataset/History", (string)to_string(type), (string)".txt"}) {
+		for (string i : { (string)"Data/History/History", (string)to_string(type), (string)".txt"}) {
 			link += i;
 		}
 		std::ofstream ofs(link);

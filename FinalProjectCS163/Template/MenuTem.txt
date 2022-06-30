@@ -601,7 +601,6 @@ ChildWindow.ChildWindow {
         Position = (33.3333, 450);
         Size = (48.3333, 70);
         TextSize = 13;
-        Visible = false;
 
         Renderer {
             BackgroundColor = #F5F5F5;

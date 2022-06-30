@@ -32,14 +32,21 @@ void loadBig() {
 }
 
 int main() {
-	std::thread work3(loadBig);
-	std::thread work1(loadData);
-	std::thread work2(runProgram);
-	
+	//std::thread work3(loadBig);
+	//std::thread work1(loadData);
+	//std::thread work2(runProgram);
+	//
 
-	work1.join();
-	work2.join();
-	work3.join();
+	//work1.join();
+	//work2.join();
+	//work3.join();
+
+	Trie t;
+	string s = getStringBin("Data/OrgData/emotionalDefs.bin");
+	cout << s.length() << "\n";
+	t.deserialize(s);
+	string ss = t.serialize();
+	cout << ss.length();
 
 	return 0;
 }
