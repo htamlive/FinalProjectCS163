@@ -619,11 +619,11 @@ ChildWindow.ChildWindow {
             TextColorHover = black;
             Texture = "themes/TrashCan.png" Part(0, 0, 800, 1146) Smooth;
             TextureDisabled = "themes/TrashCan.png" Part(0, 0, 800, 1146) Smooth;
-            TextureDown = "themes/TrashCan.png" Part(810, 0, 800, 1146) Smooth;
+            TextureDown = "themes/TrashCan.png" Part(880, 0, 800, 1146) Smooth;
             TextureDownFocused = None;
             TextureDownHover = None;
             TextureFocused = None;
-            TextureHover = "themes/TrashCan.png" Part(810, 0, 800, 1146) Smooth;
+            TextureHover = "themes/TrashCan.png" Part(880, 0, 800, 1146) Smooth;
             TransparentTexture = false;
         }
     }
