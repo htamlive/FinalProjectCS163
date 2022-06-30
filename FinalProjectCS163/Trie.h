@@ -68,6 +68,6 @@ public:
 
 	string serialize() const;
 
-	//void deserialize(const string &serialization);
+	void deserialize(const string &serialization);
 
 };

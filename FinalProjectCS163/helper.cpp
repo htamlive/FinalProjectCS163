@@ -249,7 +249,7 @@ bool readInteger(const string& s, int &i, int& result) {
 		return false;
 	result = 0;
 	while (i < length && isdigit(s[i]))
-		(result *= 10) += s[i] - '0';
+		(result *= 10) += s[i++] - '0';
 	if (negative)
 		result *= -1;
 	return true;

@@ -330,11 +330,10 @@ string Trie::serialize() const {
 bool Trie::readNodeInformation(const string& serialization, int length, int &index, int& character, int& id, vector<pair<int, int> >& occurences) {
 	if (index >= length || serialization[index] != '(')
 		return false;
-	++index;
-	readInteger(serialization, index, character);
+	readInteger(serialization, ++index, character);
 	if (index >= length || serialization[index] != '|')
 		return false;
-	readInteger(serialization, index, id);
+	readInteger(serialization, ++index, id);
 	occurences.clear();
 	while (index < length) {
 		if (serialization[index] == ')') {
@@ -348,12 +347,12 @@ bool Trie::readNodeInformation(const string& serialization, int length, int &ind
 		readInteger(serialization, index, occurences.back().first);
 		if (index >= length || serialization[index] != ',')
 			return false;
-		readInteger(serialization, index, occurences.back().second);
+		readInteger(serialization, ++index, occurences.back().second);
 	}
 	return false;
 };
 
-/*
+
 void Trie::deserialize(const string& serialization) {
 	const int length = serialization.size();
 	vector<pair<int, int> > occurences;
@@ -361,13 +360,15 @@ void Trie::deserialize(const string& serialization) {
 	TrieNode* node = this->root;
 	int character, id;
 	this->clearTrie();
-	for (int i = 0; i < length; ++i) {
+	for (int i = 0; i < length;) {
 		if (serialization[i] == '{') {
 			stackOfNodes.push_back(node);
+			++i;
 			continue;
 		}
 		if (serialization[i] == '}') {
 			stackOfNodes.pop_back();
+			++i;
 			continue;
 		}
 		if (readNodeInformation(serialization, length, i, character, id, occurences)) {
@@ -379,5 +380,3 @@ void Trie::deserialize(const string& serialization) {
 		}
 	}
 };
-
-*/
