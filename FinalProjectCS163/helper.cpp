@@ -8,7 +8,6 @@ using namespace std;
 #include "helper.h"
 #include "Trie.h"
 #include "Hash.h"
-#include <SFML/Network/Packet.hpp>
 
 vector<string> splitString(const string& s) {
 	//Split string by space
@@ -148,14 +147,11 @@ bool checkContainStringsAsSubsequence(const vector<string>& s, const vector<stri
 		}
 	}
 	return false;
-
 };
 
 int getRandomNumberFromList(const vector<int>& numbers) {
 	srand(time(NULL));
 	return numbers[rand() % numbers.size()];
-
-	
 };
 
 bool checkContainStringsAsSubarray(const vector<string>& s, const vector<string>& t) {
@@ -198,36 +194,22 @@ string toLowerString(string s) {
 	return s;
 };
 
-bool turnNonUnicodeString(tgui::String& s) {
-	if (s.length() == 0) return false;
-
-	for (int i = 0; i < (int)s.size(); i++) {
-		
-		auto low = std::find(SOURCE_CHARACTERS.begin(), SOURCE_CHARACTERS.end(), s[i]);
-		
-		if (low == SOURCE_CHARACTERS.end()) {
-			//cerr << "Yes your character suck\n";
-			continue;
-		}
-		int pos = low - SOURCE_CHARACTERS.begin();
-		//cerr << pos << ' ';
-		s[i] = DESTINATION_CHARACTERS[pos];
-	}
-	//cerr << '\n';
+bool readInteger(const string& s, int &i, int& result) {
+	const int length = s.size();
+	if (i >= length)
+		return false;
+	bool negative;
+	if (s[i] == '-') {
+		negative = true;
+		++i;
+	} else
+		negative = false;
+	if (!isdigit(s[i]))
+		return false;
+	result = 0;
+	while (i < length && isdigit(s[i]))
+		(result *= 10) += s[i] - '0';
+	if (negative)
+		result *= -1;
 	return true;
-}
-
-bool checkValidChar(int id)
-{
-	if (id >= 32 && id <= 127) return true;
-	if (std::binary_search(SOURCE_CHARACTERS.begin(), SOURCE_CHARACTERS.end(), id)) return true;
-	return false;
-}
-
-bool checkValidString(const tgui::String& s)
-{
-	for (const auto& x : s) {
-		if (!checkValidChar(x)) return false;
-	}
-	return true;
-}
+};

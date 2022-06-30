@@ -20,6 +20,8 @@ private:
 	static int getID(const char c);
 	static void getListOfWords(TrieNode* const node, string& current, int& remain, vector<string>& result);
 	static void getIDofAllWords(TrieNode* const node, vector<int> &id);
+	static void buildSerialization(TrieNode* const node, stringstream &result);
+	static bool readNodeInformation(const string &serialization, int length, int &index, int &character, int &id, vector<pair<int, int> > &occurences);
 
 public:
 	
@@ -63,5 +65,9 @@ public:
 	bool removeOccurences(const string &word);
 
 	void clearTrie();
+
+	string serialize() const;
+
+	//void deserialize(const string &serialization);
 
 };

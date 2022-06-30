@@ -1,4 +1,4 @@
-#include <cassert>
+﻿#include <cassert>
 #include <random>
 #include <ctime>
 #include <algorithm>
@@ -107,7 +107,7 @@ vector<pair<int, int> > Trie::getDefinitions(const string &s) const {
 			return vector<pair<int, int> >();
 		node = node->children[Trie::getID(tolower(c))];
 		if (node == nullptr) {
-			cout << "Nullshit\n";
+			cout << "The trie does not contain string.\n";
 			return vector<pair<int, int> >();
 		}
 	}
@@ -304,3 +304,80 @@ bool Trie::removeOccurences(const string& word) {
 	(node->occurences).clear();
 	return true;
 };
+
+void Trie::buildSerialization(TrieNode* const node, stringstream& result) {
+	if (node == nullptr)
+		return;
+	result << '{';
+	for (int i = 0; i < TrieNode::SIZE; ++i) {
+		if ((node->children)[i] == nullptr)
+			continue;
+		result << '(' << i << '|' << ((node -> children)[i] -> id);
+		for (const auto& occurence : ((node->children)[i]->occurences))
+			result << '|' << occurence.first << ',' << occurence.second;
+		result << ')';
+		buildSerialization((node->children)[i], result);
+	}
+	result << '}';
+};
+
+string Trie::serialize() const {
+	stringstream result;
+	buildSerialization(root, result);
+	return result.str();
+};
+
+bool Trie::readNodeInformation(const string& serialization, int length, int &index, int& character, int& id, vector<pair<int, int> >& occurences) {
+	if (index >= length || serialization[index] != '(')
+		return false;
+	++index;
+	readInteger(serialization, index, character);
+	if (index >= length || serialization[index] != '|')
+		return false;
+	readInteger(serialization, index, id);
+	occurences.clear();
+	while (index < length) {
+		if (serialization[index] == ')') {
+			++index;
+			return true;
+		}
+		if (serialization[index] != '|')
+			return false;
+		++index;
+		occurences.emplace_back(0, 0);
+		readInteger(serialization, index, occurences.back().first);
+		if (index >= length || serialization[index] != ',')
+			return false;
+		readInteger(serialization, index, occurences.back().second);
+	}
+	return false;
+};
+
+/*
+void Trie::deserialize(const string& serialization) {
+	const int length = serialization.size();
+	vector<pair<int, int> > occurences;
+	vector<TrieNode*> stackOfNodes;
+	TrieNode* node = this->root;
+	int character, id;
+	this->clearTrie();
+	for (int i = 0; i < length; ++i) {
+		if (serialization[i] == '{') {
+			stackOfNodes.push_back(node);
+			continue;
+		}
+		if (serialization[i] == '}') {
+			stackOfNodes.pop_back();
+			continue;
+		}
+		if (readNodeInformation(serialization, length, i, character, id, occurences)) {
+			node = new TrieNode();
+			node->id = id;
+			node->occurences = occurences;
+			++size;
+			(stackOfNodes.back() -> children[character]) = node;
+		}
+	}
+};
+
+*/
