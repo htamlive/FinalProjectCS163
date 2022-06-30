@@ -398,7 +398,7 @@ ChildWindow.ChildWindow {
         TitleColor = #3C3C3C;
         TransparentTexture = true;
 
-        CloseButton {
+        MaximizeButton {
             BackgroundColor = #F5F5F5;
             BackgroundColorDown = #EBEBEB;
             BackgroundColorHover = white;
@@ -418,7 +418,7 @@ ChildWindow.ChildWindow {
             TextureHover = None;
         }
 
-        MaximizeButton {
+        CloseButton {
             BackgroundColor = #F5F5F5;
             BackgroundColorDown = #EBEBEB;
             BackgroundColorHover = white;
@@ -465,11 +465,11 @@ ChildWindow.ChildWindow {
     }
 
     EditBox.ebKey {
+        DefaultText = Text;
         Enabled = false;
         Position = (-10, 70);
         ReadOnly = true;
         Size = (500, 82);
-        Text = Text;
         TextSize = 50;
 
         Renderer {
@@ -531,7 +531,7 @@ ChildWindow.ChildWindow {
     BitmapButton.btnFavor {
         Image = None;
         ImageScaling = 0;
-        Position = (450, 20);
+        Position = (450, 10);
         Size = (50, 50);
         TextSize = 13;
 
@@ -564,9 +564,10 @@ ChildWindow.ChildWindow {
     }
 
     Button.GreenButton {
-        Position = (370, 20);
-        Size = (50, 50);
-        TextSize = 13;
+        Position = (260, 10);
+        Size = (180, 50);
+        Text = Save;
+        TextSize = 20;
         Visible = false;
 
         Renderer {
@@ -584,14 +585,15 @@ ChildWindow.ChildWindow {
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
             TextColorHover = black;
-            Texture = "../images/green_tick.png" Smooth;
-            TextureDisabled = None;
-            TextureDown = None;
+            TextStyle = Bold | Italic;
+            Texture = "themes/NextButton.png" Part(0, 100, 523, 110) Smooth;
+            TextureDisabled = "themes/NextButton.png" Part(0, 100, 523, 110) Smooth;
+            TextureDown = "themes/NextButton.png" Part(0, 0, 523, 105) Smooth;
             TextureDownFocused = None;
             TextureDownHover = None;
-            TextureFocused = "../images/green_tick_hover.png" Smooth;
-            TextureHover = "../images/green_tick_hover.png" Smooth;
-            TransparentTexture = true;
+            TextureFocused = None;
+            TextureHover = "themes/NextButton.png" Part(0, 0, 523, 105) Smooth;
+            TransparentTexture = false;
         }
     }
 
@@ -618,11 +620,11 @@ ChildWindow.ChildWindow {
             TextColorHover = black;
             Texture = "themes/TrashCan.png" Part(0, 0, 800, 1146) Smooth;
             TextureDisabled = "themes/TrashCan.png" Part(0, 0, 800, 1146) Smooth;
-            TextureDown = "themes/TrashCan.png" Part(810, 0, 810, 1146) Smooth;
+            TextureDown = "themes/TrashCan.png" Part(810, 0, 800, 1146) Smooth;
             TextureDownFocused = None;
             TextureDownHover = None;
             TextureFocused = None;
-            TextureHover = "themes/TrashCan.png" Part(810, 0, 810, 1146) Smooth;
+            TextureHover = "themes/TrashCan.png" Part(810, 0, 800, 1146) Smooth;
             TransparentTexture = false;
         }
     }
