@@ -382,13 +382,14 @@ ChildWindow.ChildWindow {
     TitleAlignment = Center;
     TitleButtons = Close;
     TitleTextSize = 13;
+    Visible = false;
 
     Renderer {
         BackgroundColor = white;
         BorderBelowTitleBar = 1;
         BorderColor = blue;
         Borders = (1, 1, 1, 1);
-        DistanceToSide = 5;
+        DistanceToSide = 460;
         PaddingBetweenButtons = 1;
         ShowTextOnTitleButtons = true;
         TextureBackground = None;
@@ -398,6 +399,26 @@ ChildWindow.ChildWindow {
         TransparentTexture = true;
 
         CloseButton {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDown = black;
+            BorderColorHover = black;
+            Borders = (1, 1, 1, 1);
+            TextColor = #3C3C3C;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = None;
+            TextureDisabled = None;
+            TextureDown = None;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+
+        MaximizeButton {
             BackgroundColor = #F5F5F5;
             BackgroundColorDown = #EBEBEB;
             BackgroundColorHover = white;
@@ -445,7 +466,7 @@ ChildWindow.ChildWindow {
 
     EditBox.ebKey {
         Enabled = false;
-        Position = (0, 70);
+        Position = (-10, 70);
         ReadOnly = true;
         Size = (500, 82);
         Text = Text;
@@ -510,7 +531,7 @@ ChildWindow.ChildWindow {
     BitmapButton.btnFavor {
         Image = None;
         ImageScaling = 0;
-        Position = (360, 10);
+        Position = (450, 20);
         Size = (50, 50);
         TextSize = 13;
 
@@ -543,8 +564,8 @@ ChildWindow.ChildWindow {
     }
 
     Button.GreenButton {
-        Position = (20, 10);
-        Size = (70, 70);
+        Position = (370, 20);
+        Size = (50, 50);
         TextSize = 13;
         Visible = false;
 
@@ -575,8 +596,8 @@ ChildWindow.ChildWindow {
     }
 
     Button.RedButton {
-        Position = (120, 10);
-        Size = (70, 70);
+        Position = (33.3333, 450);
+        Size = (48.3333, 70);
         TextSize = 13;
         Visible = false;
 
@@ -595,13 +616,13 @@ ChildWindow.ChildWindow {
             TextColorDisabled = #7D7D7D;
             TextColorDown = black;
             TextColorHover = black;
-            Texture = "../images/red_cross.png" Smooth;
-            TextureDisabled = None;
-            TextureDown = None;
+            Texture = "themes/TrashCan.png" Part(0, 0, 800, 1146) Smooth;
+            TextureDisabled = "themes/TrashCan.png" Part(0, 0, 800, 1146) Smooth;
+            TextureDown = "themes/TrashCan.png" Part(810, 0, 810, 1146) Smooth;
             TextureDownFocused = None;
             TextureDownHover = None;
             TextureFocused = None;
-            TextureHover = "../images/red_cross_hover.png" Smooth;
+            TextureHover = "themes/TrashCan.png" Part(810, 0, 810, 1146) Smooth;
             TransparentTexture = false;
         }
     }
