@@ -8,6 +8,7 @@ using namespace std;
 #include "helper.h"
 #include "Trie.h"
 #include "Hash.h"
+#include <SFML/Network/Packet.hpp>
 
 vector<string> splitString(const string& s) {
 	//Split string by space
@@ -19,7 +20,7 @@ vector<string> splitString(const string& s) {
 	while (ss >> t) {
 		result.push_back(t);
 	}
-	
+
 	return result;
 };
 
@@ -40,7 +41,8 @@ vector<string> splitString(const string& text, const string& seperate) {
 		if (k < lengthOfText && (h[k + 1] - h[i] * power[lengthOfDelimiter] % MOD + MOD) % MOD == hashedDelimiter) {
 			result.push_back(text.substr(j, i - j));
 			j = i = k + 1;
-		} else
+		}
+		else
 			++i;
 	}
 	if (j < lengthOfText)
@@ -92,7 +94,8 @@ string replaceString(const string& text, const string& oldSubstring, const strin
 		if (k < lengthOfText && (h[k + 1] - h[i] * power[lengthOfOldSubstring] % MOD + MOD) % MOD == hashedOldSubstring) {
 			result += newSubstring;
 			i = k + 1;
-		} else
+		}
+		else
 			result += text[i++];
 	}
 	return result;
@@ -116,17 +119,18 @@ string replaceString(const string& text, const string& oldSubstring, const strin
 			result += newSubstring;
 			i = k + 1;
 			--maximum;
-		} else
+		}
+		else
 			result += text[i++];
 	}
 	return result;
 };
 
-bool checkContainStrings(const vector<string> &s, const vector<string> &t) {
+bool checkContainStrings(const vector<string>& s, const vector<string>& t) {
 	//The characters of elements of s and t should be printable
 	Trie trie;
 	for (const string& e : s)
-		trie.addWord(e, {10, 10});
+		trie.addWord(e, { 10, 10 });
 	for (const string& e : t)
 		if (!trie.containsWord(e))
 			return false;
@@ -147,11 +151,14 @@ bool checkContainStringsAsSubsequence(const vector<string>& s, const vector<stri
 		}
 	}
 	return false;
+
 };
 
 int getRandomNumberFromList(const vector<int>& numbers) {
 	srand(time(NULL));
 	return numbers[rand() % numbers.size()];
+
+
 };
 
 bool checkContainStringsAsSubarray(const vector<string>& s, const vector<string>& t) {
@@ -193,6 +200,40 @@ string toLowerString(string s) {
 		c = tolower(c);
 	return s;
 };
+
+bool turnNonUnicodeString(tgui::String& s) {
+	if (s.length() == 0) return false;
+
+	for (int i = 0; i < (int)s.size(); i++) {
+
+		auto low = std::find(SOURCE_CHARACTERS.begin(), SOURCE_CHARACTERS.end(), s[i]);
+
+		if (low == SOURCE_CHARACTERS.end()) {
+			//cerr << "Yes your character suck\n";
+			continue;
+		}
+		int pos = low - SOURCE_CHARACTERS.begin();
+		//cerr << pos << ' ';
+		s[i] = DESTINATION_CHARACTERS[pos];
+	}
+	//cerr << '\n';
+	return true;
+}
+
+bool checkValidChar(int id)
+{
+	if (id >= 32 && id <= 127) return true;
+	if (std::binary_search(SOURCE_CHARACTERS.begin(), SOURCE_CHARACTERS.end(), id)) return true;
+	return false;
+}
+
+bool checkValidString(const tgui::String& s)
+{
+	for (const auto& x : s) {
+		if (!checkValidChar(x)) return false;
+	}
+	return true;
+}
 
 bool readInteger(const string& s, int &i, int& result) {
 	const int length = s.size();
