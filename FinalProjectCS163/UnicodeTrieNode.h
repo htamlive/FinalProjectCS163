@@ -7,7 +7,7 @@ using namespace std;
 
 class UnicodeTrieNode {
 public:
-	const static int SIZE = 150;
+	const static int SIZE = 290;
 	UnicodeTrieNode* children[SIZE];
 
 	int id;
