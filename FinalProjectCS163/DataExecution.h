@@ -28,8 +28,7 @@ private:
 			string s = getStringBin(link);
 			this->trieDefs[id]->deserialize(s);
 			cout << "sz " << s.length() << "\n";
-		}
-		else {
+		} else {
 			for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
 				pair<string, string> cur = this->datasets[id]->Data[j];
 				transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);

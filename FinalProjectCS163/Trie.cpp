@@ -107,11 +107,11 @@ vector<pair<int, int> > Trie::getDefinitions(const string &s) const {
 			return vector<pair<int, int> >();
 		node = node->children[Trie::getID(tolower(c))];
 		if (node == nullptr) {
-			cout << "The trie does not contain string.\n";
+			cerr << "The trie does not contain the given string.\n";
 			return vector<pair<int, int> >();
 		}
 	}
-	//cout << node->id << '\n';
+	//cerr << (node->id) << '\n';
 	return node->occurences;
 };
 
