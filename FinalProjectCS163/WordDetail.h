@@ -22,7 +22,7 @@ private:
 
 public:
 	string getDefinition(string& str) {
-		return this->dataExec->getDefinition(str);
+		return this->dataExec->getDefinition(str);;
 	}
 
 	void setOnClickEdit() {

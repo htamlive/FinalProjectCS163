@@ -218,7 +218,6 @@ public:
 		for (int i = 0; i < suggestedKeys.size() + suggestedIdx.size(); ++i) {
 			if (*this->isWordModePtr && !this->checkSuggestion(suggestedKeys[i])) continue;
 
-
 			auto eb = tgui::Button::create();
 			eb->setWidgetName("op" + std::to_string(i));
 			eb->setPosition(x, y + cnt * this->h);
@@ -227,7 +226,21 @@ public:
 			if(*this->isWordModePtr == true) eb->setText(suggestedKeys[i]);
 			else {
 				auto tmp = this->dataExec->getData(nwDataIdx[i]);
-				eb->setText(this->reduceStr(tmp.first + ": " + tmp.second, 80));
+
+				string display = "";
+
+				for (int j = 0; j < (int)tmp.second.size(); j++) {
+					if (tmp.second[j] == '\n') {
+						if (!display.empty() && display.back() != ' ') {
+							display += ' ';
+						}
+						continue;
+					}
+					display += tmp.second[j];
+				}
+				cerr << display << '\n';
+
+				eb->setText(this->reduceStr(tmp.first + ": " + display, 80));
 			}
 			eb->setTextSize(16);
 			eb->setTextPosition({ "2%", "40%" },{0, 0});
