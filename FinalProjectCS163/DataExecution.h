@@ -13,7 +13,7 @@ private:
 
 	bool finishDataset[5], finishKeys[5], finishDefs[5], isShutDown, isReload;
 
-	bool loadSer = false;
+	bool loadSer = true;
 
 	int curDataset;
 
