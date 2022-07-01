@@ -17,11 +17,14 @@ private:
 
 	int curDataset;
 
-	void addToTrieDefs(int id) {
+	void addToTrieDefs(int id, bool isReload = false) {
 		if (loadSer) {
 			std::string name = this->datasets[id]->dataset_name;
-			cout << name << "\n";
-			std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + "Defs" + (string)".bin";
+			//cout << name << "\n";
+			std::string link;
+			if (!isReload) link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + "Defs" + (string)".bin";
+			else link = "Data/OrgData/DataStructure/" + name.substr(0, name.length() - 4) + "Defs" + (string)".bin";
+			
 			string s = getStringBin(link);
 			this->trieDefs[id]->deserialize(s);
 			cout << "sz " << s.length() << "\n";
@@ -40,12 +43,12 @@ private:
 		this->finishDefs[id] = true;
 	}
 
-	void addToTrieKeys(int id) {
+	void addToTrieKeys(int id, bool isReload = false) {
 		if (loadSer) {
-
 			std::string name = this->datasets[id]->dataset_name;
-			cout << name << "\n";
-			std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + "Keys" + (string)".bin";
+			std::string link;
+			if (!isReload) link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + "Keys" + (string)".bin";
+			else link = "Data/OrgData/DataStructure/" + name.substr(0, name.length() - 4) + "Keys" + (string)".bin";
 			string s = getStringBin(link);
 			this->trieKeys[id]->deserialize(s);
 			cout << "sz " << s.length() << "\n";
@@ -150,12 +153,10 @@ public:
 	virtual ~DataExecution() {
 		for (auto i : {0, 1, 2, 3, 4}) {
 			
-			if (this->trieKeys[i]) {
+			if (this->trieKeys[i]) 
 				saveAndRemoveTrie(i,"Keys");
-			}
-			if (this->trieDefs[i]) {
+			if (this->trieDefs[i]) 
 				saveAndRemoveTrie(i, "Defs");
-			}
 
 			if (this->datasets[i] && this->finishDataset[i]) {
 				this->datasets[i]->saveData();
@@ -172,49 +173,46 @@ public:
 
 	void saveAndRemoveTrie(int id, string additionStr) {
 
+		std::string name = this->datasets[id]->dataset_name;
+		std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + additionStr + (string)".bin";
+		std::ofstream ofs(link, ios::binary);
 		std::string res;
 		if (additionStr == "Keys") {
 			if (!this->trieKeys[id]) return;
 			res = this->trieKeys[id]->serialize();
 			delete this->trieKeys[id];
+			this->trieKeys[id] = nullptr;
 		}
 		else {
 			if (!this->trieDefs[id]) return;
 			res = this->trieDefs[id]->serialize();
 			delete this->trieDefs[id];
+			this->trieDefs[id] = nullptr;
 		}
-
-		std::string name = this->datasets[id]->dataset_name;
-		std::string link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + additionStr + (string)".bin";
-		std::ofstream ofs(link, ios::binary);
-		size_t sz = res.length();
-		ofs.write((char*)&sz, sizeof(size_t));
-		ofs.write(res.c_str(), sz);
+		ofs.write(res.c_str(), res.length());
 		ofs.close();
-
-
-		cout << "finish " << id << " " << additionStr << " " << res.length() << "\n";
+		//cout << "finish " << id << " " << additionStr << " " << res.length() << "\n";
 	}
 
-	bool loadKeys(int id, bool setCur = false) {
+	bool loadKeys(int id, bool isReload = false, bool setCur = false) {
 		if (id > 4 || id < 0) return false;
 		if (setCur) this->curDataset = id;
 		if (this->trieKeys[id]) return false;
 
 		this->trieKeys[id] = new Trie();
 		loadDataset(id);
-		addToTrieKeys(id);
+		addToTrieKeys(id, isReload);
 		return true;
 	}
 
-	bool loadDefs(int id, bool setCur = false) {
+	bool loadDefs(int id, bool isReload = false, bool setCur = false) {
 		if (id > 4 || id < 0) return false;
 		if (setCur) this->curDataset = id;
 		if (this->trieDefs[id]) return false;
 
 		this->trieDefs[id] = new Trie();
 		loadDataset(id);
-		addToTrieDefs(id);
+		addToTrieDefs(id, isReload);
 		return true;
 	}
 
@@ -388,10 +386,10 @@ public:
 		this->trieDefs[id] = nullptr;
 		this->trieKeys[id] = nullptr;
 
-		loadKeys(id);
-		loadDefs(id);
+		loadKeys(id,true);
+		loadDefs(id, true);
 		
-		std::cout << "Finish restoring " << id << " " << this->datasets[id]->Data.size() << "\n";
+		//std::cout << "Finish restoring " << id << " " << this->datasets[id]->Data.size() << "\n";
 	}
 
 	//vector<pair<int, int>> getKeys(string s, int maximum = 8) {

@@ -54,7 +54,7 @@ int main() {
 	work3.join();
 
 	//Trie t;
-	//const string s = getStringBin("Data/OrgData/emotionalDefs.bin");
+	//const string s = getStringBin("Data/DataStructure/en-enDefs.bin");
 	//string tmp = s;
 	//cout << s.length() << "\n";
 	//cout << (tmp == s);
