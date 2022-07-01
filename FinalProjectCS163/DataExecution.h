@@ -328,6 +328,12 @@ public:
 		return this->favor[id];
 	}
 
+	void reloadFavor(int id, const vector<int>& x) {
+		if (id == -1) id = this->curDataset;
+		if (id < 0 || id > 4) return;
+		this->favor[id] = x;
+	}
+
 	void setShutDown() {
 		this->isShutDown = true;
 	}

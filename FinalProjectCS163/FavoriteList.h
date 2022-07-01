@@ -59,13 +59,17 @@ private:
 		if (flag) return;
 		this->memo = nwMemo;
 		this->gui->get<tgui::ListView>("FavoriteList")->removeAllItems();
+		vector<int> filter;
 		for (int i = 0; i < this->memo.size(); ++i) {
 			auto tmp = this->dataExec->getData(this->memo[i]);
 			if (tmp.first == "") continue;
+			filter.push_back(memo[i]);
 			//cout << tmp.first << " " << tmp.second << "\n";
 
 			this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceStr(tmp.first + ": " + tmp.second, 34));
 		}
+
+		//this->dataExec->reloadFavor(-1,filter);
 	}
 
 	string reduceStr(string s, int l) {
