@@ -473,6 +473,7 @@ ChildWindow.ChildWindow {
     TitleAlignment = Center;
     TitleButtons = Close;
     TitleTextSize = 13;
+    Visible = false;
 
     Renderer {
         BackgroundColor = white;
