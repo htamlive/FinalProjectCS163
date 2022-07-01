@@ -47,21 +47,10 @@ int main() {
 	std::thread work3(loadBig);
 	std::thread work1(loadData);
 	std::thread work2(runProgram);
-	
 
 	work1.join();
 	work2.join();
 	work3.join();
-
-	//Trie t;
-	//const string s = getStringBin("Data/DataStructure/en-enDefs.bin");
-	//string tmp = s;
-	//cout << s.length() << "\n";
-	//cout << (tmp == s);
-	//t.deserialize(s);
-	//
-	//string ss = t.serialize();
-	//cerr << ss.length();
 
 	return 0;
 }
