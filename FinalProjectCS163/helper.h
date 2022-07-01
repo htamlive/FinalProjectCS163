@@ -39,6 +39,8 @@ int getRandomNumberFromList(const vector<int>& numbers);
 
 vector<string> splitString(const string& s);
 
+vector<tgui::String> splitString(const tgui::String& s);
+
 vector<string> splitString(const string& text, const string& seperate);
 
 vector<string> splitString(const string& text, const string& seperate, int maximum);
@@ -49,13 +51,21 @@ string replaceString(const string& text, const string& oldSubstring, const strin
 
 bool checkPrintable(const char c);
 
-bool checkContainStrings(const vector<string>& s, const vector<string>& t);
+bool checkContainStrings(const vector<std::string>& s, const vector<std::string>& t);
 
-bool checkContainStringsAsSubsequence(const vector<string>& s, const vector<string>& t);
+bool checkContainStringsAsSubsequence(const vector<std::string>& s, const vector<std::string>& t);
 
-bool checkContainStringsAsSubarray(const vector<string>& s, const vector<string>& t);
+bool checkContainStringsAsSubarray(const vector<std::string>& s, const vector<std::string>& t);
+
+bool checkContainStrings(const vector<tgui::String>& s, const vector<tgui::String>& t);
+
+bool checkContainStringsAsSubsequence(const vector<tgui::String>& s, const vector<tgui::String>& t);
+
+bool checkContainStringsAsSubarray(const vector<tgui::String>& s, const vector<tgui::String>& t);
 
 string toLowerString(string s);
+
+tgui::String toLowerString(tgui::String s);
 
 bool turnNonUnicodeString(tgui::String& s);
 

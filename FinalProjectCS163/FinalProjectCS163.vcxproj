@@ -164,6 +164,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Trie.cpp" />
     <ClCompile Include="TrieNode.cpp" />
+    <ClCompile Include="UnicodeTrie.cpp" />
     <ClCompile Include="UnicodeTrieNode.cpp" />
     <ClCompile Include="WordDetail.cpp" />
   </ItemGroup>
@@ -186,6 +187,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="Trie.h" />
     <ClInclude Include="TrieNode.h" />
+    <ClInclude Include="UnicodeTrie.h" />
     <ClInclude Include="UnicodeTrieNode.h" />
     <ClInclude Include="WordDetail.h" />
   </ItemGroup>
