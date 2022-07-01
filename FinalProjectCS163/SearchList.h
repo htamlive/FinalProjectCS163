@@ -57,9 +57,11 @@ private:
 		return s;
 	}
 
-	void setupWordDetail(int i) {
+	void setupWordDetail(int i, bool rand = false) {
 		if (this->wordDetail) {
-			if (*this->isWordModePtr == true)
+			if (rand) {
+				this->wordDetail->changeWord(this->dataExec->getData(i).first);
+			} else if (*this->isWordModePtr == true)
 				this->wordDetail->changeWord(suggestedKeys[i]);
 			else {
 				string str = this->dataExec->getData(suggestedIdx[i]).first;
@@ -67,7 +69,9 @@ private:
 			}
 		}
 		else {
-			if (*this->isWordModePtr == true)
+			if (rand) {
+				this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, this->dataExec->getData(i).first);
+			} else if (*this->isWordModePtr == true)
 				this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, suggestedKeys[i]);
 			else {
 				string str = this->dataExec->getData(suggestedIdx[i]).first;
@@ -76,6 +80,8 @@ private:
 
 		}
 	}
+
+	
 public:
 
 	SearchList(tgui::Gui* gui, const int& curSet, int x, int y, int w, int h, bool *isWordMode) : x(x), y(y), w(w), h(h), curSet(curSet) {
@@ -110,6 +116,10 @@ public:
 	void initSearchButton() {
 		this->gui->get<tgui::Button>("btnSearch")->onClick([&, this]() {
 			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+			if (text.length() == 0) {
+				this->setupWordDetail(this->dataExec->getRand(1)[0], true);
+				return;
+			}
 			if (!checkValidString(text)) {
 				this->gui->get<tgui::EditBox>("SearchBar")->setText("");
 				return;

@@ -473,7 +473,6 @@ ChildWindow.ChildWindow {
     TitleAlignment = Center;
     TitleButtons = Close;
     TitleTextSize = 13;
-    Visible = false;
 
     Renderer {
         BackgroundColor = white;
@@ -557,17 +556,16 @@ ChildWindow.ChildWindow {
 
     EditBox.ebKey {
         DefaultText = Text;
-        Enabled = false;
         Position = (-10, 70);
         ReadOnly = true;
-        Size = (500, 82);
+        Size = (510, 82);
         TextSize = 50;
 
         Renderer {
-            BackgroundColor = #FFF3E0;
+            BackgroundColor = #F9FFF7;
             BackgroundColorDisabled = #F9FFF7;
-            BackgroundColorFocused = white;
-            BackgroundColorHover = white;
+            BackgroundColorFocused = #F9FFF7;
+            BackgroundColorHover = #F9FFF7;
             BorderColor = #3C3C3C;
             BorderColorDisabled = #7D7D7D;
             BorderColorHover = black;

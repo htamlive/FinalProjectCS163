@@ -51,7 +51,6 @@ int main() {
 	work1.join();
 	work2.join();
 	work3.join();
-
 	return 0;
 }
 
