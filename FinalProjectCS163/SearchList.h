@@ -9,12 +9,15 @@
 class SearchList
 {
 private:
+	vector<string> defOpts = {"btnWordSet", "btnWordSeq", "btnWordCons"};
+
 	int x, y, w, h;
 	std::vector<std::string> suggestedKeys;
 	std::vector<int> suggestedIdx;
 	tgui::Gui* gui;
 	
 	int curSet = 0;
+	int curDefOpt = 0;
 	bool* isWordModePtr;
 	WordDetail* wordDetail;
 	FavoriteList* favoriteList;
@@ -83,6 +86,7 @@ public:
 		this->favoriteList = new FavoriteList(this->gui, &wordDetail);
 
 		this->initSearchButton();
+		this->showDefSearchOptions(false);
 
 		this->gui->get<tgui::Button>("btnHistory")->onClick([&, this] {
 			if (this->curSet != this->dataExec->getCurDataset()) {
@@ -117,10 +121,37 @@ public:
 			} else {
 				turnNonUnicodeString(text);
 				text = text.toLower();
-				auto nwDataId = this->dataExec->getKeysSubsequence((string)text);
+				vector<int> nwDataId;
+				switch (this->curDefOpt)
+				{
+				case 0:
+					nwDataId = this->dataExec->getKeys((string)text);
+					break;
+				case 1:
+					nwDataId = this->dataExec->getKeysSubsequence((string)text);
+					break;
+				case 2:
+					nwDataId = this->dataExec->getKeysSubarray((string)text);
+					break;
+				default:
+					break;
+				}
+				
 				showSuggestions({}, nwDataId);
 			}
 			});
+	}
+
+	void updateBtns() {
+		for (int i = 0; i < this->defOpts.size(); ++i) {
+			if (this->gui->get<tgui::Button>(defOpts[i])->isFocused() && i != this->curDefOpt) {
+				this->gui->get<tgui::Button>(defOpts[this->curDefOpt])->leftMouseButtonNoLongerDown();
+				this->curDefOpt = i;
+				clear();
+				this->gui->get<tgui::Button>(defOpts[i])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
+			}
+		}
+		this->gui->get<tgui::Button>(this->defOpts[this->curDefOpt])->leftMousePressed({});
 	}
 
 	void onChangingText() {
@@ -169,6 +200,13 @@ public:
 	bool checkSuggestion(string& str) {
 		string getDef = this->dataExec->getDefinition(str);
 		return getDef != "";
+		
+	}
+
+	void showDefSearchOptions(bool flag = true) {
+		for (auto x : this->defOpts) {
+			this->gui->get<tgui::Button>(x)->setVisible(flag);
+		}
 		
 	}
 
@@ -228,6 +266,7 @@ public:
 		if (this->wordDetail != NULL) {
 			this->wordDetail->update();
 		}
+		this->updateBtns();
 	}
 };
 

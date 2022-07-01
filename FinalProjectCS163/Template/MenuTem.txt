@@ -1,3 +1,114 @@
+Picture.cross4 {
+    Position = (1171, 382);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Picture.cross3 {
+    Position = (1073, 380);
+    Size = (40, 36);
+
+    Renderer {
+        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Button.btnWordCons {
+    Position = (1060, 150);
+    Size = (150, 70);
+    Text = Button;
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "images/WordConsecutiveIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/WordConsecutivePressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/WordConsecutiveHover.png" Smooth;
+    }
+}
+
+Button.btnWordSeq {
+    Position = (910, 150);
+    Size = (150, 70);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "images/WordSequenceIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/WordSequencePressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/WordSequenceHover.png" Smooth;
+    }
+}
+
+Button.btnWordSet {
+    Position = (790, 150);
+    Size = (120, 70);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "images/WordSetIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "images/WordSetPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "images/WordSetHover.png" Smooth;
+    }
+}
+
 Picture.PicLogoRB {
     Position = (980, 700);
     Size = (300, 129);
@@ -40,26 +151,6 @@ Picture.cross1 {
 
 Picture.cross2 {
     Position = (74, 380);
-    Size = (40, 36);
-
-    Renderer {
-        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
-        TransparentTexture = false;
-    }
-}
-
-Picture.cross3 {
-    Position = (1073, 380);
-    Size = (40, 36);
-
-    Renderer {
-        Texture = "themes/EntitiesThemes.png" Part(30, 0, 112, 107) Smooth;
-        TransparentTexture = false;
-    }
-}
-
-Picture.cross4 {
-    Position = (1171, 382);
     Size = (40, 36);
 
     Renderer {

@@ -392,9 +392,9 @@ public:
 		//std::cout << "Finish restoring " << id << " " << this->datasets[id]->Data.size() << "\n";
 	}
 
-	//vector<pair<int, int>> getKeys(string s, int maximum = 8) {
-	//	return this->trieDefs[this->curDataset]->getKeys(*this->datasets[this->curDataset], s, maximum);
-	//}
+	vector<int> getKeys(string s, int maximum = 8) {
+		return this->trieDefs[this->curDataset]->getKeys(*this->datasets[this->curDataset], s, maximum);
+	}
 
 	vector<int> getKeysSubarray(string s, int maximum = 8) {
 		return this->trieDefs[this->curDataset]->getKeysSubarray(*this->datasets[this->curDataset], s,maximum);

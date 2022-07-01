@@ -85,11 +85,13 @@ public:
 			if (this->isWordMode) {
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefWord"));
 				dataExec->loadKeys(datasetId[curOpt]);
+				this->searchList->showDefSearchOptions(false);
 			}	
 			else {
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefDef"));
 				dataExec->loadDefs(datasetId[curOpt]);
 				this->searchList->clear();
+				this->searchList->showDefSearchOptions(true);
 			}	
 
 			this->gui->get<tgui::Button>("btnWordDef")->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
