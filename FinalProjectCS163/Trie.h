@@ -68,26 +68,12 @@ public:
 
 	string serialize() const;
 
-	void serialize(ostream& result) {
-		buildSerialization(root, result);
-	}
+	void serialize(ostream& result) const;
 
-	void buildSerialization(TrieNode* const node, ostream& result) {
-		if (node == nullptr)
-			return;
-		result << '{';
-		for (int i = 0; i < TrieNode::SIZE; ++i) {
-			if ((node->children)[i] == nullptr)
-				continue;
-			result << '(' << i << '|' << ((node->children)[i]->id);
-			for (const auto& occurence : ((node->children)[i]->occurences))
-				result << '|' << occurence.first << ',' << occurence.second;
-			result << ')';
-			buildSerialization((node->children)[i], result);
-		}
-		result << '}';
-	};
+	static void buildSerialization(TrieNode* const node, ostream& result);
 
 	void deserialize(const string &serialization);
+
+	vector<int> filter(const DATASET &dataset, const vector<int> &id) const;
 
 };
