@@ -77,7 +77,6 @@ private:
 				string str = this->dataExec->getData(suggestedIdx[i]).first;
 				this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, str);
 			}
-
 		}
 	}
 
@@ -108,7 +107,7 @@ public:
 	
 
 		this->gui->get<tgui::EditBox>("SearchBar")->onFocus([&, this]() {
-			if(*this->isWordModePtr == true) onChangingText();
+			onChangingText();
 			});
 		//this->wordDetail->setVisible(false);
 	};
@@ -177,8 +176,9 @@ public:
 		}
 		bool check = turnNonUnicodeString(stdText);
 		stdText = stdText.toLower();
-		//cerr << stdText << '\n';
+		//cerr << "Your text here : " << stdText << '\n';
 		if (stdText.length() < 1) {
+			//cerr << "Hey you got here dud\n";
 			//cerr << "Type down more shit you idiot\n";
 			this->showHistory();
 		}
@@ -217,7 +217,21 @@ public:
 		for (auto x : this->defOpts) {
 			this->gui->get<tgui::Button>(x)->setVisible(flag);
 		}
-		
+	}
+
+	string turnOneLine(string& need) {
+		string display = "";
+
+		for (int j = 0; j < (int)need.size(); j++) {
+			if (need[j] == '\n') {
+				if (!display.empty() && display.back() != ' ') {
+					display += ' ';
+				}
+				continue;
+			}
+			display += need[j];
+		}
+		return display;
 	}
 
 	void showSuggestions(std::vector<std::string> nwData = {}, std::vector<int> nwDataIdx = {}) {
@@ -234,23 +248,14 @@ public:
 			eb->setSize(w, h);
 
 			if(*this->isWordModePtr == true) eb->setText(suggestedKeys[i]);
+			else if (*this->isWordModePtr == false && nwDataIdx.empty()) {
+				string need = this->dataExec->getDefinition(suggestedKeys[i]);
+				need = turnOneLine(need);
+				eb->setText(this->reduceStr(suggestedKeys[i] + ": " + need, 80));
+			}
 			else {
 				auto tmp = this->dataExec->getData(nwDataIdx[i]);
-
-				string display = "";
-
-				for (int j = 0; j < (int)tmp.second.size(); j++) {
-					if (tmp.second[j] == '\n') {
-						if (!display.empty() && display.back() != ' ') {
-							display += ' ';
-						}
-						continue;
-					}
-					display += tmp.second[j];
-				}
-				cerr << display << '\n';
-
-				eb->setText(this->reduceStr(tmp.first + ": " + display, 80));
+				eb->setText(this->reduceStr(tmp.first + ": " + turnOneLine(tmp.second), 80));
 			}
 			eb->setTextSize(16);
 			eb->setTextPosition({ "2%", "40%" },{0, 0});

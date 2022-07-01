@@ -110,7 +110,7 @@ public:
 		this->gui = GUI;
 		this->dataExec = &DataExecution::getInstance();
 		this->curString = str;
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/dark_star.png");
+		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/dark_star.png");
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 		
 		this->IDs = this->dataExec->getID(this->curString);
@@ -121,6 +121,9 @@ public:
 		for (int i = 0; i < IDs.size(); i++) {
 			this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
 		}
+
+		if (this->favorite) this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/bright_star.png");
+		else this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/dark_star.png");
 
 		this->initFavorBtn();
 
@@ -160,6 +163,10 @@ public:
 		for (int i = 0; i < IDs.size(); i++) {
 			this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
 		}
+
+		if (this->favorite) this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/bright_star.png");
+		else this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/dark_star.png");
+
 		if (this->IDs.size()) {
 			this->dataExec->addHistoryID(this->IDs[0]);
 		}

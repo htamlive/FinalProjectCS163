@@ -355,6 +355,25 @@ bool Trie::readNodeInformation(const string& serialization, int length, int &ind
 	return false;
 };
 
+void Trie::buildSerialization(TrieNode* const node, ostream& result) {
+	if (node == nullptr)
+		return;
+	result << '{';
+	for (int i = 0; i < TrieNode::SIZE; ++i) {
+		if ((node->children)[i] == nullptr)
+			continue;
+		result << '(' << i << '|' << ((node->children)[i]->id);
+		for (const auto& occurence : ((node->children)[i]->occurences))
+			result << '|' << occurence.first << ',' << occurence.second;
+		result << ')';
+		buildSerialization((node->children)[i], result);
+	}
+	result << '}';
+};
+
+void Trie::serialize(ostream& result) const {
+	buildSerialization(root, result);
+}
 
 void Trie::deserialize(const string& serialization) {
 	this->clearTrie();
@@ -382,4 +401,21 @@ void Trie::deserialize(const string& serialization) {
 			(stackOfNodes.back() -> children[character]) = node;
 		}
 	}
+};
+
+vector<int> Trie::filter(const DATASET& dataset, const vector<int>& id) const {
+	int previousOccurence;
+	vector<int> result;
+	for (const int& i  : id) {
+		previousOccurence = -1;
+		for (const pair<int, int>& occurence : (this->getDefinitions(dataset.getData(i).first))) {
+			if (previousOccurence == occurence.first)
+				continue;
+			result.push_back(occurence.first);
+			previousOccurence = occurence.first;
+		}
+	}
+	sort(result.begin(), result.end());
+	result.erase(unique(result.begin(), result.end()), result.end());
+	return result;
 };
