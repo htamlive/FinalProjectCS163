@@ -51,7 +51,7 @@ public:
 
 		this->dataExec = &DataExecution::getInstance();
 
-		this->dataExec->loadKeys(DATASETID::ENtoVIE, true);
+		this->dataExec->loadKeys(DATASETID::ENtoVIE,false, true);
 	}
 
 	void initBackground() {
