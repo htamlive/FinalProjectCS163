@@ -150,13 +150,13 @@ vector<int> UnicodeTrie::getIDofRandomWords(const int numberOfWords) const {
 
 vector<pair<int, int> > UnicodeTrie::getKey(const DATASET& dataset, const tgui::String& definition) const {
 	//Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
-	const vector<tgui::String> words = splitString(definition);
+	const vector<tgui::String> words = splitUnicodeString(definition);
 	vector<pair<int, int> > result;
 	for (const tgui::String& word : words) {
 		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStrings(splitString(toLowerString(definitionOfKey)), words))
+			if (checkContainStrings(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words))
 				result.push_back(occurence);
 		}
 	}
@@ -167,7 +167,7 @@ vector<pair<int, int> > UnicodeTrie::getKey(const DATASET& dataset, const tgui::
 vector<int> UnicodeTrie::getKeys(const DATASET& dataset, const tgui::String& definition, const int maximum) const {
 	// Return the (sorted) list of occurences (the line id) of words whose definitions contain set of words from input definition
 	// The occurence in each node should be in sorted order (before calling this function)
-	const vector<tgui::String> words = splitString(definition);
+	const vector<tgui::String> words = splitUnicodeString(definition);
 	int previousOccurence, remain;
 	vector<int> result;
 	for (const tgui::String& word : words) {
@@ -180,7 +180,7 @@ vector<int> UnicodeTrie::getKeys(const DATASET& dataset, const tgui::String& def
 				continue;
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStrings(splitString(toLowerString(definitionOfKey)), words)) {
+			if (checkContainStrings(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
 				--remain;
 			}
@@ -196,13 +196,13 @@ vector<int> UnicodeTrie::getKeys(const DATASET& dataset, const tgui::String& def
 vector<pair<int, int> > UnicodeTrie::getKeySubsequence(const DATASET& dataset, const tgui::String& definition) const {
 	// Second type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
-	const vector<tgui::String> words = splitString(definition);
+	const vector<tgui::String> words = splitUnicodeString(definition);
 	vector<pair<int, int> > result;
 	for (const tgui::String& word : words) {
 		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStringsAsSubsequence(splitString(toLowerString(definitionOfKey)), words))
+			if (checkContainStringsAsSubsequence(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words))
 				result.push_back(occurence);
 		}
 	}
@@ -213,13 +213,13 @@ vector<pair<int, int> > UnicodeTrie::getKeySubsequence(const DATASET& dataset, c
 vector<pair<int, int> > UnicodeTrie::getKeySubarray(const DATASET& dataset, const tgui::String& definition) const {
 	// Third type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
-	const vector<tgui::String> words = splitString(definition);
+	const vector<tgui::String> words = splitUnicodeString(definition);
 	vector<pair<int, int> > result;
 	for (const tgui::String& word : words) {
 		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStringsAsSubarray(splitString(toLowerString(definitionOfKey)), words))
+			if (checkContainStringsAsSubarray(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words))
 				result.push_back(occurence);
 		}
 	}
@@ -244,7 +244,7 @@ bool UnicodeTrie::empty() const {
 vector<int> UnicodeTrie::getKeysSubsequence(const DATASET& dataset, const tgui::String& definition, const int maximum) const {
 	// Second type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
-	const vector<tgui::String> words = splitString(definition);
+	const vector<tgui::String> words = splitUnicodeString(definition);
 	int previousOccurence, remain;
 	vector<int> result;
 	for (const tgui::String& word : words) {
@@ -257,7 +257,7 @@ vector<int> UnicodeTrie::getKeysSubsequence(const DATASET& dataset, const tgui::
 				continue;
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStringsAsSubsequence(splitString(toLowerString(definitionOfKey)), words)) {
+			if (checkContainStringsAsSubsequence(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
 				--remain;
 			}
@@ -273,7 +273,7 @@ vector<int> UnicodeTrie::getKeysSubsequence(const DATASET& dataset, const tgui::
 vector<int> UnicodeTrie::getKeysSubarray(const DATASET& dataset, const tgui::String& definition, const int maximum) const {
 	// Third type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
-	const vector<tgui::String> words = splitString(definition);
+	const vector<tgui::String> words = splitUnicodeString(definition);
 	int previousOccurence, remain;
 	vector<int> result;
 	for (const tgui::String& word : words) {
@@ -286,7 +286,7 @@ vector<int> UnicodeTrie::getKeysSubarray(const DATASET& dataset, const tgui::Str
 				continue;
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
-			if (checkContainStringsAsSubarray(splitString(toLowerString(definitionOfKey)), words)) {
+			if (checkContainStringsAsSubarray(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
 				--remain;
 			}

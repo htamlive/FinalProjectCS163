@@ -1,4 +1,5 @@
 #include "DATASET.h"
+#include "helper.h"
 
 void DATASET::loadData() {
 	ifstream fin("Data/Dataset/" + dataset_name);
@@ -12,14 +13,12 @@ void DATASET::loadData() {
 			Core_Data.push_back(def);
 			string temp = "";
 			for (auto i : def) {
-				if (isalnum((unsigned char)i) || isspace((unsigned char)i)) {
+				if (checkValidChar(i)) 
 					temp += i;
-				}
 			}
 			Data.push_back(make_pair(key, temp));
 		}
-	}
-	else if (_typeOfdata == DATASETID::SLANG) {
+	} else if (_typeOfdata == DATASETID::SLANG) {
 		while (!fin.eof()) {
 			getline(fin, key, '\t');
 			getline(fin, def, '\t');
@@ -30,8 +29,7 @@ void DATASET::loadData() {
 			remove(def.begin(), def.end(), '|');
 			Data.push_back(make_pair(key, def));
 		}
-	}
-	else {
+	} else {
 		while (!fin.eof()) {
 			getline(fin, key, '\t');
 			getline(fin, def, '\t');
@@ -49,8 +47,7 @@ void DATASET::saveData() {
 		for (int i = 0; i < Data.size(); i++) {
 			fout << Data[i].first << '\t' << Core_Data[i] << '\t';
 		}
-	}
-	else {
+	} else {
 		for (int i = 0; i < Data.size(); i++) {
 			fout << Data[i].first << '\t' << Data[i].second << '\t';
 		}
@@ -62,8 +59,7 @@ void DATASET::addWord(pair<string, string> newWord) {
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::SLANG) {
 		Data.push_back(newWord);
 		return;
-	}
-	else if (_typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN || _typeOfdata == DATASETID::ENtoEN) {
+	} else if (_typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN || _typeOfdata == DATASETID::ENtoEN) {
 		Data.push_back(newWord);
 		Core_Data.push_back(newWord.second);
 		return;
@@ -79,8 +75,7 @@ void DATASET::removeWord(int id) {
 		Data[id].first = "";
 		Data[id].second = "";
 		return;
-	}
-	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
+	} else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
 		Data[id].first = "";
 		Data[id].second = "";
 		Core_Data[id] = "";
@@ -98,8 +93,7 @@ pair<string, string> DATASET::getData(int id) const {
 	}
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
 		return Data[id];
-	}
-	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
+	} else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
 		return make_pair(Data[id].first, Core_Data[id]);
 	}
 	return make_pair("", "");

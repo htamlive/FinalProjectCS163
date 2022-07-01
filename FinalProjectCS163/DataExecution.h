@@ -51,8 +51,7 @@ private:
 			string s = getStringBin(link);
 			this->trieKeys[id]->deserialize(s);
 			cout << "sz " << s.length() << "\n";
-		}
-		else {
+		} else {
 			for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
 				pair<string, string> cur = this->datasets[id]->Data[j];
 				this->trieKeys[id]->addWord(cur.first, { j, 0 });
