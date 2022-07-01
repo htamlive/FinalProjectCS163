@@ -160,6 +160,9 @@ public:
 		for (int i = 0; i < IDs.size(); i++) {
 			this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
 		}
+		if (this->IDs.size()) {
+			this->dataExec->addHistoryID(this->IDs[0]);
+		}
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setText(tgui::String(this->curString));
