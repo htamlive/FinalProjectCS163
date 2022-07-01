@@ -93,6 +93,9 @@
     <ClCompile Include="LoadingState.cpp">
       <Filter>State</Filter>
     </ClCompile>
+    <ClCompile Include="UnicodeTrieNode.cpp">
+      <Filter>Data Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dictionary.h">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="LoadingState.h">
       <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="UnicodeTrieNode.h">
+      <Filter>Data Controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

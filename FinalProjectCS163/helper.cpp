@@ -254,8 +254,8 @@ bool readInteger(const string& s, int &i, int& result) {
 		result *= -1;
 	return true;
 }
-std::string getStringBin(std::string link)
-{
+
+std::string getStringBin(std::string link) {
 	size_t bufSz;
 	std::ifstream ifs(link.c_str(), ios::binary);
 	ifs.read((char*)&bufSz, sizeof(size_t));

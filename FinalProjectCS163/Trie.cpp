@@ -357,9 +357,10 @@ void Trie::deserialize(const string& serialization) {
 	const int length = serialization.size();
 	vector<pair<int, int> > occurences;
 	vector<TrieNode*> stackOfNodes;
-	TrieNode* node = this->root;
+	TrieNode* node;
 	int character, id;
 	this->clearTrie();
+	node = this->root;
 	for (int i = 0; i < length;) {
 		if (serialization[i] == '{') {
 			stackOfNodes.push_back(node);
