@@ -37,7 +37,7 @@ public:
 		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->setReadOnly(true);
 		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(true);
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(false);
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(false);
+		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(false);
 	}
 
 	void initFavorBtn() {
