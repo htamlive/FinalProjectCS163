@@ -1,16 +1,16 @@
-#include "DATASET.h"
+#include "UnicodeDATASET.h"
 
-void DATASET::loadData() {
-	ifstream fin("Data/Dataset/" + dataset_name);
-	string key, def;
+void UnicodeDATASET::loadData() {
+	wifstream fin("Data/Dataset/" + dataset_name);
+	wstring key, def;
 	if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::VIEtoEN) {
 		while (!fin.eof()) {
-			getline(fin, key, '\t');
-			getline(fin, def, '\t');
+			getline(fin, key, L'\t');
+			getline(fin, def, L'\t');
 			if (fin.fail())
 				break;
 			Core_Data.push_back(def);
-			string temp = "";
+			wstring temp = L"";
 			for (auto i : def) {
 				if (isalnum((unsigned char)i) || isspace((unsigned char)i)) {
 					temp += i;
@@ -21,20 +21,20 @@ void DATASET::loadData() {
 	}
 	else if (_typeOfdata == DATASETID::SLANG) {
 		while (!fin.eof()) {
-			getline(fin, key, '\t');
-			getline(fin, def, '\t');
+			getline(fin, key, L'\t');
+			getline(fin, def, L'\t');
 			Core_Data.push_back(def);
 			if (fin.fail()) {
 				break;
 			}
-			remove(def.begin(), def.end(), '|');
+			remove(def.begin(), def.end(), L'|');
 			Data.push_back(make_pair(key, def));
 		}
 	}
 	else {
 		while (!fin.eof()) {
-			getline(fin, key, '\t');
-			getline(fin, def, '\t');
+			getline(fin, key, L'\t');
+			getline(fin, def, L'\t');
 			if (fin.fail())
 				break;
 			Data.push_back(make_pair(key, def));
@@ -43,8 +43,8 @@ void DATASET::loadData() {
 	fin.close();
 }
 
-void DATASET::saveData() {
-	ofstream fout("Dataset/" + dataset_name);
+void UnicodeDATASET::saveData() {
+	wofstream fout("Data/Dataset/" + dataset_name);
 	if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::VIEtoEN) {
 		for (int i = 0; i < Data.size(); i++) {
 			fout << Data[i].first << '\t' << Core_Data[i] << '\t';
@@ -58,7 +58,7 @@ void DATASET::saveData() {
 	fout.close();
 }
 
-void DATASET::addWord(pair<string, string> newWord) {
+void UnicodeDATASET::addWord(pair<wstring, wstring> newWord) {
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::SLANG) {
 		Data.push_back(newWord);
 		return;
@@ -70,31 +70,31 @@ void DATASET::addWord(pair<string, string> newWord) {
 	}
 }
 
-void DATASET::removeWord(int id) {
-	if (id > Data.size() || Data[id].first == "") {
+void UnicodeDATASET::removeWord(int id) {
+	if (id > Data.size() || Data[id].first == L"") {
 		cerr << "Error index" << endl;
 		return;
 	}
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
-		Data[id].first = "";
-		Data[id].second = "";
+		Data[id].first = L"";
+		Data[id].second = L"";
 		return;
 	}
 	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
-		Data[id].first = "";
-		Data[id].second = "";
-		Core_Data[id] = "";
+		Data[id].first = L"";
+		Data[id].second = L"";
+		Core_Data[id] = L"";
 		return;
 	}
 }
 
-pair<string, string> DATASET::getData(int id) const {
+pair<wstring, wstring> UnicodeDATASET::getData(int id) const {
 
-	if (id > Data.size() || Data[id].first == "") {
+	if (id > Data.size() || Data[id].first == L"") {
 		cout << id << "\n";
 		cerr << "Error index" << endl;
 
-		return make_pair("", "");
+		return make_pair(L"", L"");
 	}
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
 		return Data[id];
@@ -102,10 +102,10 @@ pair<string, string> DATASET::getData(int id) const {
 	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
 		return make_pair(Data[id].first, Core_Data[id]);
 	}
-	return make_pair("", "");
+	return make_pair(L"", L"");
 }
 
-void DATASET::restoreDictionary() {
+void UnicodeDATASET::restoreDictionary() {
 	this->Core_Data.clear();
 	this->Data.clear();
 	ifstream src("Data/OrgData/Dataset/" + dataset_name, ios::binary);

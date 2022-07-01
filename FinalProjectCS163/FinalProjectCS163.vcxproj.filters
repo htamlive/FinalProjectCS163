@@ -99,6 +99,9 @@
     <ClCompile Include="UnicodeTrie.cpp">
       <Filter>Data Controller</Filter>
     </ClCompile>
+    <ClCompile Include="UnicodeDATASET.cpp">
+      <Filter>Data Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dictionary.h">
@@ -162,6 +165,9 @@
       <Filter>Data Controller</Filter>
     </ClInclude>
     <ClInclude Include="UnicodeTrie.h">
+      <Filter>Data Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="UnicodeDATASET.h">
       <Filter>Data Controller</Filter>
     </ClInclude>
   </ItemGroup>
