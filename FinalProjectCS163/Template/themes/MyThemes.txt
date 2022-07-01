@@ -1,5 +1,5 @@
 Button {
-	TextColor       = rgb(91, 192, 191);
+	TextColor = rgb(91, 192, 191);
 }
 
 WordDefWord{
@@ -17,13 +17,13 @@ WordDefWord{
         TextColorDisabled = #7D7D7D;
         TextColorDown = black;
         TextColorHover = black;
-        Texture = "WordDefThemes.png" Part(0, 464, 306, 154) Smooth;
+        Texture = "WordDefThemes.png" Part(0, 0, 303, 168) Smooth;
         TextureDisabled = None;
-        TextureDown = "WordDefThemes.png" Part(0, 772, 306, 154) Smooth;
+        TextureDown = "WordDefThemes.png" Part(675, 0, 312, 180) Smooth;
         TextureDownFocused = None;
         TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "WordDefThemes.png" Part(0, 618, 306, 154) Smooth;
+        TextureHover = "WordDefThemes.png" Part(336, 0, 313, 168) Smooth;
 }
 
 WordDefDef{
@@ -41,13 +41,13 @@ WordDefDef{
         TextColorDisabled = #7D7D7D;
         TextColorDown = black;
         TextColorHover = black;
-        Texture = "WordDefThemes.png" Part(0, 0, 306, 154) Smooth;
+        Texture = "WordDefThemes.png" Part(0, 180, 312, 180) Smooth;
         TextureDisabled = None;
-        TextureDown = "WordDefThemes.png" Part(0, 308, 306, 154) Smooth;
+        TextureDown = "WordDefThemes.png" Part(680, 180, 312, 180)Smooth;
         TextureDownFocused = None;
         TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "WordDefThemes.png" Part(0, 154, 306, 154) Smooth;
+        TextureHover = "WordDefThemes.png" Part(336, 180, 312, 180) Smooth;
 }
 
 BtnFavorite {
