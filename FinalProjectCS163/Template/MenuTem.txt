@@ -168,13 +168,13 @@ Button.btnWordDef {
         TextColorDisabled = #7D7D7D;
         TextColorDown = black;
         TextColorHover = black;
-        Texture = "themes/WordDefThemes.png" Part(680, 180, 312, 180) Smooth;
+        Texture = None;
         TextureDisabled = None;
-        TextureDown = "themes/WordDefThemes.png" Part(0, 310, 331, 154) Smooth;
+        TextureDown = None;
         TextureDownFocused = None;
-        TextureDownHover = "themes/WordDefThemes.png" Part(0, 796, 331, 160) Smooth;
+        TextureDownHover = None;
         TextureFocused = None;
-        TextureHover = "themes/WordDefThemes.png" Part(0, 156, 331, 154) Smooth;
+        TextureHover = None;
     }
 }
 

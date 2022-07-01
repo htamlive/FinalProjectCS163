@@ -326,14 +326,12 @@ bool readInteger(const string& s, int &i, int& result) {
 }
 
 std::string getStringBin(std::string link) {
-	size_t bufSz;
-	std::ifstream ifs(link.c_str(), ios::binary);
-	ifs.read((char*)&bufSz, sizeof(size_t));
-	char* tmp = new char[bufSz + 1];
-	tmp[bufSz] = 0;
-	ifs.read(tmp, bufSz);
-	std::string res = tmp;
-	delete[] tmp;
+	std::ifstream ifs(link.c_str(), ios::binary | std::ios::ate);
+	std::streamsize bufSz = ifs.tellg();
+	ifs.seekg(0, std::ios::beg);
+	std::string res;
+	res.resize(bufSz);
+	ifs.read((char*)res.data(), bufSz);
 	ifs.close();
 	return res;
 }
