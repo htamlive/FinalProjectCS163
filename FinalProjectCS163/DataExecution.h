@@ -181,8 +181,7 @@ public:
 			res = this->trieKeys[id]->serialize();
 			delete this->trieKeys[id];
 			this->trieKeys[id] = nullptr;
-		}
-		else {
+		} else {
 			if (!this->trieDefs[id]) return;
 			res = this->trieDefs[id]->serialize();
 			delete this->trieDefs[id];
