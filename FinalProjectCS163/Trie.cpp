@@ -107,11 +107,11 @@ vector<pair<int, int> > Trie::getDefinitions(const string &s) const {
 			return vector<pair<int, int> >();
 		node = node->children[Trie::getID(tolower(c))];
 		if (node == nullptr) {
-			cout << "The trie does not contain string.\n";
+			cerr << "The trie does not contain the given string.\n";
 			return vector<pair<int, int> >();
 		}
 	}
-	//cout << node->id << '\n';
+	//cerr << (node->id) << '\n';
 	return node->occurences;
 };
 
@@ -177,6 +177,7 @@ vector<int> Trie::getKeys(const DATASET& dataset, const string& definition, cons
 			const string& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStrings(splitString(toLowerString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
+				previousOccurence = occurence.first;
 				--remain;
 			}
 		}
@@ -252,6 +253,7 @@ vector<int> Trie::getKeysSubsequence(const DATASET& dataset, const string& defin
 			const string& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStringsAsSubsequence(splitString(toLowerString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
+				previousOccurence = occurence.first;
 				--remain;
 			}
 		}
@@ -281,6 +283,7 @@ vector<int> Trie::getKeysSubarray(const DATASET& dataset, const string& definiti
 			const string& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStringsAsSubarray(splitString(toLowerString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
+				previousOccurence = occurence.first;
 				--remain;
 			}
 		}

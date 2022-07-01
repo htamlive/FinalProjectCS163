@@ -28,8 +28,7 @@ private:
 			string s = getStringBin(link);
 			this->trieDefs[id]->deserialize(s);
 			cout << "sz " << s.length() << "\n";
-		}
-		else {
+		} else {
 			for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
 				pair<string, string> cur = this->datasets[id]->Data[j];
 				transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
@@ -52,8 +51,7 @@ private:
 			string s = getStringBin(link);
 			this->trieKeys[id]->deserialize(s);
 			cout << "sz " << s.length() << "\n";
-		}
-		else {
+		} else {
 			for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
 				pair<string, string> cur = this->datasets[id]->Data[j];
 				this->trieKeys[id]->addWord(cur.first, { j, 0 });
@@ -182,8 +180,7 @@ public:
 			res = this->trieKeys[id]->serialize();
 			delete this->trieKeys[id];
 			this->trieKeys[id] = nullptr;
-		}
-		else {
+		} else {
 			if (!this->trieDefs[id]) return;
 			res = this->trieDefs[id]->serialize();
 			delete this->trieDefs[id];

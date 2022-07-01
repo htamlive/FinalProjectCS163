@@ -22,7 +22,7 @@ vector<string> splitString(const string& s) {
 	return result;
 };
 
-vector<tgui::String> splitString(const tgui::String& s) {
+vector<tgui::String> splitUnicodeString(const tgui::String& s) {
 	//Split string by space
 	vector<tgui::String> result;
 	tgui::String t;
@@ -336,7 +336,7 @@ std::string getStringBin(std::string link) {
 	return res;
 }
 
-tgui::String toLowerString(tgui::String s) {
+tgui::String toLowerUnicodeString(tgui::String s) {
 	vector<int> m(10000, -1);
 	m[258] = 259;
 	m[7888] = 7889;

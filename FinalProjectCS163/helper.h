@@ -39,7 +39,7 @@ int getRandomNumberFromList(const vector<int>& numbers);
 
 vector<string> splitString(const string& s);
 
-vector<tgui::String> splitString(const tgui::String& s);
+vector<tgui::String> splitUnicodeString(const tgui::String& s);
 
 vector<string> splitString(const string& text, const string& seperate);
 
@@ -65,7 +65,7 @@ bool checkContainStringsAsSubarray(const vector<tgui::String>& s, const vector<t
 
 string toLowerString(string s);
 
-tgui::String toLowerString(tgui::String s);
+tgui::String toLowerUnicodeString(tgui::String s);
 
 bool turnNonUnicodeString(tgui::String& s);
 
