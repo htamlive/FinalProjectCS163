@@ -27,10 +27,10 @@ private:
 	int _typeOfdata = -1;
 
 public:
-	vector<pair<string, string>> Data;
-	vector<string> Core_Data;
+	vector<pair<wstring, wstring>> Data;
+	vector<wstring> Core_Data;
 	string dataset_name;
-	
+
 
 	DATASET(int id) {
 		_typeOfdata = id;
@@ -59,7 +59,7 @@ public:
 
 	void swap() {
 		for (auto& x : this->Data) {
-			string se = x.first;
+			wstring se = x.first;
 			x.first = x.second;
 			x.second = se;
 		}
@@ -86,11 +86,11 @@ public:
 	void loadData();
 	void saveData();
 
-	void addWord(pair<string, string> newWord);
+	void addWord(pair<wstring, wstring> newWord);
 	void removeWord(int id);
 
 	void restoreDictionary();
 
-	pair<string, string> getData(int id) const;
+	pair<wstring, wstring> getData(int id) const;
 };
 
