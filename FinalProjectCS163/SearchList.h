@@ -27,12 +27,16 @@ private:
 		const vector<int>& history = this->dataExec->getHistory(this->curSet);
 		
 		int mx = min(8, (int)history.size());
-		vector<tgui::String> nwData(mx);
+		vector<tgui::String> nwData;
+		vector<int> filter;
 		for (int i = 0; i < mx; ++i) {
 			tgui::String tmp = this->dataExec->getData(history[history.size() - 1 - i],this->curSet).first;
-			
-			nwData[i] = tmp;
+			if (tmp == "") continue;
+			nwData.push_back(tmp);
+			filter.push_back(history.size() - 1 - i);
 		}
+		reverse(filter.begin(), filter.end());
+		//this->dataExec->reloadHistory(-1, filter);
 		showSuggestions(nwData);
 		
 	}
@@ -128,7 +132,7 @@ public:
 				if (this->wordDetail) this->wordDetail->changeWord((string)text);
 				else this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, (string)text);
 			} else {
-				turnNonUnicodeString(text);
+				if(!this->dataExec->isUnicode) turnNonUnicodeString(text);
 				text = text.toLower();
 				vector<int> nwDataId;
 				switch (this->curDefOpt)
@@ -269,6 +273,7 @@ public:
 			this->gui->add(eb);
 			eb->onClick([i, this]() {
 				setupWordDetail(i);
+				this->onChangingText();
 				});
 			cnt++;
 		}

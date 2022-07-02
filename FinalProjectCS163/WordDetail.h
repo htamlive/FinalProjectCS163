@@ -137,7 +137,7 @@ public:
 		
 		this->IDs = this->dataExec->getID(this->curString);
 		if (this->IDs.size()) {
-			this->dataExec->addHistoryID(this->IDs[0]);
+			this->dataExec->addHistoryID(this->IDs.back());
 		}
 
 		for (int i = 0; i < IDs.size(); i++) {
@@ -173,12 +173,12 @@ public:
 			this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
 		}
 
+		if (this->IDs.size()) {
+			this->dataExec->addHistoryID(this->IDs.back());
+		}
+
 		if (this->favorite) this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/bright_star.png");
 		else this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/dark_star.png");
-
-		if (this->IDs.size()) {
-			this->dataExec->addHistoryID(this->IDs[0]);
-		}
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setText(tgui::String(this->curString));

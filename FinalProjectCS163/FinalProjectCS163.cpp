@@ -47,10 +47,20 @@ int main() {
 	std::thread work3(loadBig);
 	std::thread work1(loadData);
 	std::thread work2(runProgram);
-	//loadData();
+
 	work1.join();
 	work2.join();
 	work3.join();
+
+	//tgui::String s;
+	//s += char32_t(9);
+	//s += "Nice";
+	//cout << s;
+
+	//char32_t c(7854);
+	//
+	//auto n = tolower(c);
+
 	return 0;
 }
 

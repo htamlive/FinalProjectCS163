@@ -14,8 +14,6 @@ private:
 	std::vector<int> favor[5];
 	std::vector<int> history[5];
 
-	
-
 	bool finishDataset[5], finishKeys[5], finishDefs[5], isShutDown, isReload;
 
 	bool loadSer = true;
@@ -166,7 +164,7 @@ public:
 				saveAndRemoveTrie(i, "Defs");
 
 			if (this->datasets[i] && this->finishDataset[i]) {
-				this->datasets[i]->saveData();
+				this->datasets[i]->serialize();
 				std::cout << "Finish saving " << i << " " << datasets[i]->Data.size() << "\n";
 				delete this->datasets[i];
 			}
@@ -224,15 +222,22 @@ public:
 	}
 
 	void addWord(pair< tgui::String, tgui::String> word) {
-		this->datasets[this->curDataset]->addWord({ (wstring)word.first, (wstring)word.second });
+		this->datasets[this->curDataset]->addWord({ word.first, word.second });
+
 		pair<tgui::String, tgui::String> cur = this->datasets[this->curDataset]->Data.back();
+
+		this->addHistoryID(this->datasets[this->curDataset]->Data.size() - 1);
+
 		transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
+
 		const vector<tgui::String> words = splitUnicodeString(cur.second);
+
 		int j = this->datasets[this->curDataset]->Data.size() - 1;
 		for (int i = 0; i < words.size(); ++i) {
 			this->trieDefs[this->curDataset]->addWord(words[i], { j, i });
 		}
 		this->trieKeys[this->curDataset]->addWord(cur.first, { j, 0 });
+
 	}
 
 	bool loadDataset(int id, bool setCur = false) {
@@ -240,7 +245,7 @@ public:
 		if (setCur) this->curDataset = id;
 		if (this->datasets[id]) return false;
 		this->datasets[id] = new UnicodeDATASET(id);
-		this->datasets[id]->loadData();
+		this->datasets[id]->deserialize();
 		this->finishDataset[id] = true;
 		std::cout << "Finish load dataset of " << id << " size:" << this->datasets[id]->Data.size() << "\n";
 		return true;
@@ -342,6 +347,12 @@ public:
 		if (id == -1) id = this->curDataset;
 		if (id < 0 || id > 4) return;
 		this->favor[id] = x;
+	}
+
+	void reloadHistory(int id, const vector<int>& x) {
+		if (id == -1) id = this->curDataset;
+		if (id < 0 || id > 4) return;
+		this->history[id] = x;
 	}
 
 	void setShutDown() {

@@ -18,7 +18,7 @@ void Trie::addWord(const string &word, const pair<int, int>& occurrence) {
 	TrieNode* currentNode = this->root;
 	int d;
 	for (const char& c : word) {
-		if (!checkPrintable(c))
+		if (!checkValidChar(c))
 			return;
 		d = Trie::getID(tolower(c));
 		if ((currentNode->children)[d] == nullptr) {
@@ -103,7 +103,7 @@ string Trie::getCurrentString() const {
 vector<pair<int, int> > Trie::getDefinitions(const string &s) const {
 	TrieNode* node = this->root;
 	for (const char &c : s) {
-		if (!checkPrintable(c)) 
+		if (!checkValidChar(c)) 
 			return vector<pair<int, int> >();
 		node = node->children[Trie::getID(tolower(c))];
 		if (node == nullptr) {
@@ -298,7 +298,7 @@ vector<int> Trie::getKeysSubarray(const DATASET& dataset, const string& definiti
 bool Trie::removeOccurences(const string& word) {
 	TrieNode* node = this->root;
 	for (const char& c : word) {
-		if (!checkPrintable(c))
+		if (!checkValidChar(c))
 			return false;
 		node = node->children[Trie::getID(tolower(c))];
 		if (node == nullptr)
