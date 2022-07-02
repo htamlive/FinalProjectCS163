@@ -20,8 +20,8 @@ private:
 	int _typeOfdata = -1;
 
 public:
-	vector<pair<wstring, wstring>> Data;
-	vector<wstring> Core_Data;
+	vector<pair<tgui::String, tgui::String>> Data;
+	vector<tgui::String> Core_Data;
 	string dataset_name;
 
 
@@ -52,7 +52,7 @@ public:
 
 	void swap() {
 		for (auto& x : this->Data) {
-			wstring se = x.first;
+			tgui::String se = x.first;
 			x.first = x.second;
 			x.second = se;
 		}
@@ -79,11 +79,92 @@ public:
 	void loadData();
 	void saveData();
 
-	void addWord(pair<wstring, wstring> newWord);
+	void addWord(pair<tgui::String, tgui::String> newWord);
 	void removeWord(int id);
 
 	void restoreDictionary();
 
-	pair<wstring, wstring> getData(int id) const;
+	pair<tgui::String, tgui::String> getData(int id) const;
+
+	void deserialize() {
+		string link = this->dataset_name.substr(0, dataset_name.length() - 3) + "bin";
+		ifstream ifs("UnicodeData/Dataset/" + link, ios::binary);
+		int32_t n;
+		ifs.read((char*)&n, sizeof(int32_t));
+		//assert(n % 2 == 0);
+		vector<int16_t> tmp(n);
+		ifs.read((char*)tmp.data(), n * sizeof(int16_t));
+		tgui::String serial;
+		for (const auto& x : tmp) {
+			serial += char32_t(x);
+		}
+		ifs.close();
+		loadFromSerial(serial);
+	};
+
+	void loadFromSerial(const tgui::String& serial) {
+		Data.clear();
+		Core_Data.clear();
+		vector<tgui::String> list = serial.split(char32_t(9));
+		if (list.size() % 2) list.pop_back();
+		tgui::String key, def;
+
+		for (int i = 0; i + 1 < list.size(); i += 2) {
+			key = list[i];
+			def = list[i + 1];
+			Core_Data.push_back(def);
+			if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::VIEtoEN) {
+				tgui::String temp = "";
+				for (auto i : def) {
+					if (checkValidChar(i))
+						temp += i;
+				}
+				Data.push_back(make_pair(key, temp));
+			}
+			else if (_typeOfdata == DATASETID::SLANG) {
+				remove(def.begin(), def.end(), L'|');
+				Data.push_back(make_pair(key, def));
+			}
+			else {
+				Data.push_back(make_pair(key, def));
+			}
+		}
+	}
+
+	void addToList(const tgui::String& text, vector<int16_t>& list) {
+		for (int i = 0; i < text.size(); ++i) {
+			list.push_back(text[i]);
+		}
+	}
+
+	void serialize() {
+		vector<int16_t> tmp;
+		if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::VIEtoEN) {
+			for (int i = 0; i < Data.size(); i++) {
+				addToList(Data[i].first, tmp);
+				tmp.push_back(9);
+				addToList(Core_Data[i], tmp);
+				tmp.push_back(9);
+			}
+		}
+		else {
+			for (int i = 0; i < Data.size(); i++) {
+				addToList(Data[i].first, tmp);
+				tmp.push_back(9);
+				addToList(Data[i].second, tmp);
+				tmp.push_back(9);
+			}
+		}
+		int32_t n = tmp.size();
+		if(n%2) tmp.pop_back();
+		string link = this->dataset_name.substr(0, dataset_name.length() - 3) + "bin";
+		ofstream ofs("UnicodeData/Dataset/" + link, ios::binary);
+
+		ofs.write((char*)&n, sizeof(int32_t));
+		ofs.write((char*)tmp.data(), n * sizeof(int16_t));
+		ofs.close();
+
+
+	}
 };
 

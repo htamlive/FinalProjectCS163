@@ -12,9 +12,8 @@ void UnicodeDATASET::loadData() {
 			Core_Data.push_back(def);
 			wstring temp = L"";
 			for (auto i : def) {
-				if (isalnum((unsigned char)i) || isspace((unsigned char)i)) {
+				if (checkValidChar(i))
 					temp += i;
-				}
 			}
 			Data.push_back(make_pair(key, temp));
 		}
@@ -58,7 +57,7 @@ void UnicodeDATASET::saveData() {
 	fout.close();
 }
 
-void UnicodeDATASET::addWord(pair<wstring, wstring> newWord) {
+void UnicodeDATASET::addWord(pair<tgui::String, tgui::String> newWord) {
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::SLANG) {
 		Data.push_back(newWord);
 		return;
@@ -68,6 +67,7 @@ void UnicodeDATASET::addWord(pair<wstring, wstring> newWord) {
 		Core_Data.push_back(newWord.second);
 		return;
 	}
+	
 }
 
 void UnicodeDATASET::removeWord(int id) {
@@ -88,28 +88,28 @@ void UnicodeDATASET::removeWord(int id) {
 	}
 }
 
-pair<wstring, wstring> UnicodeDATASET::getData(int id) const {
+pair<tgui::String, tgui::String> UnicodeDATASET::getData(int id) const {
 
-	if (id > Data.size() || Data[id].first == L"") {
+	if (id > Data.size() || Data[id].first == "") {
 		cout << id << "\n";
 		cerr << "Error index" << endl;
 
-		return make_pair(L"", L"");
+		return make_pair("", "");
 	}
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
-		return Data[id];
+		return make_pair((wstring)Data[id].first, (wstring)Data[id].second);
 	}
 	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
 		return make_pair(Data[id].first, Core_Data[id]);
 	}
-	return make_pair(L"", L"");
+	return make_pair("", "");
 }
 
 void UnicodeDATASET::restoreDictionary() {
 	this->Core_Data.clear();
 	this->Data.clear();
 	ifstream src("UnicodeData/OrgData/Dataset/" + dataset_name, ios::binary);
-	ofstream dst("UnicodeData/OrgData/Dataset/" + dataset_name, ios::binary);
+	ofstream dst("UnicodeData/Dataset/" + dataset_name, ios::binary);
 	dst << src.rdbuf();
 	loadData();
 	src.close();
