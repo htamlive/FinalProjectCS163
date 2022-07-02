@@ -26,7 +26,7 @@ vector<tgui::String> splitUnicodeString(const tgui::String& s) {
 	vector<tgui::String> result;
 	tgui::String t;
 	for (const auto& c : s) {
-		if (c == ' ') {
+		if (c == ' ' || c == '\n') {
 			if (!t.empty()) {
 				result.push_back(t);
 				t.clear();
