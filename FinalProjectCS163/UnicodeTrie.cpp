@@ -17,10 +17,11 @@ UnicodeTrie::UnicodeTrie() {
 void UnicodeTrie::addWord(const tgui::String& word, const pair<int, int>& occurrence) {
 	UnicodeTrieNode* currentNode = this->root;
 	int d;
-	for (const char& c : word) {
-		if (!checkPrintable(c))
+	for (const auto& c : word) {
+		if (!checkValidChar(c))
 			return;
-		d = UnicodeTrie::getID(tolower(c));
+		auto db = tolower(c);
+		d = UnicodeTrie::getID(tolower(db));
 		if ((currentNode->children)[d] == nullptr) {
 			(currentNode->children)[d] = new UnicodeTrieNode;
 			(currentNode->children)[d]->id = ++(this->size);
@@ -85,7 +86,7 @@ int UnicodeTrie::findIDofWord(const tgui::String& word) {
 		return -1 if the trie does not contain word
 	*/
 	UnicodeTrieNode* node = this->root;
-	for (const char& c : word) {
+	for (const auto& c : word) {
 		node = (node->children)[UnicodeTrie::getID(c)];
 		if (node == nullptr)
 			return -1;
@@ -93,7 +94,7 @@ int UnicodeTrie::findIDofWord(const tgui::String& word) {
 	return node->id;
 };
 
-void UnicodeTrie::addCharacter(const char c) {
+void UnicodeTrie::addCharacter(const char32_t c) {
 	(this->currentSearchString) += c;
 };
 
@@ -108,8 +109,8 @@ tgui::String UnicodeTrie::getCurrentString() const {
 
 vector<pair<int, int> > UnicodeTrie::getDefinitions(const tgui::String& s) const {
 	UnicodeTrieNode* node = this->root;
-	for (const char& c : s) {
-		if (!checkPrintable(c))
+	for (const auto& c : s) {
+		if (!checkValidChar(c))
 			return vector<pair<int, int> >();
 		node = node->children[UnicodeTrie::getID(tolower(c))];
 		if (node == nullptr) {
@@ -122,7 +123,7 @@ vector<pair<int, int> > UnicodeTrie::getDefinitions(const tgui::String& s) const
 
 bool UnicodeTrie::containsWord(const tgui::String& s) const {
 	UnicodeTrieNode* node = this->root;
-	for (const char& c : s) {
+	for (const auto& c : s) {
 		node = node->children[UnicodeTrie::getID(c)];
 		if (node == nullptr)
 			return false;
@@ -227,7 +228,7 @@ vector<pair<int, int> > UnicodeTrie::getKeySubarray(const UnicodeDATASET& datase
 	return result;
 };
 
-int UnicodeTrie::getID(const char c) {
+int UnicodeTrie::getID(const char32_t c) {
 	if (32 <= c && c <= 127)
 		return c - UnicodeTrie::offset1;
 	return UnicodeTrie::offset2 + (lower_bound(SOURCE_CHARACTERS.begin(), SOURCE_CHARACTERS.end(), c) - SOURCE_CHARACTERS.begin());
@@ -301,8 +302,8 @@ vector<int> UnicodeTrie::getKeysSubarray(const UnicodeDATASET& dataset, const tg
 
 bool UnicodeTrie::removeOccurences(const tgui::String& word) {
 	UnicodeTrieNode* node = this->root;
-	for (const char& c : word) {
-		if (!checkPrintable(c))
+	for (const auto& c : word) {
+		if (!checkValidChar(c))
 			return false;
 		node = node->children[UnicodeTrie::getID(tolower(c))];
 		if (node == nullptr)

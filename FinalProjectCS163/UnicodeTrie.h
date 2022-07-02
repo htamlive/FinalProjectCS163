@@ -18,7 +18,7 @@ private:
 	UnicodeTrieNode* root;
 	int size;
 
-	static int getID(const char c);
+	static int getID(const char32_t c);
 	static int getCharacter(const int id);
 	static void getListOfWords(UnicodeTrieNode* const node, tgui::String& current, int& remain, vector<tgui::String>& result);
 	static void getIDofAllWords(UnicodeTrieNode* const node, vector<int>& id);
@@ -56,7 +56,7 @@ public:
 
 	int findIDofWord(const tgui::String& word);
 
-	void addCharacter(const char c);
+	void addCharacter(const char32_t c);
 
 	void popCharacter();
 
