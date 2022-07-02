@@ -1,7 +1,7 @@
 #include "UnicodeDATASET.h"
 
 void UnicodeDATASET::loadData() {
-	wifstream fin("Data/Dataset/" + dataset_name);
+	wifstream fin("UnicodeData/Dataset/" + dataset_name);
 	wstring key, def;
 	if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::VIEtoEN) {
 		while (!fin.eof()) {
@@ -44,7 +44,7 @@ void UnicodeDATASET::loadData() {
 }
 
 void UnicodeDATASET::saveData() {
-	wofstream fout("Data/Dataset/" + dataset_name);
+	wofstream fout("UnicodeData/Dataset/" + dataset_name);
 	if (_typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::VIEtoEN) {
 		for (int i = 0; i < Data.size(); i++) {
 			fout << Data[i].first << '\t' << Core_Data[i] << '\t';
@@ -108,8 +108,8 @@ pair<wstring, wstring> UnicodeDATASET::getData(int id) const {
 void UnicodeDATASET::restoreDictionary() {
 	this->Core_Data.clear();
 	this->Data.clear();
-	ifstream src("Data/OrgData/Dataset/" + dataset_name, ios::binary);
-	ofstream dst("Data/OrgData/Dataset/" + dataset_name, ios::binary);
+	ifstream src("UnicodeData/OrgData/Dataset/" + dataset_name, ios::binary);
+	ofstream dst("UnicodeData/OrgData/Dataset/" + dataset_name, ios::binary);
 	dst << src.rdbuf();
 	loadData();
 	src.close();

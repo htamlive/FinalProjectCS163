@@ -9,16 +9,8 @@
 #include <ctime>
 #include <stdio.h>
 #include <ctype.h>
+#include "helper.h"
 using namespace std;
-
-enum DATASETID
-{
-	EMOJI = 0,
-	SLANG = 1,
-	ENtoVIE = 2,
-	ENtoEN = 3,
-	VIEtoEN = 4
-};
 
 class DATASET
 {

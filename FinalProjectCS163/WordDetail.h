@@ -14,15 +14,14 @@ private:
 
 	DataExecution* dataExec;
 	vector<int> IDs;
-	string curString;
+	tgui::String curString;
 	bool hasChangeDef = false;
 	bool onChangeDef = false;
 	bool favorite = false;
 
-
 public:
-	string getDefinition(string& str) {
-		return this->dataExec->getDefinition(str);;
+	tgui::String getDefinition(tgui::String& str) {
+		return this->dataExec->getDefinition(str);
 	}
 
 	void setOnClickEdit() {
@@ -61,7 +60,7 @@ public:
 	}
 
 	void initAcceptedBtn() {
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->onClick([&]() {
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->onClick([&, this]() {
 				if (!this->hasChangeDef) {
 					cerr << "Nothing has changed\n";
 					this->setOnClickGreen();
@@ -74,23 +73,31 @@ public:
 				this->dataExec->removeFavoriteIDs(this->IDs);
 				this->dataExec->removeHistoryIDs(this->IDs);
 
-				tgui::String stdText = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->getText().toStdString();
-				tgui::String newDef;
+				tgui::String newDef = this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->getText();
 
-				for (int i = 0; i < (int)stdText.length(); i++) {
-				newDef.push_back(atomic_char32_t(stdText[i]));
+				if (!this->dataExec->isUnicode) {
+					tgui::String stdText = newDef.toStdString();
+					newDef.clear();
+
+					for (int i = 0; i < (int)stdText.length(); i++) {
+						newDef.push_back(atomic_char32_t(stdText[i]));
+					}
+
+					bool check = turnNonUnicodeString(newDef);
+					newDef = newDef.toStdString();
 				}
-				bool check = turnNonUnicodeString(newDef);
-				newDef = newDef.toStdString();
+				
 				if (newDef != "") {
-					this->dataExec->addWord(make_pair(this->curString, newDef.toStdString()));
+					this->dataExec->addWord(make_pair(this->curString, newDef));
 				}
 				this->setOnClickGreen();
 			});
 	}
 
-	void initDefinitionArea() {
+	void initInputArea() {
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setInheritedFont(tgui::Font("Template\\fonts\\UTM AvoBold_Italic.ttf"));
+
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setText(tgui::String(this->curString));
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->setText(tgui::String(this->getDefinition(curString)));
 		if (this->curString.size() && this->curString[0] >= 'a' && this->curString[0] <= 'z') {
@@ -105,7 +112,22 @@ public:
 			});
 	}
 
-	WordDetail(tgui::Gui* GUI, int x, int y, int w, int h, string str) : x(x), y(y), w(w), h(h) {
+	void initTrashCan() {
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->onClick([&]() {
+			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->setText("");
+			this->hasChangeDef = true;
+			this->onChangeDef = true;
+
+			for (int i = 0; i < this->IDs.size(); i++) {
+				this->dataExec->removeWord(this->IDs[i]);
+			}
+			this->dataExec->removeFavoriteIDs(this->IDs);
+			this->dataExec->removeHistoryIDs(this->IDs);
+			this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(false);
+			});
+	}
+
+	WordDetail(tgui::Gui* GUI, int x, int y, int w, int h, tgui::String str) : x(x), y(y), w(w), h(h) {
 		this->favorite = false;
 		this->gui = GUI;
 		this->dataExec = &DataExecution::getInstance();
@@ -127,22 +149,9 @@ public:
 
 		this->initFavorBtn();
 
-		this->initDefinitionArea();
+		this->initInputArea();
 
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->onClick([&]() {
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->setText("");
-			this->hasChangeDef = true;
-			this->onChangeDef = true;
-
-			for (int i = 0; i < this->IDs.size(); i++) {
-				this->dataExec->removeWord(this->IDs[i]);
-			}
-			this->dataExec->removeFavoriteIDs(this->IDs);
-			this->dataExec->removeHistoryIDs(this->IDs);
-			this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(false);
-			});
-
-		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setText(tgui::String(this->curString));
+		this->initTrashCan();
 
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->onClick([&]() {
 			this->setOnClickEdit();
@@ -153,7 +162,7 @@ public:
 
 	}
 
-	void changeWord(const string& str) {
+	void changeWord(const tgui::String& str) {
 		static int childCount = 0;
 		childCount++;
 		this->favorite = false;

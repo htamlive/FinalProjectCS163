@@ -335,6 +335,14 @@ std::string getStringBin(std::string link) {
 	return res;
 }
 
+tgui::String reduceUnicodeStr(tgui::String s, int l)
+{
+	if (s.length() <= l + 3) return s;
+	s = s.substr(0, l);
+	s += "...";
+	return s;
+}
+
 tgui::String toLowerUnicodeString(tgui::String s) {
 	vector<int> m(10000, -1);
 	m[258] = 259;

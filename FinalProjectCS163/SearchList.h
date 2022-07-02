@@ -12,7 +12,7 @@ private:
 	vector<string> defOpts = {"btnWordSet", "btnWordSeq", "btnWordCons"};
 
 	int x, y, w, h;
-	std::vector<std::string> suggestedKeys;
+	std::vector<tgui::String> suggestedKeys;
 	std::vector<int> suggestedIdx;
 	tgui::Gui* gui;
 	
@@ -27,9 +27,9 @@ private:
 		const vector<int>& history = this->dataExec->getHistory(this->curSet);
 		
 		int mx = min(8, (int)history.size());
-		vector<string> nwData(mx);
+		vector<tgui::String> nwData(mx);
 		for (int i = 0; i < mx; ++i) {
-			string tmp = this->dataExec->getData(history[history.size() - 1 - i],this->curSet).first;
+			tgui::String tmp = this->dataExec->getData(history[history.size() - 1 - i],this->curSet).first;
 			
 			nwData[i] = tmp;
 		}
@@ -50,7 +50,7 @@ private:
 		}
 	}
 
-	string reduceStr(string s, int l) {
+	tgui::String reduceStr(tgui::String s, int l) {
 		if (s.length() <= l + 3) return s;
 		s = s.substr(0, l);
 		s += "...";
@@ -64,7 +64,7 @@ private:
 			} else if (*this->isWordModePtr == true)
 				this->wordDetail->changeWord(suggestedKeys[i]);
 			else {
-				string str = this->dataExec->getData(suggestedIdx[i]).first;
+				tgui::String str = this->dataExec->getData(suggestedIdx[i]).first;
 				this->wordDetail->changeWord(str);
 			}
 		}
@@ -74,7 +74,7 @@ private:
 			} else if (*this->isWordModePtr == true)
 				this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, suggestedKeys[i]);
 			else {
-				string str = this->dataExec->getData(suggestedIdx[i]).first;
+				tgui::String str = this->dataExec->getData(suggestedIdx[i]).first;
 				this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, str);
 			}
 		}
@@ -169,13 +169,16 @@ public:
 			clear();
 			return;
 		}
-		tgui::String stdText;
-
-		for (int i = 0; i < (int)text.length(); i++) {
-			stdText.push_back(atomic_char32_t(text[i]));
+		tgui::String stdText = text;
+		if (!this->dataExec->isUnicode) {
+			stdText.clear();
+			for (int i = 0; i < (int)text.length(); i++) {
+				stdText.push_back(atomic_char32_t(text[i]));
+			}
+			bool check = turnNonUnicodeString(stdText);
+			stdText = stdText.toLower();
 		}
-		bool check = turnNonUnicodeString(stdText);
-		stdText = stdText.toLower();
+		
 		//cerr << "Your text here : " << stdText << '\n';
 		if (stdText.length() < 1) {
 			//cerr << "Hey you got here dud\n";
@@ -183,7 +186,7 @@ public:
 			this->showHistory();
 		}
 		else {
-			auto nwData = this->dataExec->getListOfKeys((string)stdText, 8);
+			auto nwData = this->dataExec->getListOfKeys(stdText, 8);
 			//auto nwIds = this->dataExec->getKeySubarray(text.toStdString());
 			showSuggestions(nwData);
 		}
@@ -207,8 +210,8 @@ public:
 		this->curSet = curSet;
 	}
 
-	bool checkSuggestion(string& str) {
-		string getDef = this->dataExec->getDefinition(str);
+	bool checkSuggestion(tgui::String& str) {
+		tgui::String getDef = this->dataExec->getDefinition(str);
 		return getDef != "";
 		
 	}
@@ -219,8 +222,8 @@ public:
 		}
 	}
 
-	string turnOneLine(string& need) {
-		string display = "";
+	tgui::String turnOneLine(tgui::String& need) {
+		tgui::String display = "";
 
 		for (int j = 0; j < (int)need.size(); j++) {
 			if (need[j] == '\n') {
@@ -234,7 +237,7 @@ public:
 		return display;
 	}
 
-	void showSuggestions(std::vector<std::string> nwData = {}, std::vector<int> nwDataIdx = {}) {
+	void showSuggestions(std::vector<tgui::String> nwData = {}, std::vector<int> nwDataIdx = {}) {
 		clear();
 		this->suggestedKeys = nwData;
 		this->suggestedIdx = nwDataIdx;
@@ -249,7 +252,7 @@ public:
 
 			if(*this->isWordModePtr == true) eb->setText(suggestedKeys[i]);
 			else if (*this->isWordModePtr == false && nwDataIdx.empty()) {
-				string need = this->dataExec->getDefinition(suggestedKeys[i]);
+				tgui::String need = this->dataExec->getDefinition(suggestedKeys[i]);
 				need = turnOneLine(need);
 				eb->setText(this->reduceStr(suggestedKeys[i] + ": " + need, 80));
 			}

@@ -42,11 +42,10 @@ private:
 				auto tmp = this->dataExec->getData(this->memo[i]);
 				//cout << tmp.first << " " << tmp.second << "\n";
 
-				this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceStr(tmp.first + ": " + tmp.second, 34));
+				this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceUnicodeStr(tmp.first + ": " + tmp.second, 34));
 			}
 			});
 
-		
 	}
 
 	void reload() {
@@ -66,21 +65,14 @@ private:
 			filter.push_back(memo[i]);
 			//cout << tmp.first << " " << tmp.second << "\n";
 
-			this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceStr(tmp.first + ": " + tmp.second, 34));
+			this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceUnicodeStr(tmp.first + ": " + tmp.second, 34));
 		}
 
-		//this->dataExec->reloadFavor(-1,filter);
-	}
-
-	string reduceStr(string s, int l) {
-		if (s.length() <= l + 3) return s;
-		s = s.substr(0, l);
-		s += "...";
-		return s;
+		this->dataExec->reloadFavor(-1,filter);
 	}
 
 	void setupWordDetail(int i) {
-		string keys = this->dataExec->getData(this->memo[i]).first;
+		tgui::String keys = this->dataExec->getData(this->memo[i]).first;
 		if ((*this->wordDetail)) {
 			(*this->wordDetail)->changeWord(keys);
 		}

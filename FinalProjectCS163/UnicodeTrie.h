@@ -6,7 +6,7 @@
 using namespace std;
 
 #include "UnicodeTrieNode.h"
-#include "DATASET.h"
+#include "UnicodeDATASET.h"
 #include "helper.h"
 
 class UnicodeTrie {
@@ -38,17 +38,17 @@ public:
 
 	vector<int> getIDofRandomWords(const int numberOfWords) const;
 
-	vector<pair<int, int> > getKey(const DATASET& dataset, const tgui::String& definition) const;
+	vector<pair<int, int> > getKey(const UnicodeDATASET& dataset, const tgui::String& definition) const;
 
-	vector<pair<int, int> > getKeySubsequence(const DATASET& dataset, const tgui::String& definition) const;
+	vector<pair<int, int> > getKeySubsequence(const UnicodeDATASET& dataset, const tgui::String& definition) const;
 
-	vector<pair<int, int> > getKeySubarray(const DATASET& dataset, const tgui::String& definition) const;
+	vector<pair<int, int> > getKeySubarray(const UnicodeDATASET& dataset, const tgui::String& definition) const;
 
-	vector<int> getKeys(const DATASET& dataset, const tgui::String& definition, const int maximum) const;
+	vector<int> getKeys(const UnicodeDATASET& dataset, const tgui::String& definition, const int maximum) const;
 
-	vector<int> getKeysSubsequence(const DATASET& dataset, const tgui::String& definition, const int maximum) const;
+	vector<int> getKeysSubsequence(const UnicodeDATASET& dataset, const tgui::String& definition, const int maximum) const;
 
-	vector<int> getKeysSubarray(const DATASET& dataset, const tgui::String& definition, const int maximum) const;
+	vector<int> getKeysSubarray(const UnicodeDATASET& dataset, const tgui::String& definition, const int maximum) const;
 
 	bool containsWord(const tgui::String& s) const;
 

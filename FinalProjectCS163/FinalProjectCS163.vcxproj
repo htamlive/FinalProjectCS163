@@ -160,10 +160,12 @@
     <ClCompile Include="helper.cpp" />
     <ClCompile Include="LoadingState.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="OriginalDataExecution.cpp" />
     <ClCompile Include="SearchList.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Trie.cpp" />
     <ClCompile Include="TrieNode.cpp" />
+    <ClCompile Include="UnicodeDataExecution.cpp" />
     <ClCompile Include="UnicodeDATASET.cpp" />
     <ClCompile Include="UnicodeTrie.cpp" />
     <ClCompile Include="UnicodeTrieNode.cpp" />
@@ -184,10 +186,12 @@
     <ClInclude Include="helper.h" />
     <ClInclude Include="LoadingState.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="OriginalDataExecution.h" />
     <ClInclude Include="SearchList.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Trie.h" />
     <ClInclude Include="TrieNode.h" />
+    <ClInclude Include="UnicodeDataExecution.h" />
     <ClInclude Include="UnicodeDATASET.h" />
     <ClInclude Include="UnicodeTrie.h" />
     <ClInclude Include="UnicodeTrieNode.h" />

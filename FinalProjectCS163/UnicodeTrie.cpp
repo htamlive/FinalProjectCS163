@@ -60,7 +60,7 @@ void UnicodeTrie::getListOfWords(UnicodeTrieNode* const node, tgui::String& curr
 	for (int i = 0; i < UnicodeTrieNode::SIZE; ++i) {
 		if ((node->children)[i] == nullptr)
 			continue;
-		current += tgui::String(getCharacter(i));
+		current += tgui::String(char32_t(getCharacter(i)));
 		getListOfWords((node->children)[i], current, remain, result);
 		current.pop_back();
 		if (remain <= 0)
@@ -71,7 +71,7 @@ void UnicodeTrie::getListOfWords(UnicodeTrieNode* const node, tgui::String& curr
 vector<tgui::String> UnicodeTrie::getListOfWords(tgui::String prefix, int maximum) {
 	vector<tgui::String> result;
 	UnicodeTrieNode* node = this->root;
-	for (const char& c : prefix) {
+	for (const auto& c : prefix) {
 		node = (node->children)[UnicodeTrie::getID(c)];
 		if (node == nullptr)
 			return result;
@@ -113,7 +113,7 @@ vector<pair<int, int> > UnicodeTrie::getDefinitions(const tgui::String& s) const
 			return vector<pair<int, int> >();
 		node = node->children[UnicodeTrie::getID(tolower(c))];
 		if (node == nullptr) {
-			cerr << "The trie does not contain tgui::String.\n";
+			cerr << "The trie does not contain string.\n";
 			return vector<pair<int, int> >();
 		}
 	}
@@ -148,7 +148,7 @@ vector<int> UnicodeTrie::getIDofRandomWords(const int numberOfWords) const {
 	return result;
 };
 
-vector<pair<int, int> > UnicodeTrie::getKey(const DATASET& dataset, const tgui::String& definition) const {
+vector<pair<int, int> > UnicodeTrie::getKey(const UnicodeDATASET& dataset, const tgui::String& definition) const {
 	//Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
 	const vector<tgui::String> words = splitUnicodeString(definition);
 	vector<pair<int, int> > result;
@@ -164,7 +164,7 @@ vector<pair<int, int> > UnicodeTrie::getKey(const DATASET& dataset, const tgui::
 	return result;
 };
 
-vector<int> UnicodeTrie::getKeys(const DATASET& dataset, const tgui::String& definition, const int maximum) const {
+vector<int> UnicodeTrie::getKeys(const UnicodeDATASET& dataset, const tgui::String& definition, const int maximum) const {
 	// Return the (sorted) list of occurences (the line id) of words whose definitions contain set of words from input definition
 	// The occurence in each node should be in sorted order (before calling this function)
 	const vector<tgui::String> words = splitUnicodeString(definition);
@@ -193,7 +193,7 @@ vector<int> UnicodeTrie::getKeys(const DATASET& dataset, const tgui::String& def
 	return result;
 };
 
-vector<pair<int, int> > UnicodeTrie::getKeySubsequence(const DATASET& dataset, const tgui::String& definition) const {
+vector<pair<int, int> > UnicodeTrie::getKeySubsequence(const UnicodeDATASET& dataset, const tgui::String& definition) const {
 	// Second type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
 	const vector<tgui::String> words = splitUnicodeString(definition);
@@ -210,7 +210,7 @@ vector<pair<int, int> > UnicodeTrie::getKeySubsequence(const DATASET& dataset, c
 	return result;
 };
 
-vector<pair<int, int> > UnicodeTrie::getKeySubarray(const DATASET& dataset, const tgui::String& definition) const {
+vector<pair<int, int> > UnicodeTrie::getKeySubarray(const UnicodeDATASET& dataset, const tgui::String& definition) const {
 	// Third type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
 	const vector<tgui::String> words = splitUnicodeString(definition);
@@ -241,7 +241,7 @@ bool UnicodeTrie::empty() const {
 	return (this->root) == nullptr;
 }
 
-vector<int> UnicodeTrie::getKeysSubsequence(const DATASET& dataset, const tgui::String& definition, const int maximum) const {
+vector<int> UnicodeTrie::getKeysSubsequence(const UnicodeDATASET& dataset, const tgui::String& definition, const int maximum) const {
 	// Second type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
 	const vector<tgui::String> words = splitUnicodeString(definition);
@@ -270,7 +270,7 @@ vector<int> UnicodeTrie::getKeysSubsequence(const DATASET& dataset, const tgui::
 	return result;
 };
 
-vector<int> UnicodeTrie::getKeysSubarray(const DATASET& dataset, const tgui::String& definition, const int maximum) const {
+vector<int> UnicodeTrie::getKeysSubarray(const UnicodeDATASET& dataset, const tgui::String& definition, const int maximum) const {
 	// Third type searching
 	// Return the (sorted) list of occurences of words whose definitions contain set of words from input definition
 	const vector<tgui::String> words = splitUnicodeString(definition);

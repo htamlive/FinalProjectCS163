@@ -10,6 +10,15 @@
 
 using namespace std;
 
+enum DATASETID
+{
+    EMOJI = 0,
+    SLANG = 1,
+    ENtoVIE = 2,
+    ENtoEN = 3,
+    VIEtoEN = 4
+};
+
 const vector<int> SOURCE_CHARACTERS = { 192, 193, 194, 195, 200, 201, 202, 204,
 205, 210, 211, 212, 213, 217, 218, 221, 224, 225, 226, 227, 232,
 233, 234, 236, 237, 242, 243, 244, 245, 249, 250, 253, 258, 259,
@@ -76,3 +85,5 @@ bool checkValidString(const tgui::String& s);
 bool readInteger(const string &s, int &i, int &result);
 
 std::string getStringBin(std::string link);
+
+tgui::String reduceUnicodeStr(tgui::String s, int l);

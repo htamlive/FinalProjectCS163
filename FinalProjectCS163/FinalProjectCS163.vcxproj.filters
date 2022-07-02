@@ -31,6 +31,15 @@
     <Filter Include="Data Controller">
       <UniqueIdentifier>{b8feaba6-85b5-4507-85dd-2d539bfde13d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Controller\DataExecution">
+      <UniqueIdentifier>{7ad27da5-2b54-48c5-8c1e-17ac3810f4d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Controller\DATASET">
+      <UniqueIdentifier>{9919a47f-71f9-4001-a101-0184b9b5a9b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Controller\Trie">
+      <UniqueIdentifier>{dee4c3cd-297b-42ce-95a1-9c694518aef6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FinalProjectCS163.cpp">
@@ -72,35 +81,41 @@
     <ClCompile Include="BackgroundAnimations.cpp">
       <Filter>Animations</Filter>
     </ClCompile>
-    <ClCompile Include="DATASET.cpp">
-      <Filter>Data Controller</Filter>
-    </ClCompile>
     <ClCompile Include="FavoriteList.cpp">
       <Filter>Favorite List</Filter>
-    </ClCompile>
-    <ClCompile Include="Trie.cpp">
-      <Filter>Data Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="TrieNode.cpp">
-      <Filter>Data Controller</Filter>
     </ClCompile>
     <ClCompile Include="Hash.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DataExecution.cpp">
-      <Filter>Data Controller</Filter>
-    </ClCompile>
     <ClCompile Include="LoadingState.cpp">
       <Filter>State</Filter>
     </ClCompile>
-    <ClCompile Include="UnicodeTrieNode.cpp">
-      <Filter>Data Controller</Filter>
+    <ClCompile Include="DataExecution.cpp">
+      <Filter>Data Controller\DataExecution</Filter>
     </ClCompile>
-    <ClCompile Include="UnicodeTrie.cpp">
-      <Filter>Data Controller</Filter>
+    <ClCompile Include="UnicodeDataExecution.cpp">
+      <Filter>Data Controller\DataExecution</Filter>
+    </ClCompile>
+    <ClCompile Include="DATASET.cpp">
+      <Filter>Data Controller\DATASET</Filter>
     </ClCompile>
     <ClCompile Include="UnicodeDATASET.cpp">
-      <Filter>Data Controller</Filter>
+      <Filter>Data Controller\DATASET</Filter>
+    </ClCompile>
+    <ClCompile Include="Trie.cpp">
+      <Filter>Data Controller\Trie</Filter>
+    </ClCompile>
+    <ClCompile Include="TrieNode.cpp">
+      <Filter>Data Controller\Trie</Filter>
+    </ClCompile>
+    <ClCompile Include="UnicodeTrie.cpp">
+      <Filter>Data Controller\Trie</Filter>
+    </ClCompile>
+    <ClCompile Include="UnicodeTrieNode.cpp">
+      <Filter>Data Controller\Trie</Filter>
+    </ClCompile>
+    <ClCompile Include="OriginalDataExecution.cpp">
+      <Filter>Data Controller\DataExecution</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,35 +155,41 @@
     <ClInclude Include="BackgroundAnimations.h">
       <Filter>Animations</Filter>
     </ClInclude>
-    <ClInclude Include="DATASET.h">
-      <Filter>Data Controller</Filter>
-    </ClInclude>
     <ClInclude Include="FavoriteList.h">
       <Filter>Favorite List</Filter>
-    </ClInclude>
-    <ClInclude Include="Trie.h">
-      <Filter>Data Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="TrieNode.h">
-      <Filter>Data Controller</Filter>
     </ClInclude>
     <ClInclude Include="Hash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataExecution.h">
-      <Filter>Data Controller</Filter>
-    </ClInclude>
     <ClInclude Include="LoadingState.h">
       <Filter>State</Filter>
     </ClInclude>
-    <ClInclude Include="UnicodeTrieNode.h">
-      <Filter>Data Controller</Filter>
+    <ClInclude Include="DataExecution.h">
+      <Filter>Data Controller\DataExecution</Filter>
     </ClInclude>
-    <ClInclude Include="UnicodeTrie.h">
-      <Filter>Data Controller</Filter>
+    <ClInclude Include="UnicodeDataExecution.h">
+      <Filter>Data Controller\DataExecution</Filter>
+    </ClInclude>
+    <ClInclude Include="DATASET.h">
+      <Filter>Data Controller\DATASET</Filter>
     </ClInclude>
     <ClInclude Include="UnicodeDATASET.h">
-      <Filter>Data Controller</Filter>
+      <Filter>Data Controller\DATASET</Filter>
+    </ClInclude>
+    <ClInclude Include="Trie.h">
+      <Filter>Data Controller\Trie</Filter>
+    </ClInclude>
+    <ClInclude Include="TrieNode.h">
+      <Filter>Data Controller\Trie</Filter>
+    </ClInclude>
+    <ClInclude Include="UnicodeTrie.h">
+      <Filter>Data Controller\Trie</Filter>
+    </ClInclude>
+    <ClInclude Include="UnicodeTrieNode.h">
+      <Filter>Data Controller\Trie</Filter>
+    </ClInclude>
+    <ClInclude Include="OriginalDataExecution.h">
+      <Filter>Data Controller\DataExecution</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
