@@ -85,14 +85,12 @@ public:
 			if (this->isWordMode) {
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefWord"));
 				dataExec->loadKeys(datasetId[curOpt]);
-				this->searchList->showDefSearchOptions(false);
 			}	
 			else {
 				this->gui->get<tgui::Button>("btnWordDef")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordDefDef"));
 				dataExec->loadDefs(datasetId[curOpt]);
-				this->searchList->clear();
-				this->searchList->showDefSearchOptions(true);
 			}	
+			this->searchList->showDefSearchOptions(!this->isWordMode);
 
 			this->gui->get<tgui::Button>("btnWordDef")->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			this->gui->get<tgui::EditBox>("SearchBar")->setFocused(true);
@@ -112,13 +110,6 @@ public:
 	void initSearchBar() {
 		this->searchList = new SearchList(this->gui, this->datasetId[this->curOpt], 550, 280, 720, 60, &this->isWordMode);
 		this->isWordMode = true;
-		//data = { "Hello", "Nice", "Helpful", "Helicopter"};
-		//this->searchList->update(data);
-		
-
-		//this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&]() {
-		//	updateSearchBar();
-		//	});
 	};
 
 

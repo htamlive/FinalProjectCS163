@@ -28,16 +28,23 @@ private:
 		
 		int mx = min(8, (int)history.size());
 		vector<tgui::String> nwData;
+		vector<int> nwDataIdx;
 		vector<int> filter;
 		for (int i = 0; i < mx; ++i) {
 			tgui::String tmp = this->dataExec->getData(history[history.size() - 1 - i],this->curSet).first;
 			if (tmp == "") continue;
-			nwData.push_back(tmp);
+			if(*this->isWordModePtr) nwData.push_back(tmp);
+			else {
+				nwDataIdx.push_back(history[history.size() - 1 - i]);
+			}
+
 			filter.push_back(history.size() - 1 - i);
 		}
 		reverse(filter.begin(), filter.end());
-		//this->dataExec->reloadHistory(-1, filter);
-		showSuggestions(nwData);
+		this->dataExec->reloadHistory(-1, filter);
+
+
+		showSuggestions(nwData, nwDataIdx);
 		
 	}
 
@@ -107,6 +114,10 @@ public:
 		//showHistory();
 		this->gui->get<tgui::EditBox>("SearchBar")->onTextChange([&, this]() {
 			if(*this->isWordModePtr == true) onChangingText();
+			else {
+				int cnt = this->gui->get<tgui::EditBox>("SearchBar")->getText().size();
+				if (cnt > 0) this->clear();
+			}
 		});		
 	
 
@@ -190,8 +201,10 @@ public:
 			this->showHistory();
 		}
 		else {
-			auto nwData = this->dataExec->getListOfKeys(stdText, 8);
-			//auto nwIds = this->dataExec->getKeySubarray(text.toStdString());
+			vector<tgui::String> nwData ;
+			if (*this->isWordModePtr) {
+				nwData = this->dataExec->getListOfKeys(stdText, 8);
+			}
 			showSuggestions(nwData);
 		}
 	}
@@ -255,11 +268,6 @@ public:
 			eb->setSize(w, h);
 
 			if(*this->isWordModePtr == true) eb->setText(suggestedKeys[i]);
-			else if (*this->isWordModePtr == false && nwDataIdx.empty()) {
-				tgui::String need = this->dataExec->getDefinition(suggestedKeys[i]);
-				need = turnOneLine(need);
-				eb->setText(this->reduceStr(suggestedKeys[i] + ": " + need, 80));
-			}
 			else {
 				auto tmp = this->dataExec->getData(nwDataIdx[i]);
 				eb->setText(this->reduceStr(tmp.first + ": " + turnOneLine(tmp.second), 80));
@@ -292,7 +300,6 @@ public:
 		}
 
 	}
-
 
 	void update() {
 		//std::cout << x->getWidgetName() << "\n";
