@@ -62,6 +62,7 @@ private:
 	}
 
 	void setupWordDetail(int i, bool rand = false) {
+		//cerr << suggestedIdx.size() << '\n';
 		if (this->wordDetail) {
 			if (rand) {
 				this->wordDetail->changeWord(this->dataExec->getData(i).first);
