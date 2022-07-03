@@ -183,6 +183,7 @@ vector<int> UnicodeTrie::getKeys(const UnicodeDATASET& dataset, const tgui::Stri
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStrings(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
+				previousOccurence = occurence.first;
 				--remain;
 			}
 		}
@@ -260,6 +261,7 @@ vector<int> UnicodeTrie::getKeysSubsequence(const UnicodeDATASET& dataset, const
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStringsAsSubsequence(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
+				previousOccurence = occurence.first;
 				--remain;
 			}
 		}
@@ -289,6 +291,7 @@ vector<int> UnicodeTrie::getKeysSubarray(const UnicodeDATASET& dataset, const tg
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStringsAsSubarray(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words)) {
 				result.push_back(occurence.first);
+				previousOccurence = occurence.first;
 				--remain;
 			}
 		}
