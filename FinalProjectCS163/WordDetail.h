@@ -36,6 +36,7 @@ public:
 		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->setReadOnly(true);
 		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("EditButton")->setVisible(true);
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->setVisible(false);
+		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setVisible(false);
 		//this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("RedButton")->setVisible(false);
 	}
 
@@ -107,6 +108,7 @@ public:
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::TextArea>("txtDef")->onTextChange([&]() {
 			if (!this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::Button>("GreenButton")->isVisible()) {
 				this->setOnClickEdit();
+				this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setVisible(false);
 			}
 			this->hasChangeDef = true;
 			});
@@ -146,6 +148,10 @@ public:
 
 		if (this->favorite) this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/bright_star.png");
 		else this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setImage("images/dark_star.png");
+
+		if (!this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->isVisible()) {
+			this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setVisible(true);
+		}
 
 		this->initFavorBtn();
 
@@ -192,6 +198,7 @@ public:
 			this->curString[0] -= 32;
 		}
 		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setText(tgui::String(str));
+		this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setVisible(true);
 	}
 
 	void update() {
