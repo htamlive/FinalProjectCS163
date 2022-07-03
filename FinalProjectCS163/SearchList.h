@@ -38,7 +38,7 @@ private:
 				nwDataIdx.push_back(history[history.size() - 1 - i]);
 			}
 
-			filter.push_back(history.size() - 1 - i);
+			filter.push_back(history[history.size() - 1 - i]);
 		}
 		reverse(filter.begin(), filter.end());
 		this->dataExec->reloadHistory(-1, filter);
