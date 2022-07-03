@@ -92,6 +92,7 @@ public:
 					this->dataExec->addWord(make_pair(this->curString, newDef));
 				}
 				this->setOnClickGreen();
+				this->changeWord(this->curString);
 			});
 	}
 
