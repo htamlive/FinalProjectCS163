@@ -66,20 +66,23 @@ public:
 	}
 
 	void update(const float& dt) override {
-		if (DataExecution::getInstance().checkFinishAll() && cur > 120) {
-			this->endState();
+		if (DataExecution::getInstance().checkFinishAll()) {
+			if(cur > 110) this->endState();
+			if(cur > 70 && cur < 85) cur += PI;
 		}
 		cur += 10.5 * dt;
-		if (cur > 40 && this->showLogo) {
+		if (cur > 30 && this->showLogo) {
 			this->showLogo = false;
-			this->gui->get<tgui::Picture>("logoBrand")->hideWithEffect(tgui::ShowEffectType::Fade, 200);
+			this->gui->get<tgui::Picture>("logoBrand")->hideWithEffect(tgui::ShowEffectType::Fade, 100);
+			cur += PI;
 		}
-		else if (cur > 50 && !this->showLogo && this->showName) {
+		else if (cur > 40 && !this->showLogo && this->showName) {
 			this->showName = false;
-			this->gui->get<tgui::Picture>("appname")->showWithEffect(tgui::ShowEffectType::Fade, 200);
-			this->gui->get<tgui::Picture>("picA")->showWithEffect(tgui::ShowEffectType::Fade, 200);
-			this->gui->get<tgui::Picture>("picB")->showWithEffect(tgui::ShowEffectType::Fade, 200);
-			this->gui->get<tgui::Picture>("picC")->showWithEffect(tgui::ShowEffectType::Fade, 200);
+			this->gui->get<tgui::Picture>("appname")->showWithEffect(tgui::ShowEffectType::Fade, 100);
+			this->gui->get<tgui::Picture>("picA")->showWithEffect(tgui::ShowEffectType::Fade, 100);
+			this->gui->get<tgui::Picture>("picB")->showWithEffect(tgui::ShowEffectType::Fade, 100);
+			this->gui->get<tgui::Picture>("picC")->showWithEffect(tgui::ShowEffectType::Fade, 100);
+			
 		}
 		this->bgAnimation->update(dt);
 		this->A->update(dt);
