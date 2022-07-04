@@ -14,3 +14,7 @@ void clearTrieNode(TrieNode* &node) {
 	delete node;
 	node = nullptr;
 }
+
+TrieNode*& TrieNode::getChildNode(const int c) {
+	return (this->children)[c];
+};

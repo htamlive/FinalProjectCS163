@@ -114,7 +114,7 @@ vector<pair<int, int> > UnicodeTrie::getDefinitions(const tgui::String& s) const
 			return vector<pair<int, int> >();
 		node = node->children[UnicodeTrie::getID(tolower(c))];
 		if (node == nullptr) {
-			cerr << "The trie does not contain string.\n";
+			cerr << "The trie does not contain the given string.\n";
 			return vector<pair<int, int> >();
 		}
 	}
