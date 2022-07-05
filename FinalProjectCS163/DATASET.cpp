@@ -103,7 +103,7 @@ void DATASET::restoreDictionary() {
 	this->Core_Data.clear();
 	this->Data.clear();
 	ifstream src("Data/OrgData/Dataset/" + dataset_name, ios::binary);
-	ofstream dst("Data/OrgData/Dataset/" + dataset_name, ios::binary);
+	ofstream dst("Data/Dataset/" + dataset_name, ios::binary);
 	dst << src.rdbuf();
 	loadData();
 	src.close();
