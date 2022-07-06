@@ -109,3 +109,11 @@ void DATASET::restoreDictionary() {
 	src.close();
 	dst.close();
 }
+
+vector<pair<string, string> > DATASET::filterData(const function<bool(pair<string, string>)> &check) {
+	vector<pair<string, string> > result;
+	for (const auto &e : (this->Data))
+		if (check(e))
+			result.push_back(e);
+	return result;
+};

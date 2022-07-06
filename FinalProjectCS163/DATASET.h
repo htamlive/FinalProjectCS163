@@ -9,8 +9,11 @@
 #include <ctime>
 #include <stdio.h>
 #include <ctype.h>
-#include "helper.h"
+#include <functional>
+
 using namespace std;
+
+#include "helper.h"
 
 class DATASET
 {
@@ -80,6 +83,7 @@ public:
 
 	void addWord(pair<string, string> newWord);
 	void removeWord(int id);
+	vector<pair<string, string> > filterData(const function<bool(pair<string, string>)> &check);
 
 	void restoreDictionary();
 
