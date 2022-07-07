@@ -77,6 +77,7 @@ vector<tgui::String> UnicodeTrie::getListOfWords(tgui::String prefix, int maximu
 		if (node == nullptr)
 			return result;
 	}
+	if (maximum < 0) maximum = INT_MAX;
 	this->getListOfWords(node, prefix, maximum, result);
 	return result;
 };
@@ -295,7 +296,7 @@ vector<int> UnicodeTrie::getKeysSubarray(const UnicodeDATASET& dataset, const tg
 	}
 	sort(result.begin(), result.end());
 	result.erase(unique(result.begin(), result.end()), result.end());
-	if (result.size() >= maximum)
+	if (maximum >= 0 && result.size() >= maximum)
 		result.resize(maximum);
 	return result;
 };

@@ -31,7 +31,7 @@ void Dictionary::initWindow()
 		this->window = new RenderWindow(this->videoMode, "Dictionary", Style::Titlebar | Style::Close, windowSettings);
 
 	}
-	
+
 	this->window->setFramerateLimit(120);
 	this->window->setVerticalSyncEnabled(false);
 

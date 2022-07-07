@@ -141,12 +141,12 @@ Picture.appname {
 }
 
 Picture.picB {
-    Position = (330, 350);
-    Size = (51.4834, 61);
+    Position = (317.059, 360);
+    Size = (68.3632, 81);
     Visible = false;
 
     Renderer {
-        Texture = "themes/WordDecorations.png" Part(0, 0, 330, 391) Smooth;
+        Texture = "themes/WordDecorations.png" Part(2, 0, 330, 391) Smooth;
         TransparentTexture = false;
     }
 }

@@ -74,6 +74,30 @@ BtnFavorite {
         TextureHover = "MyListHover.png" Smooth;
 }
 
+BtnFilterStars {
+	  BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C00;
+        BorderColorDisabled = #7D7D7D00;
+        BorderColorDown = transparent;
+        BorderColorFocused = #1E1EB400;
+        BorderColorHover = transparent;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "FilterStarsIdle.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "FilterStarsPressed.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = "FilterStarsHover.png" Smooth;
+}
+
 Quest1 {
    	Texture         = "Questions.png" Part(0, 0, 1261, 146) Middle(0) Smooth;
 	TextureHover    = "Questions.png" Part(0, 880, 1261, 146) Middle(0) Smooth;

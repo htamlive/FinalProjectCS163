@@ -21,7 +21,6 @@ Picture.cross3 {
 Button.btnWordCons {
     Position = (1060, 150);
     Size = (150, 70);
-    Text = Button;
     TextSize = 13;
 
     Renderer {

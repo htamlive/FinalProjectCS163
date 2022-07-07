@@ -13,7 +13,7 @@ class FavoriteList
 private:
 	tgui::Gui* gui;
 	int tot;
-	bool isVisible;
+	bool isVisible, *FavorFilterPtr;
 	std::vector<int> memo;
 	DataExecution* dataExec;
 	WordDetail** wordDetail;
@@ -26,15 +26,20 @@ private:
 
 	}
 
-	void initButtons() {
+	void initBtnFavorList() {
 		auto btnFavor = tgui::ToggleButton::create();
 		this->gui->add(btnFavor, "togBtnList");
-		this->gui->get<tgui::ToggleButton>("togBtnList")->setPosition({930, 0});
-		this->gui->get<tgui::ToggleButton>("togBtnList")->setSize({120, 56});
+		this->gui->get<tgui::ToggleButton>("togBtnList")->setPosition({ 930, 0 });
+		this->gui->get<tgui::ToggleButton>("togBtnList")->setSize({ 120, 56 });
 		this->gui->get<tgui::ToggleButton>("togBtnList")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("BtnFavorite"));
 		this->gui->get<tgui::ToggleButton>("togBtnList")->onClick([&, this] {
 			isVisible = !isVisible;
+			this->gui->get<tgui::ToggleButton>("togFilterStars")->setVisible(isVisible);
 			this->gui->get<tgui::ListView>("FavoriteList")->setVisible(isVisible);
+			if (!isVisible) {
+				this->gui->get<tgui::ToggleButton>("togFilterStars")->setDown(false);
+				*this->FavorFilterPtr = false;
+			}
 			this->gui->get<tgui::ToggleButton>("togBtnList")->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
 			this->memo = this->dataExec->getFavor();
 			this->gui->get<tgui::ListView>("FavoriteList")->removeAllItems();
@@ -45,6 +50,25 @@ private:
 				this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceUnicodeStr(tmp.first + ": " + tmp.second, 34));
 			}
 			});
+	}
+
+	void initBtnFilterStars() {
+		auto btnFavor = tgui::ToggleButton::create();
+		this->gui->add(btnFavor, "togFilterStars");
+		this->gui->get<tgui::ToggleButton>("togFilterStars")->setVisible(false);
+		this->gui->get<tgui::ToggleButton>("togFilterStars")->setPosition({ 565, 120 });
+		this->gui->get<tgui::ToggleButton>("togFilterStars")->setSize({ 92, 40 });
+		this->gui->get<tgui::ToggleButton>("togFilterStars")->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("BtnFilterStars"));
+		this->gui->get<tgui::ToggleButton>("togFilterStars")->onClick([&, this] {
+			*this->FavorFilterPtr = !*this->FavorFilterPtr;
+			//auto s = this->gui->get<tgui::EditBox>("SearchBar")->getText();
+			//this->gui->get<tgui::EditBox>("SearchBar")->setText(s);
+			});
+	}
+
+	void initButtons() {
+		this->initBtnFilterStars();
+		this->initBtnFavorList();
 
 	}
 
@@ -82,9 +106,10 @@ private:
 		}
 	}
 public:
-	FavoriteList(tgui::Gui* gui, WordDetail** wordDetail) {
+	FavoriteList(tgui::Gui* gui, WordDetail** wordDetail, bool *wordFilterPtr) {
 		this->gui = gui;
 		this->isVisible = false;
+		this->FavorFilterPtr = wordFilterPtr;
 		this->dataExec = &DataExecution::getInstance();
 		this->wordDetail = wordDetail;
 		setup();

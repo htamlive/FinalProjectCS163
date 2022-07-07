@@ -127,8 +127,6 @@ private:
 		ofs.close();
 	}
 
-
-
 public:
 	const bool isUnicode = true;
 
@@ -418,15 +416,15 @@ public:
 		//std::cout << "Finish restoring " << id << " " << this->datasets[id]->Data.size() << "\n";
 	}
 
-	vector<int> getKeys(string s, int maximum = 8) {
+	vector<int> getKeys(tgui::String s, int maximum = 8) {
 		return this->trieDefs[this->curDataset]->getKeys(*this->datasets[this->curDataset], s, maximum);
 	}
 
-	vector<int> getKeysSubarray(string s, int maximum = 8) {
+	vector<int> getKeysSubarray(tgui::String s, int maximum = 8) {
 		return this->trieDefs[this->curDataset]->getKeysSubarray(*this->datasets[this->curDataset], s, maximum);
 	}
 
-	vector<int> getKeysSubsequence(string s, int maximum = 8) {
+	vector<int> getKeysSubsequence(tgui::String s, int maximum = 8) {
 		return this->trieDefs[this->curDataset]->getKeysSubsequence(*this->datasets[this->curDataset], s, maximum);
 	}
 
@@ -434,5 +432,35 @@ public:
 		this->datasets[this->curDataset]->removeWord(id);
 	}
 
+	vector<tgui::String> filterFavor(const vector<tgui::String>& suggestedKeys) {
+		vector<tgui::String> res;
+		for (auto s : suggestedKeys) {
+			bool flag = false;
+			for (auto id : this->favor[this->curDataset]) {
+				auto x = getData(id).first.toLower();
+				if (s == x) {
+					flag = true;
+					break;
+				}
+			}
+			if (flag) res.push_back(s);
+		}
+		return res;
+	}
+
+	vector<int> filterFavor(const vector<int>& suggestedIdx) {
+		vector<int> res;
+		for (auto s : suggestedIdx) {
+			bool flag = false;
+			for (auto id : this->favor[this->curDataset]) {
+				if (s == id) {
+					flag = true;
+					break;
+				}
+			}
+			if (flag) res.push_back(s);
+		}
+		return res;
+	}
 };
 

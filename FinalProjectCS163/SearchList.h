@@ -18,7 +18,7 @@ private:
 	
 	int curSet = 0;
 	int curDefOpt = 0;
-	bool* isWordModePtr;
+	bool* isWordModePtr, filterFavor = false;
 	WordDetail* wordDetail;
 	FavoriteList* favoriteList;
 	DataExecution* dataExec;
@@ -42,7 +42,6 @@ private:
 		}
 		reverse(filter.begin(), filter.end());
 		this->dataExec->reloadHistory(-1, filter);
-
 
 		showSuggestions(nwData, nwDataIdx);
 		
@@ -92,6 +91,46 @@ private:
 		}
 	}
 
+	void moveVerticalDefBtn(int id, int step) {
+		auto pos = this->gui->get<tgui::Button>(defOpts[id])->getPosition();
+		this->gui->get<tgui::Button>(defOpts[id])->moveWithAnimation({ pos.x, pos.y + step }, 100);
+	}
+
+	std::vector<tgui::String> getSuggestedKeys(tgui::String s) {
+		s = s.toLower();
+		vector<tgui::String> result;
+		result = this->dataExec->getListOfKeys(s, -1);
+		if (this->filterFavor) {
+			result = this->dataExec->filterFavor(result);
+		}
+		if (result.size() >= 8)  result.resize(8);
+		return result;
+	}
+
+	std::vector<int> getSuggestedIdx(tgui::String s) {
+		s = s.toLower();
+		vector<int> nwDataId, result;
+		switch (this->curDefOpt)
+		{
+		case 0:
+			nwDataId = this->dataExec->getKeys(s);
+			break;
+		case 1:
+			nwDataId = this->dataExec->getKeysSubsequence(s);
+			break;
+		case 2:
+			nwDataId = this->dataExec->getKeysSubarray(s);
+			break;
+		default:
+			break;
+		}
+		
+		if (this->filterFavor) {
+			result = this->dataExec->filterFavor(nwDataId);
+		}
+		if (result.size() >= 8)  result.resize(8);
+		return result;
+	}
 	
 public:
 
@@ -100,10 +139,11 @@ public:
 		this->isWordModePtr = isWordMode;
 		this->wordDetail = nullptr;	
 		this->dataExec = &DataExecution::getInstance();
-		this->favoriteList = new FavoriteList(this->gui, &wordDetail);
+		this->favoriteList = new FavoriteList(this->gui, &wordDetail, &filterFavor);
 
 		this->initSearchButton();
 		this->showDefSearchOptions(false);
+		moveVerticalDefBtn(this->curDefOpt, -15);
 
 		this->gui->get<tgui::Button>("btnHistory")->onClick([&, this] {
 			if (this->curSet != this->dataExec->getCurDataset()) {
@@ -141,28 +181,11 @@ public:
 			}
 			text = text.toLower();
 			if (*this->isWordModePtr == true) {
-				if (this->wordDetail) this->wordDetail->changeWord((string)text);
-				else this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, (string)text);
+				if (this->wordDetail) this->wordDetail->changeWord(text);
+				else this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, text);
 			} else {
 				if(!this->dataExec->isUnicode) turnNonUnicodeString(text);
-				text = text.toLower();
-				vector<int> nwDataId;
-				switch (this->curDefOpt)
-				{
-				case 0:
-					nwDataId = this->dataExec->getKeys((string)text);
-					break;
-				case 1:
-					nwDataId = this->dataExec->getKeysSubsequence((string)text);
-					break;
-				case 2:
-					nwDataId = this->dataExec->getKeysSubarray((string)text);
-					break;
-				default:
-					break;
-				}
-				
-				showSuggestions({}, nwDataId);
+				showSuggestions({}, this->getSuggestedIdx(text));
 			}
 			});
 	}
@@ -171,9 +194,11 @@ public:
 		for (int i = 0; i < this->defOpts.size(); ++i) {
 			if (this->gui->get<tgui::Button>(defOpts[i])->isFocused() && i != this->curDefOpt) {
 				this->gui->get<tgui::Button>(defOpts[this->curDefOpt])->leftMouseButtonNoLongerDown();
+				moveVerticalDefBtn(this->curDefOpt, 15);
 				this->curDefOpt = i;
 				clear();
 				this->gui->get<tgui::Button>(defOpts[i])->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(300));
+				moveVerticalDefBtn(this->curDefOpt, -15);
 			}
 		}
 		this->gui->get<tgui::Button>(this->defOpts[this->curDefOpt])->leftMousePressed({});
@@ -194,17 +219,14 @@ public:
 			bool check = turnNonUnicodeString(stdText);
 			stdText = stdText.toLower();
 		}
-		
-		//cerr << "Your text here : " << stdText << '\n';
+
 		if (stdText.length() < 1) {
-			//cerr << "Hey you got here dud\n";
-			//cerr << "Type down more shit you idiot\n";
-			this->showHistory();
+			if(!this->filterFavor) this->showHistory();
 		}
 		else {
 			vector<tgui::String> nwData ;
 			if (*this->isWordModePtr) {
-				nwData = this->dataExec->getListOfKeys(stdText, 8);
+				nwData = this->getSuggestedKeys(stdText);
 			}
 			showSuggestions(nwData);
 		}
@@ -275,8 +297,6 @@ public:
 			}
 			eb->setTextSize(16);
 			eb->setTextPosition({ "2%", "40%" },{0, 0});
-			
-			//eb->showWithEffect(tgui::ShowEffectType::Fade, sf::milliseconds(50));
 
 			eb->setRenderer(tgui::Theme{ "Template/themes/MyThemes.txt" }.getRenderer("WordButton"));
 			this->gui->add(eb);
@@ -287,7 +307,6 @@ public:
 			cnt++;
 		}
 
-		
 		this->updateDecoration(cnt);
 		
 	};
@@ -304,7 +323,7 @@ public:
 
 	void update() {
 		//std::cout << x->getWidgetName() << "\n";
-		if (this->gui->getFocusedChild() == nullptr)
+		if (this->gui->getFocusedChild() == nullptr ||  this->gui->getFocusedChild() == this->gui->get<tgui::ToggleButton>("togFilterStars"))
 			showSuggestions({});
 		this->favoriteList->update();
 		if (this->wordDetail != NULL) {
