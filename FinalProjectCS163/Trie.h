@@ -22,6 +22,7 @@ private:
 	static void getIDofAllWords(TrieNode* const node, vector<int> &id);
 	static void buildSerialization(TrieNode* const node, stringstream &result);
 	static bool readNodeInformation(const string &serialization, int length, int &index, int &character, int &id, vector<pair<int, int> > &occurences);
+	static void buildSerialization(TrieNode* const node, ostream& result);
 
 public:
 	
@@ -52,7 +53,7 @@ public:
 
 	string getCurrentString() const;
 
-	int findIDofWord(const string& word);
+	int findIDofWord(const string& word) const;
 
 	void addCharacter(const char c);
 
@@ -69,8 +70,6 @@ public:
 	string serialize() const;
 
 	void serialize(ostream& result) const;
-
-	static void buildSerialization(TrieNode* const node, ostream& result);
 
 	void deserialize(const string &serialization);
 

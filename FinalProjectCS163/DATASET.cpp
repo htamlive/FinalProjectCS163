@@ -103,9 +103,17 @@ void DATASET::restoreDictionary() {
 	this->Core_Data.clear();
 	this->Data.clear();
 	ifstream src("Data/OrgData/Dataset/" + dataset_name, ios::binary);
-	ofstream dst("Data/OrgData/Dataset/" + dataset_name, ios::binary);
+	ofstream dst("Data/Dataset/" + dataset_name, ios::binary);
 	dst << src.rdbuf();
 	loadData();
 	src.close();
 	dst.close();
 }
+
+vector<pair<string, string> > DATASET::filterData(const function<bool(pair<string, string>)> &check) {
+	vector<pair<string, string> > result;
+	for (const auto &e : (this->Data))
+		if (check(e))
+			result.push_back(e);
+	return result;
+};

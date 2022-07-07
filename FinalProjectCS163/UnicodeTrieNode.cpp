@@ -14,3 +14,7 @@ void clearUnicodeTrieNode(UnicodeTrieNode*& node) {
 	delete node;
 	node = nullptr;
 }
+
+UnicodeTrieNode*& UnicodeTrieNode::getChildNode(const int c) {
+	return (this->children)[c];
+};

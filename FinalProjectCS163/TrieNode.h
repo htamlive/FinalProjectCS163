@@ -15,6 +15,7 @@ public:
 	//occurenece : {id of line, id of word (in the line)}
 
 	TrieNode();
+	TrieNode*& getChildNode(const int c);
 };
 
 void clearTrieNode(TrieNode*& node);

@@ -15,6 +15,7 @@ public:
 	//occurenece : {id of line, id of word (in the line)}
 
 	UnicodeTrieNode();
+	UnicodeTrieNode*& getChildNode(const int c);
 };
 
 void clearUnicodeTrieNode(UnicodeTrieNode*& node);
