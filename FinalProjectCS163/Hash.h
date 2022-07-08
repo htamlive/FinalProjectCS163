@@ -7,6 +7,8 @@
 
 using namespace std;
 
+#include "QueueDataStructure.h"
+
 class HashedString {
 private:
 	

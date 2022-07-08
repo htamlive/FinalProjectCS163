@@ -161,6 +161,8 @@
     <ClCompile Include="LoadingState.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="OriginalDataExecution.cpp" />
+    <ClCompile Include="QueueDataStructure.cpp" />
+    <ClCompile Include="QueueNode.cpp" />
     <ClCompile Include="SearchList.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Trie.cpp" />
@@ -187,6 +189,8 @@
     <ClInclude Include="LoadingState.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="OriginalDataExecution.h" />
+    <ClInclude Include="QueueDataStructure.h" />
+    <ClInclude Include="QueueNode.h" />
     <ClInclude Include="SearchList.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Trie.h" />
