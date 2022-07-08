@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <cassert>
-#include <queue>
 #include <iostream>
 
 using namespace std;
@@ -13,7 +12,7 @@ class HashedString {
 private:
 	
 	int value, base, MOD;
-	queue<int> characters;
+	Queue<int> characters;
 	vector<int> power;
 
 public:

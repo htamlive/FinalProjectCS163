@@ -6,6 +6,6 @@ public:
 	T value;
 	QueueNode* next;
 
-	QueueNode();
-	QueueNode(const T& value);
+	QueueNode() : next(nullptr) {};
+	QueueNode(const T& value) : value(value), next(nullptr) {};
 };
