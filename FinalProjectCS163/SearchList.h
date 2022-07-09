@@ -172,7 +172,8 @@ public:
 		this->gui->get<tgui::Button>("btnSearch")->onClick([&, this]() {
 			tgui::String text = this->gui->get<tgui::EditBox>("SearchBar")->getText();
 			if (text.length() == 0) {
-				this->setupWordDetail(this->dataExec->getRand(1)[0], true);
+				if(!this->filterFavor)
+					this->setupWordDetail(this->dataExec->getRand(1)[0], true);
 				return;
 			}
 			if (!checkValidString(text)) {
@@ -181,6 +182,9 @@ public:
 			}
 			text = text.toLower();
 			if (*this->isWordModePtr == true) {
+				if (this->filterFavor && (this->suggestedKeys.empty() || !this->checkSuggestion(text))) {
+					return;
+				};
 				if (this->wordDetail) this->wordDetail->changeWord(text);
 				else this->wordDetail = new WordDetail(this->gui, 25, 100, 450, 600, text);
 			} else {
