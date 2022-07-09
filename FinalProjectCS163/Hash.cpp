@@ -16,7 +16,7 @@ HashedString::HashedString() {
 };
 
 void HashedString::addNewCharacter(const int c) {
-	(this->characters).push(c);
+	(this->characters).enqueue(c);
 	(this->power).push_back(1LL * (this->power).back() * (this->base) % MOD);
 	(this->value) = (1LL * (this -> value) * base % (this -> MOD) + c) % (this -> MOD);
 };
@@ -36,14 +36,14 @@ int HashedString::getRandomBase() {
 }
 
 bool HashedString::empty() const {
-	return (this->characters).empty();
+	return (this->characters).checkEmpty();
 };
 
 bool HashedString::popFirstCharacter() {
-	if ((this->characters).empty())
+	if ((this->characters).checkEmpty())
 		return false;
 	(this->power).pop_back();
-	(this->value) = ((this->value) - 1LL * (this->characters).front() * (this->power).back() % (this->MOD) + (this->MOD)) % (this->MOD);
-	(this->characters).pop();
+	(this->value) = ((this->value) - 1LL * (this->characters).getFirstElement() * (this->power).back() % (this->MOD) + (this->MOD)) % (this->MOD);
+	(this->characters).dequeue();
 	return true;
 }

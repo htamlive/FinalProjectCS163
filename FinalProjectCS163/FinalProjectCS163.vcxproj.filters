@@ -40,6 +40,9 @@
     <Filter Include="Data Controller\Trie">
       <UniqueIdentifier>{dee4c3cd-297b-42ce-95a1-9c694518aef6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data structures">
+      <UniqueIdentifier>{2545cfb4-4446-4406-a2c4-4a91222d6905}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FinalProjectCS163.cpp">
@@ -117,6 +120,12 @@
     <ClCompile Include="OriginalDataExecution.cpp">
       <Filter>Data Controller\DataExecution</Filter>
     </ClCompile>
+    <ClCompile Include="QueueNode.cpp">
+      <Filter>Data structures</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueDataStructure.cpp">
+      <Filter>Data structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dictionary.h">
@@ -190,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="OriginalDataExecution.h">
       <Filter>Data Controller\DataExecution</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueNode.h">
+      <Filter>Data structures</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueDataStructure.h">
+      <Filter>Data structures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
