@@ -225,7 +225,8 @@ public:
 		}
 
 		if (stdText.length() < 1) {
-			if(!this->filterFavor) this->showHistory();
+			if (!this->filterFavor) this->showHistory();
+			else clear();
 		}
 		else {
 			vector<tgui::String> nwData ;
