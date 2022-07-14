@@ -28,7 +28,11 @@ void Dictionary::initWindow()
 
 		std::string name;
 		name += "Dictionary";
+		Image icon;
+		icon.loadFromFile("images/icon.png");
+		
 		this->window = new RenderWindow(this->videoMode, "Dictionary", Style::Titlebar | Style::Close, windowSettings);
+		this->window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
 	}
 

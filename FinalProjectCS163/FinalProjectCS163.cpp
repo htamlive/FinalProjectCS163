@@ -13,7 +13,7 @@ void runProgram() {
 	Dictionary dictionary;
 	dictionary.run();
 	DataExecution* dataExecution = &DataExecution::getInstance();
-	for (auto i : { 0, 1 }) {
+	for (auto i : { 0, 2 }) {
 		dataExecution->saveAndRemoveTrie(i, "Keys");
 		dataExecution->saveAndRemoveTrie(i, "Defs");
 	}
@@ -42,7 +42,7 @@ void loadBig() {
 	dataExecution->loadKeys(3);
 	dataExecution->loadDefs(3);
 	while (!dataExecution->getShutDown());
-	for (auto i : { 2, 4 }) {
+	for (auto i : { 1, 4 }) {
 		dataExecution->saveAndRemoveTrie(i, "Keys");
 		dataExecution->saveAndRemoveTrie(i, "Defs");
 	}
