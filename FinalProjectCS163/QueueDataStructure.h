@@ -75,6 +75,10 @@ public:
 		return (this->head)->value;
 	};
 
+	T& getLastElement() {
+		return (this->tail)->value;
+	};
+
 	const T& getFirstElement() const {
 		return (this->head)->value;
 	};
