@@ -27,56 +27,11 @@ public:
 	string dataset_name;
 
 
-	DATASET(int id) {
-		_typeOfdata = id;
+	DATASET(int id);
 
-		switch (this->_typeOfdata)
-		{
-		case DATASETID::EMOJI:
-			dataset_name = "emotional.txt";
-			break;
-		case DATASETID::SLANG:
-			dataset_name = "slang.txt";
-			break;
-		case DATASETID::ENtoVIE:
-			dataset_name = "en-vi.txt";
-			break;
-		case DATASETID::ENtoEN:
-			dataset_name = "en-en.txt";
-			break;
-		case DATASETID::VIEtoEN:
-			dataset_name = "vi-en.txt";
-			break;
-		default:
-			break;
-		}
-	}
+	void swap();
 
-	void swap() {
-		for (auto& x : this->Data) {
-			string se = x.first;
-			x.first = x.second;
-			x.second = se;
-		}
-	}
-
-	vector<int> getRand(int tot) {
-		vector<int> res;
-		srand(time(NULL));
-		while (res.size() < tot) {
-			//
-			long long tmp = 1ll * rand() * rand() % (1000000007) % this->Data.size();
-			bool flag = true;
-			for (auto x : res) {
-				if (x == tmp) {
-					flag = false;
-					break;
-				}
-			}
-			if (flag) res.push_back(tmp);
-		}
-		return res;
-	}
+	vector<int> getRand(int tot);
 
 	void loadData();
 	void saveData();

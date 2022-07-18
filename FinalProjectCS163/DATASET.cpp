@@ -1,6 +1,56 @@
 #include "DATASET.h"
 #include "helper.h"
 
+DATASET::DATASET(int id) {
+	_typeOfdata = id;
+
+	switch (this->_typeOfdata)
+	{
+	case DATASETID::EMOJI:
+		dataset_name = "emotional.txt";
+		break;
+	case DATASETID::SLANG:
+		dataset_name = "slang.txt";
+		break;
+	case DATASETID::ENtoVIE:
+		dataset_name = "en-vi.txt";
+		break;
+	case DATASETID::ENtoEN:
+		dataset_name = "en-en.txt";
+		break;
+	case DATASETID::VIEtoEN:
+		dataset_name = "vi-en.txt";
+		break;
+	default:
+		break;
+	}
+}
+
+void DATASET::swap() {
+	for (auto& x : this->Data) {
+		string se = x.first;
+		x.first = x.second;
+		x.second = se;
+	}
+}
+
+vector<int> DATASET::getRand(int tot) {
+	vector<int> res;
+	srand(time(NULL));
+	while (res.size() < tot) {
+		long long tmp = 1LL * rand() * rand() % (1000000007) % this->Data.size();
+		bool flag = true;
+		for (auto x : res) {
+			if (x == tmp) {
+				flag = false;
+				break;
+			}
+		}
+		if (flag) res.push_back(tmp);
+	}
+	return res;
+}
+
 void DATASET::loadData() {
 	ifstream fin("Data/Dataset/" + dataset_name);
 	string key, def;
