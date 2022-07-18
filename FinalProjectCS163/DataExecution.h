@@ -6,8 +6,7 @@
 #include "UnicodeTrie.h"
 #include <SFML/Network/Packet.hpp>
 
-class DataExecution
-{
+class DataExecution {
 private:
 	UnicodeDATASET* datasets[5];
 	UnicodeTrie* trieKeys[5], * trieDefs[5];
@@ -20,447 +19,93 @@ private:
 
 	int curDataset;
 
-	void addToTrieDefs(int id, bool isReload = false) {
-		if (loadSer) {
-			std::string name = this->datasets[id]->dataset_name;
-			//cout << name << "\n";
-			std::string link;
-			if (!isReload) link = "UnicodeData/DataStructure/" + name.substr(0, name.length() - 4) + "Defs" + (string)".bin";
-			else link = "UnicodeData/OrgData/DataStructure/" + name.substr(0, name.length() - 4) + "Defs" + (string)".bin";
+	void addToTrieDefs(int id, bool isReload = false);
 
-			string s = getStringBin(link);
-			this->trieDefs[id]->deserialize(s);
-			cout << "sz " << s.length() << "\n";
-		}
-		else {
-			for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
-				pair< tgui::String, tgui::String> cur = this->datasets[id]->Data[j];
-				transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
-				const vector< tgui::String> words = splitUnicodeString(cur.second);
-				for (int i = 0; i < words.size(); ++i) {
-					this->trieDefs[id]->addWord(words[i], { j, i });
-				}
-			}
-		}
-		std::cout << "Finish adding Defs of " << id << "\n";
-		this->finishDefs[id] = true;
-	}
+	void addToTrieKeys(int id, bool isReload = false);
 
-	void addToTrieKeys(int id, bool isReload = false) {
-		if (loadSer) {
-			std::string name = this->datasets[id]->dataset_name;
-			std::string link;
-			if (!isReload) link = "UnicodeData/DataStructure/" + name.substr(0, name.length() - 4) + "Keys" + (string)".bin";
-			else link = "UnicodeData/OrgData/DataStructure/" + name.substr(0, name.length() - 4) + "Keys" + (string)".bin";
-			string s = getStringBin(link);
-			this->trieKeys[id]->deserialize(s);
-			cout << "sz " << s.length() << "\n";
-		}
-		else {
-			for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
-				pair< tgui::String, tgui::String> cur = this->datasets[id]->Data[j];
-				this->trieKeys[id]->addWord(cur.first, { j, 0 });
-			}
-		}
+	void loadFavor(int id);
 
-		std::cout << "Finish adding Keys of " << id << "\n";
-		this->finishKeys[id] = true;
-	}
+	void saveFavor(int id);
 
-	void loadFavor(int id) {
-		if (id < 0 || id > 4) return;
-		std::ifstream ifs("UnicodeData/Favorite/FavoriteId" + std::to_string(id) + (string)".txt");
-		if (!ifs.is_open()) return;
-		int tot = 0;
-		ifs >> tot;
-		favor[id].resize(tot);
-		for (int i = 0; i < tot; ++i) {
-			ifs >> favor[id][i];
-		}
-		ifs.close();
-	}
+	void loadHistory(int id);
 
-	void saveFavor(int id) {
-		if (id < 0 || id > 4) return;
-		std::ofstream ofs("UnicodeData/Favorite/FavoriteId" + std::to_string(id) + (string)".txt");
-		int tot = favor[id].size();
-		ofs << tot << "\n";
-		for (int i = 0; i < tot; ++i) {
-			ofs << favor[id][i] << "\n";
-		}
-		ofs.close();
-	}
-
-	void loadHistory(int id) {
-		if (id < 0 || id > 4) return;
-		string link;
-		for (string i : { (string)"UnicodeData/History/History", (string)to_string(id), (string)".txt"}) {
-			link += i;
-		}
-		std::ifstream ifs(link);
-		if (!ifs.is_open()) return;
-		int tot;
-		ifs >> tot;
-		this->history[id].resize(tot);
-		for (int i = 0; i < tot; ++i) {
-			ifs >> history[id][i];
-		}
-
-		ifs.close();
-	}
-
-	void saveHistory(int id) {
-		if (id < 0 || id > 4) return;
-		string link;
-		for (string i : { (string)"UnicodeData/History/History", (string)to_string(id), (string)".txt"}) {
-			link += i;
-		}
-		std::ofstream ofs(link);
-		if (!ofs.is_open()) return;
-		ofs << min((int)this->history[id].size(), 8) << "\n";
-
-		int start = max(0, (int)history[id].size() - 8);
-		for (int i = start; i < history[id].size(); ++i) {
-			ofs << this->history[id][i] << "\n";
-		}
-
-		ofs.close();
-	}
+	void saveHistory(int id);
 
 public:
 	const bool isUnicode = true;
 
-	static DataExecution& getInstance() {
-		static DataExecution instance;
-		return instance;
-	};
+	static DataExecution& getInstance();
 
-	DataExecution() {
-		for (int i = 0; i < 5; ++i) {
-			this->datasets[i] = nullptr;
-			this->trieKeys[i] = nullptr;
-			this->trieDefs[i] = nullptr;
-			this->finishDataset[i] = false;
-			this->finishKeys[i] = false;
-			this->finishDefs[i] = false;
+	DataExecution();
 
-		}
-		this->isShutDown = false;
-		this->curDataset = 0;
-		for (int i = 0; i < 5; ++i) {
-			this->loadFavor(i);
-			this->loadHistory(i);
-		}
-	}
+	virtual ~DataExecution();
 
-	virtual ~DataExecution() {
-		for (auto i : { 0, 1, 2, 3, 4 }) {
+	void saveAndRemoveTrie(int id, string additionStr);
 
-			if (this->trieKeys[i])
-				saveAndRemoveTrie(i, "Keys");
-			if (this->trieDefs[i])
-				saveAndRemoveTrie(i, "Defs");
+	bool loadKeys(int id, bool isReload = false, bool setCur = false);
 
-			if (this->datasets[i] && this->finishDataset[i]) {
-				this->datasets[i]->serialize();
-				std::cout << "Finish saving " << i << " " << datasets[i]->Data.size() << "\n";
-				delete this->datasets[i];
-			}
-		}
-		for (int i = 0; i < 5; ++i) {
-			this->saveHistory(i);
-			this->saveFavor(i);
-		}
+	bool loadDefs(int id, bool isReload = false, bool setCur = false);
 
-	}
+	void addWord(pair< tgui::String, tgui::String> word);
 
-	void saveAndRemoveTrie(int id, string additionStr) {
+	bool loadDataset(int id, bool setCur = false);
 
-		std::string name = this->datasets[id]->dataset_name;
-		std::string link = "UnicodeData/DataStructure/" + name.substr(0, name.length() - 4) + additionStr + (string)".bin";
-		std::ofstream ofs(link, ios::binary);
-		std::string res;
-		if (additionStr == "Keys") {
-			if (!this->trieKeys[id]) return;
-			res = this->trieKeys[id]->serialize();
-			delete this->trieKeys[id];
-			this->trieKeys[id] = nullptr;
-		}
-		else {
-			if (!this->trieDefs[id]) return;
-			res = this->trieDefs[id]->serialize();
-			delete this->trieDefs[id];
-			this->trieDefs[id] = nullptr;
-		}
-		ofs.write(res.c_str(), res.length());
-		ofs.close();
-		//cout << "finish " << id << " " << additionStr << " " << res.length() << "\n";
-	}
+	const vector<int>& getHistory(int type = -1);
 
-	bool loadKeys(int id, bool isReload = false, bool setCur = false) {
-		if (id > 4 || id < 0) return false;
-		if (setCur) this->curDataset = id;
-		if (this->trieKeys[id]) return false;
+	void clearHistory(int type = -1);
 
-		this->trieKeys[id] = new UnicodeTrie();
-		loadDataset(id);
-		addToTrieKeys(id, isReload);
-		return true;
-	}
+	bool isFavorite(int id);
 
-	bool loadDefs(int id, bool isReload = false, bool setCur = false) {
-		if (id > 4 || id < 0) return false;
-		if (setCur) this->curDataset = id;
-		if (this->trieDefs[id]) return false;
+	int getCurSet();
 
-		this->trieDefs[id] = new UnicodeTrie();
-		loadDataset(id);
-		addToTrieDefs(id, isReload);
-		return true;
-	}
+	tgui::String getDefinition(tgui::String& str);
 
-	void addWord(pair< tgui::String, tgui::String> word) {
-		this->datasets[this->curDataset]->addWord({ word.first, word.second });
+	vector<int> getID(tgui::String& str);
 
-		pair<tgui::String, tgui::String> cur = this->datasets[this->curDataset]->Data.back();
+	void addFavoriteIDs(vector<int>& IDs);
 
-		this->addHistoryID(this->datasets[this->curDataset]->Data.size() - 1);
+	void addHistoryID(int ID);
 
-		transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
+	void removeFavoriteIDs(vector<int> IDs);
 
-		const vector<tgui::String> words = splitUnicodeString(cur.second);
+	void removeHistoryIDs(vector<int> IDs);
 
-		int j = this->datasets[this->curDataset]->Data.size() - 1;
-		for (int i = 0; i < words.size(); ++i) {
-			this->trieDefs[this->curDataset]->addWord(words[i], { j, i });
-		}
-		this->trieKeys[this->curDataset]->addWord(cur.first, { j, 0 });
+	vector<int> getFavor(int id = -1);
 
-	}
+	void reloadFavor(int id, const vector<int>& x);
 
-	bool loadDataset(int id, bool setCur = false) {
-		if (id > 4 || id < 0) return false;
-		if (setCur) this->curDataset = id;
-		if (this->datasets[id]) return false;
-		this->datasets[id] = new UnicodeDATASET(id);
-		this->datasets[id]->deserialize();
-		this->finishDataset[id] = true;
-		std::cout << "Finish load dataset of " << id << " size:" << this->datasets[id]->Data.size() << "\n";
-		return true;
-	}
+	void reloadHistory(int id, const vector<int>& x);
 
-	const vector<int>& getHistory(int type = -1) {
-		if (type == -1) type = this->curDataset;
-		if (type < 0 || type > 4) return {};
+	void setShutDown();
 
-		return this->history[type];
-	}
+	bool getShutDown();
 
-	void clearHistory(int type = -1) {
-		if (type == -1) type = this->curDataset;
-		string link;
-		for (string i : { (string)"UnicodeData/History/History", (string)to_string(type), (string)".txt"}) {
-			link += i;
-		}
-		std::ofstream ofs(link);
-		if (!ofs.is_open()) return;
-		ofs << 0;
-		ofs.close();
-	}
+	void setReload(bool flag);
 
-	bool isFavorite(int id) {
-		auto it = find(favor[this->curDataset].begin(), favor[this->curDataset].end(), id);
-		return (it != favor[this->curDataset].end());
-	}
+	bool getReload();
 
-	int getCurSet() {
-		return this->curDataset;
-	}
+	bool checkFinishAll();
 
-	tgui::String getDefinition(tgui::String& str) {
-		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-		vector<pair<int, int>> def = this->trieKeys[this->curDataset]->getDefinitions(str);
+	vector<tgui::String> getListOfKeys(tgui::String prefix, int maximum);
 
-		tgui::String defText = "";
-		for (int i = 0; i < (int)def.size(); i++) {
-			auto ans = this->datasets[this->curDataset]->getData(def[i].first);
-			if (ans.second != L"")
-				defText += ans.second + L"\n";
-		}
+	vector<int> getRand(int tot);
 
-		return defText;
-	}
+	pair<tgui::String, tgui::String> getData(int id, int curSet = -1);
 
-	vector<int> getID(tgui::String& str) {
-		std::transform(str.begin(), str.end(), str.begin(), ::tolower);
-		vector<pair<int, int>> def = this->trieKeys[this->curDataset]->getDefinitions(str);
-		vector<int> ans;
+	int getCurDataset();
 
-		for (int i = 0; i < (int)def.size(); i++) {
-			ans.push_back(def[i].first);
-		}
-		return ans;
-	}
+	void restore(int id = -1);
 
-	void addFavoriteIDs(vector<int>& IDs) {
-		for (int i = 0; i < (int)IDs.size(); i++) {
-			this->favor[this->curDataset].push_back(IDs[i]);
-		}
-	}
+	vector<int> getKeys(tgui::String s, int maximum = 8);
 
-	void addHistoryID(int ID) {
-		this->removeHistoryIDs({ ID });
-		this->history[this->curDataset].push_back(ID);
-	}
+	vector<int> getKeysSubarray(tgui::String s, int maximum = 8);
 
-	void removeFavoriteIDs(vector<int> IDs) {
-		for (int i = 0; i < (int)IDs.size(); i++) {
-			for (auto j = this->favor[this->curDataset].begin(); j != this->favor[this->curDataset].end(); j++) {
-				if (*j == IDs[i]) {
-					this->favor[this->curDataset].erase(j);
-					break;
-				}
-			}
-		}
-	}
+	vector<int> getKeysSubsequence(tgui::String s, int maximum = 8);
 
-	void removeHistoryIDs(vector<int> IDs) {
-		for (int i = 0; i < (int)IDs.size(); i++) {
-			for (auto j = this->history[this->curDataset].begin(); j != this->history[this->curDataset].end(); j++) {
-				if (*j == IDs[i]) {
-					this->history[this->curDataset].erase(j);
-					break;
-				}
-			}
-		}
-	}
+	void removeWord(int id);
 
-	vector<int> getFavor(int id = -1) {
-		if (id == -1) return this->favor[this->curDataset];
-		if (id < 0 || id > 4) return {};
-		return this->favor[id];
-	}
+	vector<tgui::String> filterFavor(const vector<tgui::String>& suggestedKeys);
 
-	void reloadFavor(int id, const vector<int>& x) {
-		if (id == -1) id = this->curDataset;
-		if (id < 0 || id > 4) return;
-		this->favor[id] = x;
-	}
-
-	void reloadHistory(int id, const vector<int>& x) {
-		if (id == -1) id = this->curDataset;
-		if (id < 0 || id > 4) return;
-		this->history[id] = x;
-	}
-
-	void setShutDown() {
-		this->isShutDown = true;
-	}
-
-	bool getShutDown() {
-		return this->isShutDown;
-	}
-
-	void setReload(bool flag) {
-		this->isReload = flag;
-	}
-
-	bool getReload() {
-		return this->isReload;
-	}
-
-	bool checkFinishAll() {
-		for (int i = 0; i < 5; ++i) if (!finishDataset[i] || !finishKeys[i] || !finishDefs[i]) return false;
-		return true;
-	}
-
-	vector<tgui::String> getListOfKeys(tgui::String prefix, int maximum) {
-		//cerr << this->tries.size() << '\n';
-		return this->trieKeys[this->curDataset]->getListOfWords(prefix, maximum);
-	}
-
-	vector<int> getRand(int tot) {
-		return this->datasets[this->curDataset]->getRand(tot);
-	}
-
-	pair<tgui::String, tgui::String> getData(int id, int curSet = -1) {
-		if (curSet == -1) curSet = this->curDataset;
-		if (curSet < 0 || curSet > 4) return { L"", L"" };
-		auto res = this->datasets[curSet]->getData(id);
-		return this->datasets[curSet]->getData(id);
-	}
-
-	int getCurDataset() {
-		return this->curDataset;
-	}
-
-	void restore(int id = -1) {
-		//this->setReload(true);
-		if (id == -1) id = this->curDataset;
-		this->finishDataset[id] = false;
-		this->finishKeys[id] = false;
-		this->finishDefs[id] = false;
-
-		this->datasets[id]->restoreDictionary();
-		this->finishDataset[id] = true;
-		delete this->trieDefs[id];
-		delete this->trieKeys[id];
-
-
-		this->trieDefs[id] = nullptr;
-		this->trieKeys[id] = nullptr;
-
-		loadKeys(id, true);
-		loadDefs(id, true);
-
-		//std::cout << "Finish restoring " << id << " " << this->datasets[id]->Data.size() << "\n";
-	}
-
-	vector<int> getKeys(tgui::String s, int maximum = 8) {
-		return this->trieDefs[this->curDataset]->getKeys(*this->datasets[this->curDataset], s, maximum);
-	}
-
-	vector<int> getKeysSubarray(tgui::String s, int maximum = 8) {
-		return this->trieDefs[this->curDataset]->getKeysSubarray(*this->datasets[this->curDataset], s, maximum);
-	}
-
-	vector<int> getKeysSubsequence(tgui::String s, int maximum = 8) {
-		return this->trieDefs[this->curDataset]->getKeysSubsequence(*this->datasets[this->curDataset], s, maximum);
-	}
-
-	void removeWord(int id) {
-		this->datasets[this->curDataset]->removeWord(id);
-	}
-
-	vector<tgui::String> filterFavor(const vector<tgui::String>& suggestedKeys) {
-		vector<tgui::String> res;
-		for (auto s : suggestedKeys) {
-			bool flag = false;
-			for (auto id : this->favor[this->curDataset]) {
-				auto x = getData(id).first.toLower();
-				if (s == x) {
-					flag = true;
-					break;
-				}
-			}
-			if (flag) res.push_back(s);
-		}
-		return res;
-	}
-
-	vector<int> filterFavor(const vector<int>& suggestedIdx) {
-		vector<int> res;
-		for (auto s : suggestedIdx) {
-			bool flag = false;
-			for (auto id : this->favor[this->curDataset]) {
-				if (s == id) {
-					flag = true;
-					break;
-				}
-			}
-			if (flag) res.push_back(s);
-		}
-		return res;
-	}
+	vector<int> filterFavor(const vector<int>& suggestedIdx);
 };
 
