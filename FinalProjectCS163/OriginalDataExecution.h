@@ -19,9 +19,7 @@ private:
 
 	void addToTrieDefs(int id, bool isReload = false) {
 		if (loadSer) {
-			std::string name = this->datasets[id]->dataset_name;
-			//cout << name << "\n";
-			std::string link;
+			std::string name = this->datasets[id]->dataset_name, link;
 			if (!isReload) link = "Data/DataStructure/" + name.substr(0, name.length() - 4) + "Defs" + (string)".bin";
 			else link = "Data/OrgData/DataStructure/" + name.substr(0, name.length() - 4) + "Defs" + (string)".bin";
 
@@ -191,7 +189,6 @@ public:
 		}
 		ofs.write(res.c_str(), res.length());
 		ofs.close();
-		//cout << "finish " << id << " " << additionStr << " " << res.length() << "\n";
 	}
 
 	bool loadKeys(int id, bool isReload = false, bool setCur = false) {
@@ -359,7 +356,6 @@ public:
 	}
 
 	vector<string> getListOfKeys(string prefix, int maximum) {
-		//cerr << this->tries.size() << '\n';
 		return this->trieKeys[this->curDataset]->getListOfWords(prefix, maximum);
 	}
 
@@ -377,7 +373,6 @@ public:
 	}
 
 	void restore(int id = -1) {
-		//this->setReload(true);
 		if (id == -1) id = this->curDataset;
 		this->finishDataset[id] = false;
 		this->finishKeys[id] = false;
@@ -394,8 +389,6 @@ public:
 
 		loadKeys(id, true);
 		loadDefs(id, true);
-
-		//std::cout << "Finish restoring " << id << " " << this->datasets[id]->Data.size() << "\n";
 	}
 
 	vector<int> getKeys(string s, int maximum = 8) {
