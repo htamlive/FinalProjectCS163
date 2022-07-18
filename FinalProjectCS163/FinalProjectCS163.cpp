@@ -31,9 +31,10 @@ void loadData() {
 			dataExecution->restore();
 		}
 	}
-
+	//cout << "Ok2\n";
 	dataExecution->saveAndRemoveTrie(3, "Keys");
 	dataExecution->saveAndRemoveTrie(3, "Defs");
+
 
 }
 
@@ -41,11 +42,21 @@ void loadBig() {
 	DataExecution* dataExecution = &DataExecution::getInstance();
 	dataExecution->loadKeys(3);
 	dataExecution->loadDefs(3);
-	while (!dataExecution->getShutDown());
+	//cout << "Hello, why " << dataExecution->getShutDown() << "\n";
+	while (!dataExecution->getShutDown()) {
+		if (dataExecution->getReload()) {
+			dataExecution->setReload(false);
+			dataExecution->restore();
+		}
+	}
+	//cout << "Hi, why " << dataExecution->getShutDown() << "\n";
+	//cout << "Ok\n";
 	for (auto i : { 1, 4 }) {
 		dataExecution->saveAndRemoveTrie(i, "Keys");
 		dataExecution->saveAndRemoveTrie(i, "Defs");
 	}
+	
+
 }
 
 #include "QueueDataStructure.h"

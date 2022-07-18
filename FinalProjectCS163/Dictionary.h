@@ -4,6 +4,9 @@
 #include <chrono>
 #include <random>
 #include <thread>
+
+#include "MainMenuState.h"
+#include "LoadingState.h"
 #include "State.h"
 
 using namespace sf;

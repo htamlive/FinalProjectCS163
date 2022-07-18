@@ -14,7 +14,7 @@ private:
 	std::vector<int> favor[5];
 	std::vector<int> history[5];
 
-	bool finishDataset[5], finishKeys[5], finishDefs[5], isShutDown, isReload;
+	bool finishDataset[5], finishKeys[5], finishDefs[5], isShutDown = false, isReload;
 
 	bool loadSer = true;
 
@@ -136,6 +136,7 @@ public:
 	};
 
 	DataExecution() {
+		this->isShutDown = false;
 		for (int i = 0; i < 5; ++i) {
 			this->datasets[i] = nullptr;
 			this->trieKeys[i] = nullptr;
@@ -145,7 +146,7 @@ public:
 			this->finishDefs[i] = false;
 
 		}
-		this->isShutDown = false;
+		
 		this->curDataset = 0;
 		for (int i = 0; i < 5; ++i) {
 			this->loadFavor(i);
@@ -175,7 +176,7 @@ public:
 	}
 
 	void saveAndRemoveTrie(int id, string additionStr) {
-
+		if (!this->getShutDown()) return;
 		std::string name = this->datasets[id]->dataset_name;
 		std::string link = "UnicodeData/DataStructure/" + name.substr(0, name.length() - 4) + additionStr + (string)".bin";
 		std::ofstream ofs(link, ios::binary);
@@ -354,6 +355,7 @@ public:
 	}
 
 	void setShutDown() {
+		//cout << "Shutdown\n";
 		this->isShutDown = true;
 	}
 

@@ -1,6 +1,4 @@
 #include "Dictionary.h"
-#include "MainMenuState.h"
-#include "LoadingState.h"
 
 void Dictionary::initVariables()
 {
@@ -144,7 +142,7 @@ void Dictionary::run()
 		this->update();
 		this->render();
 	}
-	
+	//cout << "Hi";
 	DataExecution::getInstance().setShutDown();
 }
 
