@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FinalProjectCS163", "FinalProjectCS163\FinalProjectCS163.vcxproj", "{5F393AF6-B2F4-4D61-8332-84BA128C84C0}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Dictionary Setup", "Dictionary Setup\Dictionary Setup.vdproj", "{DF57FF45-FFE7-404F-B7D6-0363E453F6B2}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Dictionary Setup", "Dictionary Setup\Dictionary Setup.vdproj", "{EF043393-1056-4477-B55A-E4CEFD0C8533}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{5F393AF6-B2F4-4D61-8332-84BA128C84C0}.Release|x64.Build.0 = Release|x64
 		{5F393AF6-B2F4-4D61-8332-84BA128C84C0}.Release|x86.ActiveCfg = Release|Win32
 		{5F393AF6-B2F4-4D61-8332-84BA128C84C0}.Release|x86.Build.0 = Release|Win32
-		{DF57FF45-FFE7-404F-B7D6-0363E453F6B2}.Debug|x64.ActiveCfg = Debug
-		{DF57FF45-FFE7-404F-B7D6-0363E453F6B2}.Debug|x86.ActiveCfg = Debug
-		{DF57FF45-FFE7-404F-B7D6-0363E453F6B2}.Release|x64.ActiveCfg = Release
-		{DF57FF45-FFE7-404F-B7D6-0363E453F6B2}.Release|x86.ActiveCfg = Release
+		{EF043393-1056-4477-B55A-E4CEFD0C8533}.Debug|x64.ActiveCfg = Debug
+		{EF043393-1056-4477-B55A-E4CEFD0C8533}.Debug|x86.ActiveCfg = Debug
+		{EF043393-1056-4477-B55A-E4CEFD0C8533}.Release|x64.ActiveCfg = Release
+		{EF043393-1056-4477-B55A-E4CEFD0C8533}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
