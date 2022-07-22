@@ -127,6 +127,7 @@ std::vector<int> SearchList::getSuggestedIdx(tgui::String s) {
 	if (this->filterFavor) {
 		result = this->dataExec->filterFavor(nwDataId);
 	}
+	else result = nwDataId;
 	if (result.size() >= 8)  result.resize(8);
 	return result;
 }
