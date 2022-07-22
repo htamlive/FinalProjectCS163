@@ -112,13 +112,13 @@ std::vector<int> SearchList::getSuggestedIdx(tgui::String s) {
 	switch (this->curDefOpt)
 	{
 	case 0:
-		nwDataId = this->dataExec->getKeys(s);
+		nwDataId = this->dataExec->getKeys(s, INT32_MAX);
 		break;
 	case 1:
-		nwDataId = this->dataExec->getKeysSubsequence(s);
+		nwDataId = this->dataExec->getKeysSubsequence(s, INT32_MAX);
 		break;
 	case 2:
-		nwDataId = this->dataExec->getKeysSubarray(s);
+		nwDataId = this->dataExec->getKeysSubarray(s, INT32_MAX);
 		break;
 	default:
 		break;
