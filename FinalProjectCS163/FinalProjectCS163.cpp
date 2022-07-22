@@ -27,8 +27,8 @@ void loadData() {
 	
 	while (!dataExecution->getShutDown()) {
 		if (dataExecution->getReload()) {
-			dataExecution->setReload(false);
-			dataExecution->restore();
+			//dataExecution->setReload(false);
+			//dataExecution->restore();
 		}
 	}
 	//cout << "Ok2\n";
