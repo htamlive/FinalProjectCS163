@@ -23,15 +23,6 @@ void loadData() {
 	DataExecution* dataExecution = &DataExecution::getInstance();
 	for (auto i : {0, 1, 2, 4 }) dataExecution->loadKeys(i);
 	for (auto i : {0, 1, 2, 4 }) dataExecution->loadDefs(i);
-	
-	while (!dataExecution->getShutDown()) {
-		if (dataExecution->getReload()) {
-			//dataExecution->setReload(false);
-			//dataExecution->restore();
-		}
-	}
-	dataExecution->saveAndRemoveTrie(3, "Keys");
-	dataExecution->saveAndRemoveTrie(3, "Defs");
 }
 
 void loadBig() {
@@ -49,6 +40,8 @@ void loadBig() {
 		dataExecution->saveAndRemoveTrie(i, "Defs");
 	}
 	
+	dataExecution->saveAndRemoveTrie(3, "Keys");
+	dataExecution->saveAndRemoveTrie(3, "Defs");
 
 }
 

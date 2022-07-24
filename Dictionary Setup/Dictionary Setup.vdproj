@@ -1855,6 +1855,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -1871,6 +1879,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -8316,15 +8340,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Dictionary Setup"
-        "ProductCode" = "8:{5C0F1DC1-DBBD-4B65-97F4-DEA3C47BCA7E}"
-        "PackageCode" = "8:{2AF7AA3C-8E13-4DB5-B97A-15E00FBAE528}"
+        "ProductCode" = "8:{4280AB1E-BC3F-4F1E-B683-9B784D03557E}"
+        "PackageCode" = "8:{AEC9A85D-DC62-4E3F-B992-24B4AE766DC6}"
         "UpgradeCode" = "8:{65E0D3BE-7E90-4E61-9E25-FE869579BFA1}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:2.0.0"
         "Manufacturer" = "8:Team 215"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
