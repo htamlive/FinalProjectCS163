@@ -147,7 +147,7 @@ pair<tgui::String, tgui::String> UnicodeDATASET::getData(int id) const {
 		return make_pair("", "");
 	}
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
-		return make_pair((wstring)Data[id].first, (wstring)Data[id].second);
+		return make_pair(Data[id].first, Data[id].second);
 	}
 	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
 		return make_pair(Data[id].first, Core_Data[id]);
