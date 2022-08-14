@@ -530,7 +530,7 @@ ChildWindow.ChildWindow {
     }
 
     TextArea.txtDef {
-        DefaultText = "Date: \n\nMeaning 1:\n   - Example:\n\nMeaning 2:\n   - Example:\n\n\nSpecial case:\n   - Example:\n\n";
+        DefaultText = "// Could not find the definition\n// Please provide\n\nDate: \n\nMeaning 1:\n   - Example:\n\nMeaning 2:\n   - Example:\n\n\nSpecial case:\n   - Example:\n\n";
         HorizontalScrollbarPolicy = Never;
         MaximumCharacters = 0;
         Position = (120, 150);
@@ -540,12 +540,12 @@ ChildWindow.ChildWindow {
 
         Renderer {
             BackgroundColor = #D9FFFF;
-            BorderColor = black;
+            BorderColor = #D9FFFF;
             Borders = (0, 0, 0, 0);
             CaretColor = black;
             CaretWidth = 3;
             DefaultTextColor = #A0A0A0;
-            Padding = (10, 30, 0, 0);
+            Padding = (10, 30, 10, 0);
             ScrollbarWidth = 10;
             SelectedTextBackgroundColor = #006EFF;
             SelectedTextColor = white;
