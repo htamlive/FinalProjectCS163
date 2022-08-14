@@ -21,12 +21,46 @@ vector<string> splitString(const string& s) {
 	return result;
 };
 
-vector<tgui::String> splitUnicodeString(const tgui::String& s) {
+void trimUnicodeWord(tgui::String& word) {
+	auto check = [&](int c) -> bool {
+		return c == '.' || c == ',' || c == ';' ||
+			c == ':' || c == '?' || c == '!' ||
+			c == '"' || c == '\'' || c == ')';
+	};
+	while (!word.empty() && check(word.back())) {
+		word.pop_back();
+	}
+	while (!word.empty() && word[0] == '(') {
+		word.erase(word.begin());
+	}
+}
+
+tgui::String retTrimUnicodeWord(tgui::String word)
+{
+	auto check = [&](int c) -> bool {
+		return c == '.' || c == ',' || c == ';' ||
+			c == ':' || c == '?' || c == '!' ||
+			c == '"' || c == '\'' || c == ')';
+	};
+	while (!word.empty() && check(word.back())) {
+		word.pop_back();
+	}
+	while (!word.empty() && word[0] == '(') {
+		word.erase(word.begin());
+	}
+
+	return word;
+}
+
+vector<tgui::String> splitUnicodeString(const tgui::String& s, bool trimWord) {
 	//Split string by space
+
+
 	vector<tgui::String> result;
 	tgui::String t;
 	for (const auto& c : s) {
 		if (c == ' ' || c == '\n') {
+			if (trimWord) trimUnicodeWord(t);
 			if (!t.empty()) {
 				result.push_back(t);
 				t.clear();
@@ -35,8 +69,11 @@ vector<tgui::String> splitUnicodeString(const tgui::String& s) {
 		} 
 		t += c;
 	}
-	if (!t.empty())
+	if (!t.empty()) {
+		if (trimWord) trimUnicodeWord(t);
 		result.push_back(t);
+	}
+		
 	return result;
 };
 
@@ -155,8 +192,11 @@ bool checkContainStrings(const vector<string>& s, const vector<string>& t) {
 
 bool checkContainStrings(const vector<tgui::String>& s, const vector<tgui::String>& t) {
 	UnicodeTrie trie;
-	for (const auto & e : s)
+	for (const auto& e : s) {
 		trie.addWord(e, { 10, 10 });
+		trie.addWord(retTrimUnicodeWord(e), { 10, 10 });
+	}
+		
 	for (const auto & e : t)
 		if (!trie.containsWord(e))
 			return false;
@@ -182,7 +222,7 @@ bool checkContainStringsAsSubsequence(const vector<string>& s, const vector<stri
 bool checkContainStringsAsSubsequence(const vector<tgui::String>& s, const vector<tgui::String>& t) {
 	const int n = s.size(), m = t.size();
 	for (int i = 0, j = 0; i < n && j < m; ++i) {
-		if (s[i] == t[j]) {
+		if (s[i] == t[j] || retTrimUnicodeWord(s[i]) == t[j]) {
 			++j;
 			if (j >= m)
 				return true;
@@ -230,6 +270,24 @@ bool checkContainStringsAsSubarray(const vector<string>& s, const vector<string>
 	return false;
 };
 
+bool rollingCheck(HashedString& a, HashedString& b, const vector<tgui::String>& s, const vector<tgui::String>& t) {
+	const int n = s.size(), m = t.size();
+	for (int i = m - 1; i < n; ++i) {
+		if (!a.empty())
+			a.addNewCharacter(' ');
+		for (const auto& c : s[i]) {
+			a.addNewCharacter(c);
+			if (a.getHashedValue() == b.getHashedValue())
+				return true;
+		}
+		for (const auto& c : s[i - m + 1])
+			a.popFirstCharacter();
+		if (!a.empty())
+			a.popFirstCharacter(); // remove white space
+	}
+	return false;
+};
+
 bool checkContainStringsAsSubarray(const vector<tgui::String>& s, const vector<tgui::String>& t) {
 	if (t.empty())
 		return true;
@@ -249,19 +307,8 @@ bool checkContainStringsAsSubarray(const vector<tgui::String>& s, const vector<t
 		for (const auto & c : s[i])
 			a.addNewCharacter(c);
 	}
-	for (int i = m - 1; i < n; ++i) {
-		if (!a.empty())
-			a.addNewCharacter(' ');
-		for (const auto & c : s[i])
-			a.addNewCharacter(c);
-		if (a.getHashedValue() == b.getHashedValue())
-			return true;
-		for (const auto & c : s[i - m + 1])
-			a.popFirstCharacter();
-		if (!a.empty())
-			a.popFirstCharacter(); // remove white space
-	}
-	return false;
+
+	return rollingCheck(a, b, s, t);
 };
 
 string toLowerString(string s) {

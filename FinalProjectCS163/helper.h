@@ -48,7 +48,11 @@ int getRandomNumberFromList(const vector<int>& numbers);
 
 vector<string> splitString(const string& s);
 
-vector<tgui::String> splitUnicodeString(const tgui::String& s);
+void trimUnicodeWord(tgui::String& word);
+
+tgui::String retTrimUnicodeWord(tgui::String word);
+
+vector<tgui::String> splitUnicodeString(const tgui::String& s, bool trimWord = false);
 
 vector<string> splitString(const string& text, const string& seperate);
 

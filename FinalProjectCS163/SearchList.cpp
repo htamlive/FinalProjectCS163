@@ -109,16 +109,17 @@ std::vector<tgui::String> SearchList::getSuggestedKeys(tgui::String s) {
 std::vector<int> SearchList::getSuggestedIdx(tgui::String s) {
 	s = s.toLower();
 	vector<int> nwDataId, result;
+	int MX = (this->filterFavor) ? INT32_MAX : 8;
 	switch (this->curDefOpt)
 	{
 	case 0:
-		nwDataId = this->dataExec->getKeys(s, INT32_MAX);
+		nwDataId = this->dataExec->getKeys(s, MX);
 		break;
 	case 1:
-		nwDataId = this->dataExec->getKeysSubsequence(s, INT32_MAX);
+		nwDataId = this->dataExec->getKeysSubsequence(s, MX);
 		break;
 	case 2:
-		nwDataId = this->dataExec->getKeysSubarray(s, INT32_MAX);
+		nwDataId = this->dataExec->getKeysSubarray(s, MX);
 		break;
 	default:
 		break;

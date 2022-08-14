@@ -155,7 +155,8 @@ vector<pair<int, int> > UnicodeTrie::getKey(const UnicodeDATASET& dataset, const
 	const vector<tgui::String> words = splitUnicodeString(definition);
 	vector<pair<int, int> > result;
 	for (const tgui::String& word : words) {
-		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+		const auto trimmed = retTrimUnicodeWord(word);
+		for (const pair<int, int>& occurence : (this->getDefinitions(trimmed))) {
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStrings(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words))
@@ -176,7 +177,9 @@ vector<int> UnicodeTrie::getKeys(const UnicodeDATASET& dataset, const tgui::Stri
 	for (const tgui::String& word : words) {
 		previousOccurence = -1;
 		remain = maximum;
-		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+		const auto trimmed = retTrimUnicodeWord(word);
+		if (trimmed.empty()) continue;
+		for (const pair<int, int>& occurence : (this->getDefinitions(trimmed))) {
 			if (remain <= 0)
 				break;
 			if (previousOccurence == occurence.first)
@@ -205,7 +208,9 @@ vector<pair<int, int> > UnicodeTrie::getKeySubsequence(const UnicodeDATASET& dat
 	const vector<tgui::String> words = splitUnicodeString(definition);
 	vector<pair<int, int> > result;
 	for (const tgui::String& word : words) {
-		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+		const auto trimmed = retTrimUnicodeWord(word);
+		if (trimmed.empty()) continue;
+		for (const pair<int, int>& occurence : (this->getDefinitions(trimmed))) {
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStringsAsSubsequence(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words))
@@ -223,7 +228,9 @@ vector<pair<int, int> > UnicodeTrie::getKeySubarray(const UnicodeDATASET& datase
 	const vector<tgui::String> words = splitUnicodeString(definition);
 	vector<pair<int, int> > result;
 	for (const tgui::String& word : words) {
-		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+		const auto trimmed = retTrimUnicodeWord(word);
+		if (trimmed.empty()) continue;
+		for (const pair<int, int>& occurence : (this->getDefinitions(trimmed))) {
 			const pair<tgui::String, tgui::String> data = dataset.getData(occurence.first);
 			const tgui::String& key = data.first, & definitionOfKey = data.second;
 			if (checkContainStringsAsSubarray(splitUnicodeString(toLowerUnicodeString(definitionOfKey)), words))
@@ -258,7 +265,9 @@ vector<int> UnicodeTrie::getKeysSubsequence(const UnicodeDATASET& dataset, const
 	for (const tgui::String& word : words) {
 		previousOccurence = -1;
 		remain = maximum;
-		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+		const auto trimmed = retTrimUnicodeWord(word);
+		if (trimmed.empty()) continue;
+		for (const pair<int, int>& occurence : (this->getDefinitions(trimmed))) {
 			if (remain <= 0)
 				break;
 			if (previousOccurence == occurence.first)
@@ -289,7 +298,9 @@ vector<int> UnicodeTrie::getKeysSubarray(const UnicodeDATASET& dataset, const tg
 	for (const tgui::String& word : words) {
 		previousOccurence = -1;
 		remain = maximum;
-		for (const pair<int, int>& occurence : (this->getDefinitions(word))) {
+		const auto trimmed = retTrimUnicodeWord(word);
+		if (trimmed.empty()) continue;
+		for (const pair<int, int>& occurence : (this->getDefinitions(trimmed))) {
 			if (remain <= 0)
 				break;
 			if (previousOccurence == occurence.first)

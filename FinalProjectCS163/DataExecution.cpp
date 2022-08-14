@@ -14,7 +14,7 @@ void DataExecution::addToTrieDefs(int id, bool isReload) {
 		for (int j = 0; j < (int)this->datasets[id]->Data.size(); j++) {
 			pair< tgui::String, tgui::String> cur = this->datasets[id]->Data[j];
 			transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
-			const vector< tgui::String> words = splitUnicodeString(cur.second);
+			const vector< tgui::String> words = splitUnicodeString(cur.second, true);
 			for (int i = 0; i < words.size(); ++i) {
 				this->trieDefs[id]->addWord(words[i], { j, i });
 			}
@@ -200,7 +200,7 @@ void DataExecution::addWord(pair< tgui::String, tgui::String> word) {
 
 	transform(cur.first.begin(), cur.first.end(), cur.first.begin(), ::tolower);
 
-	const vector<tgui::String> words = splitUnicodeString(cur.second);
+	const vector<tgui::String> words = splitUnicodeString(cur.second, true);
 
 	int j = this->datasets[this->curDataset]->Data.size() - 1;
 	for (int i = 0; i < words.size(); ++i) {
