@@ -430,11 +430,11 @@ ListView.FavoriteList {
     HeaderTextSize = 40;
     HeaderVisible = true;
     ItemHeight = 60;
-    Position = (70, 170);
+    Position = (40, 170);
     ResizableColumns = false;
     SeparatorWidth = 1;
     ShowVerticalGridLines = 1;
-    Size = (435.172, 487);
+    Size = (475.172, 507);
     TextSize = 20;
 
     Renderer {
@@ -530,13 +530,13 @@ ChildWindow.ChildWindow {
     }
 
     TextArea.txtDef {
-        DefaultText = "// Could not find the definition\n// Please provide\n\nDate: \n\nMeaning 1:\n   - Example:\n\nMeaning 2:\n   - Example:\n\n\nSpecial case:\n   - Example:\n\n";
+        DefaultText = "// Could not find the definitions\n// Please provide some\n\nDate: \n\nMeaning:\n   - Example:\n\nSpecial case:\n   - Example:\n...\n";
         HorizontalScrollbarPolicy = Never;
         MaximumCharacters = 0;
-        Position = (120, 150);
-        Size = (383, 405);
+        Position = (110, 150);
+        Size = (393, 405);
         Text = "";
-        TextSize = 24;
+        TextSize = 23;
 
         Renderer {
             BackgroundColor = #D9FFFF;
