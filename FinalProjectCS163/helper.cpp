@@ -19,15 +19,16 @@ vector<string> splitString(const string& s) {
 	while (ss >> t) 
 		result.push_back(t);
 	return result;
+}
+bool checker(int c)
+{
+	return c == '.' || c == ',' || c == ';' ||
+		c == ':' || c == '?' || c == '!' ||
+		c == '"' || c == '\'' || c == ')' || c == '|';
 };
 
 void trimUnicodeWord(tgui::String& word) {
-	auto check = [&](int c) -> bool {
-		return c == '.' || c == ',' || c == ';' ||
-			c == ':' || c == '?' || c == '!' ||
-			c == '"' || c == '\'' || c == ')';
-	};
-	while (!word.empty() && check(word.back())) {
+	while (!word.empty() && checker(word.back())) {
 		word.pop_back();
 	}
 	while (!word.empty() && word[0] == '(') {
@@ -37,12 +38,7 @@ void trimUnicodeWord(tgui::String& word) {
 
 tgui::String retTrimUnicodeWord(tgui::String word)
 {
-	auto check = [&](int c) -> bool {
-		return c == '.' || c == ',' || c == ';' ||
-			c == ':' || c == '?' || c == '!' ||
-			c == '"' || c == '\'' || c == ')';
-	};
-	while (!word.empty() && check(word.back())) {
+	while (!word.empty() && checker(word.back())) {
 		word.pop_back();
 	}
 	while (!word.empty() && word[0] == '(') {

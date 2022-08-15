@@ -48,6 +48,8 @@ int getRandomNumberFromList(const vector<int>& numbers);
 
 vector<string> splitString(const string& s);
 
+bool checker(int c);
+
 void trimUnicodeWord(tgui::String& word);
 
 tgui::String retTrimUnicodeWord(tgui::String word);
