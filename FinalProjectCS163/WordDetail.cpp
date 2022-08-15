@@ -108,7 +108,7 @@ WordDetail::WordDetail(tgui::Gui* GUI, int x, int y, int w, int h, tgui::String 
 	this->favorite = false;
 	this->gui = GUI;
 	this->dataExec = &DataExecution::getInstance();
-	this->curString = str;
+	this->curString = str.toLower();
 	this->gui->get<tgui::ChildWindow>("ChildWindow")->setVisible(true);
 
 	this->IDs = this->dataExec->getID(this->curString);
@@ -145,7 +145,7 @@ void WordDetail::changeWord(const tgui::String& str) {
 	childCount++;
 	this->favorite = false;
 	this->hasChangeDef = false;
-	this->curString = str;
+	this->curString = str.toLower();
 	this->IDs = this->dataExec->getID(this->curString);
 	for (int i = 0; i < IDs.size(); i++) {
 		this->favorite = this->favorite || this->dataExec->isFavorite(IDs[i]);
@@ -166,10 +166,7 @@ void WordDetail::changeWord(const tgui::String& str) {
 		this->setOnClickGreen();
 	}
 
-	if (this->curString.size() && this->curString[0] >= 'a' && this->curString[0] <= 'z') {
-		this->curString[0] -= 32;
-	}
-	this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setText(tgui::String(str));
+	this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::EditBox>("ebKey")->setText(tgui::String(curString));
 	this->gui->get<tgui::ChildWindow>("ChildWindow")->get<tgui::BitmapButton>("btnFavor")->setVisible(true);
 }
 
