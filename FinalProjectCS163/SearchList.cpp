@@ -298,7 +298,7 @@ void SearchList::showSuggestions(std::vector<tgui::String> nwData, std::vector<i
 		if (*this->isWordModePtr == true) eb->setText(suggestedKeys[i]);
 		else {
 			auto tmp = this->dataExec->getData(nwDataIdx[i]);
-			eb->setText(this->reduceStr(tmp.first + ": " + turnOneLine(tmp.second), 80));
+			eb->setText(this->reduceStr(tmp.first.toLower() + ": " + turnOneLine(tmp.second), 80));
 		}
 		eb->setTextSize(16);
 		eb->setTextPosition({ "2%", "40%" }, { 0, 0 });

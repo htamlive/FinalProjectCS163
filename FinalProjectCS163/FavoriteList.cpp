@@ -27,7 +27,7 @@ void FavoriteList::initBtnFavorList() {
 		for (int i = 0; i < this->memo.size(); ++i) {
 			auto tmp = this->dataExec->getData(this->memo[i]);
 
-			this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceUnicodeStr(tmp.first + ": " + tmp.second, 34));
+			this->gui->get<tgui::ListView>("FavoriteList")->addItem(reduceUnicodeStr(tmp.first.toLower() + ": " + tmp.second, 34));
 		}
 		});
 }
