@@ -108,11 +108,11 @@ void UnicodeDATASET::saveData() {
 }
 
 void UnicodeDATASET::addWord(pair<tgui::String, tgui::String> newWord) {
-	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
+	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE) {
 		Data.push_back(newWord);
 		return;
 	}
-	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
+	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::VIEtoEN) {
 		Data.push_back(newWord);
 		Core_Data.push_back(newWord.second);
 		return;
@@ -125,12 +125,12 @@ void UnicodeDATASET::removeWord(int id) {
 		cerr << "Error index" << endl;
 		return;
 	}
-	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
+	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE ) {
 		Data[id].first = L"";
 		Data[id].second = L"";
 		return;
 	}
-	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
+	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::VIEtoEN) {
 		Data[id].first = L"";
 		Data[id].second = L"";
 		Core_Data[id] = L"";
@@ -146,10 +146,10 @@ pair<tgui::String, tgui::String> UnicodeDATASET::getData(int id) const {
 
 		return make_pair("", "");
 	}
-	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
+	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE ) {
 		return Data[id];
 	}
-	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
+	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN || _typeOfdata == DATASETID::VIEtoEN) {
 		return make_pair(Data[id].first, Core_Data[id]);
 	}
 	return make_pair("", "");
