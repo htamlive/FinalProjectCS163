@@ -108,11 +108,11 @@ void UnicodeDATASET::saveData() {
 }
 
 void UnicodeDATASET::addWord(pair<tgui::String, tgui::String> newWord) {
-	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
+	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::SLANG) {
 		Data.push_back(newWord);
 		return;
 	}
-	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
+	else if (_typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN || _typeOfdata == DATASETID::ENtoEN) {
 		Data.push_back(newWord);
 		Core_Data.push_back(newWord.second);
 		return;
@@ -147,7 +147,7 @@ pair<tgui::String, tgui::String> UnicodeDATASET::getData(int id) const {
 		return make_pair("", "");
 	}
 	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
-		return Data[id];
+		return make_pair(Data[id].first, Data[id].second);
 	}
 	else if (_typeOfdata == DATASETID::SLANG || _typeOfdata == DATASETID::ENtoEN) {
 		return make_pair(Data[id].first, Core_Data[id]);

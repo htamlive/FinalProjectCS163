@@ -106,7 +106,7 @@ void DATASET::saveData() {
 }
 
 void DATASET::addWord(pair<string, string> newWord) {
-	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN) {
+	if (_typeOfdata == DATASETID::EMOJI || _typeOfdata == DATASETID::SLANG) {
 		Data.push_back(newWord);
 		return;
 	} else if (_typeOfdata == DATASETID::ENtoVIE || _typeOfdata == DATASETID::VIEtoEN || _typeOfdata == DATASETID::ENtoEN) {
